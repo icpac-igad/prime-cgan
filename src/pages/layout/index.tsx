@@ -1,9 +1,5 @@
+import { Outlet } from 'react-router-dom';
 import HeaderComponent from './header';
-import HeroComponent from './hero';
-import ResourcesComponent from './resources';
-import FeaturedComponent from './featured';
-import ForecastsComponent from './forecasts';
-import TimelinesComponent from './timelines';
 import FooterComponent from './footer';
 
 export default function LandingPage() {
@@ -11,11 +7,7 @@ export default function LandingPage() {
         <div className="surface-0 flex justify-content-center layout-main">
             <div id="home" className="landing-wrapper overflow-hidden">
                 <HeaderComponent />
-                <HeroComponent />
-                <ForecastsComponent />
-                <FeaturedComponent />
-                <ResourcesComponent />
-                <TimelinesComponent />
+                <Outlet />
                 <FooterComponent />
             </div>
         </div>

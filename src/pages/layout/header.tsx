@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-
+import { NavLink } from 'react-router-dom';
 import { StyleClass } from 'primereact/styleclass';
 import { Ripple } from 'primereact/ripple';
 import { classNames } from 'primereact/utils';
@@ -19,7 +19,9 @@ export default function HeaderComponent() {
         <div className="top-menu relative lg:static">
             <div className="py-2 px-4 mx-0 md:mx-6 lg:mx-8 lg:px-8 flex align-items-center justify-content-between relative lg:static">
                 <div className="flex align-items-center">
-                    <img src={`/images/layout/ICPAC_Website_Header_Logo.svg`} alt="cGAN Logo" height="80" className="mr-0 lg:mr-2" />
+                    <NavLink to="/">
+                        <img src={`/images/layout/ICPAC_Website_Header_Logo.svg`} alt="cGAN Logo" height="80" className="mr-0 lg:mr-2" />
+                    </NavLink>
                 </div>
                 <StyleClass nodeRef={menuRef as NodeRef} selector="@next" enterFromClassName="hidden" leaveToClassName="hidden" hideOnOutsideClick>
                     <i ref={menuRef} className="pi pi-bars text-4xl cursor-pointer block lg:hidden text-white"></i>
@@ -29,10 +31,10 @@ export default function HeaderComponent() {
                         {pages &&
                             pages.map((page) => (
                                 <li key={page.name}>
-                                    <a href={page.url} onClick={toggleMenuItemClick} className="p-ripple flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
+                                    <NavLink to={page.url} onClick={toggleMenuItemClick} className="p-ripple flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
                                         <span>{page.name}</span>
                                         <Ripple />
-                                    </a>
+                                    </NavLink>
                                 </li>
                             ))}
                     </ul>

@@ -2,7 +2,17 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { PrimeReactProvider } from 'primereact/api';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LayoutPage from './pages/layout';
+import NotFound from './pages/layout/not-found';
+import HomePage from './pages/home';
+import MapviewerPage from './pages/mapviewer';
+import ForecastsPage from './pages/forecasts';
+import ResourcesPage from './pages/resources';
+import ContactPage from './pages/contact';
+import OpenIfsForecasts from './pages/forecasts/open-ifs';
+import CGANForecasts from './pages/forecasts/cgan';
+import GEFSForecasts from './pages/forecasts/gefs';
 import * as serviceWorker from './serviceWorker.ts';
 import 'primereact/resources/themes/mdc-light-indigo/theme.css';
 import 'primereact/resources/primereact.min.css';
@@ -10,10 +20,49 @@ import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import './assets/landing.scss';
 
+const router = createBrowserRouter(
+    [
+        {
+            path: '/',
+            element: <LayoutPage />,
+            errorElement: <NotFound />,
+            children: [
+                { index: true, element: <HomePage /> },
+                { element: <MapviewerPage />, path: '/mapviewer/' },
+                {
+                    element: <ForecastsPage />,
+                    path: '/forecast-systems/',
+                    children: [
+                        { element: <CGANForecasts />, index: true },
+                        { element: <OpenIfsForecasts />, path: '/forecast-systems/ecmwf-open-ifs/' },
+                        { element: <GEFSForecasts />, path: '/forecast-systems/gefs-forecasts/' }
+                    ]
+                },
+                { element: <ResourcesPage />, path: '/useful-links/' },
+                { element: <ContactPage />, path: '/contact-us/' }
+            ]
+        }
+    ],
+    {
+        future: {
+            v7_relativeSplatPath: true,
+            v7_fetcherPersist: true,
+            v7_normalizeFormMethod: true,
+            v7_partialHydration: true,
+            v7_skipActionErrorRevalidation: true
+        }
+    }
+);
+
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <PrimeReactProvider value={{ autoZIndex: true, ripple: true, locale: 'en' }}>
-            <LayoutPage />
+            <RouterProvider
+                router={router}
+                future={{
+                    v7_startTransition: true
+                }}
+            />
         </PrimeReactProvider>
     </StrictMode>
 );

@@ -12,17 +12,20 @@ export const products: types.ForecastProduct[] = [
     {
         title: 'cGAN 6h Forecasts',
         text: ' State-of-the-art AI-based weather models to give more accurate and local predictions enabling particular countries and regions to better anticipate and prepare for extreme weather.',
-        icon: 'pi pi-microchip-ai'
+        icon: 'pi pi-microchip-ai',
+        url: '/forecast-systems/cgan-6h-forecasts/'
     },
     {
         title: 'ECMWF IFS Ensemble Forecast',
         text: 'The IFS is a sophisticated data assimilation system combined with a global numerical model of the Earth system, supported by infrastructure to make forecast products available to Member and Co-operating States, and other users.',
-        icon: 'pi pi-globe'
+        icon: 'pi pi-globe',
+        url: '/forecast-systems/ecmwf-open-ifs/'
     },
     {
         title: 'Global Ensemble Forecast System (GEFS)',
         text: 'A weather forecasting model developed by the National Centers for Environmental Prediction (NCEP). It generates 21 separate forecasts, or ensemble members, to address underlying uncertainties in the input data and model limitations. Each forecast compensates for a different set of uncertainties, resulting in a range of potential outcomes.',
-        icon: 'pi pi pi-desktop'
+        icon: 'pi pi pi-desktop',
+        url: '/forecast-systems/gefs-forecasts/'
     }
 ];
 
@@ -32,21 +35,21 @@ export const resources: types.ResourceItem[] = [
         text: 'Meeting Held On April 29, 2024, in Nairobi, Kenya',
         icon: 'pi pi-fw pi-users text-2xl text-yellow-700',
         bg_color: 'bg-yellow-200',
-        link: 'https://www.icpac.net/news/icpac-receives-googleorg-funding-through-the-un-wfp-to-enhance-disaster-preparedness-in-eastern-africa/'
+        url: 'https://www.icpac.net/news/icpac-receives-googleorg-funding-through-the-un-wfp-to-enhance-disaster-preparedness-in-eastern-africa/'
     },
     {
         title: 'State-of-the-art weather models',
         text: 'Climate scientists turn to AI for precise and timely weather forecasts in Africa',
         icon: 'pi pi-fw pi-map text-2xl text-blue-700',
         bg_color: 'bg-blue-200',
-        link: 'https://www.theafricareport.com/367720/climate-scientists-turns-to-ai-for-precise-and-timely-weather-forecasts-in-africa/'
+        url: 'https://www.theafricareport.com/367720/climate-scientists-turns-to-ai-for-precise-and-timely-weather-forecasts-in-africa/'
     },
     {
         title: 'Addressing Climate Disasters in Eastern Africa',
         text: 'E4DRR aims to enhance early warning systems through impact-based forecasting using event-based climate storylines, hazard modeling, and impact estimation.',
         icon: 'pi pi-fw pi-globe text-2xl text-purple-700',
         bg_color: 'bg-purple-200',
-        link: 'https://www.icpac.net/news/icpacs-project-selected-by-crafd-to-address-climate-disasters-in-eastern-africa/'
+        url: 'https://www.icpac.net/news/icpacs-project-selected-by-crafd-to-address-climate-disasters-in-eastern-africa/'
     }
 ];
 

@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import { resources } from '../tools/store';
 
 export default function ResourcesComponent() {
     return (
-        <div id="features" className="py-2 px-4 lg:px-8 mt-2 mx-0 lg:mx-8">
+        <div id="resources" className="py-2 px-4 lg:px-8 mt-2 mx-0 lg:mx-8">
             <div className="grid justify-content-center">
                 <div className="col-12 text-center mt-4 mb-2">
                     <h2 className="text-900 font-normal mb-2">Resources, Articles and Publications</h2>
@@ -18,7 +19,7 @@ export default function ResourcesComponent() {
                                     background: 'linear-gradient(90deg, rgba(253, 228, 165, 0.2), rgba(187, 199, 205, 0.2)), linear-gradient(180deg, rgba(253, 228, 165, 0.2), rgba(187, 199, 205, 0.2))'
                                 }}
                             >
-                                <a href={resource.link} target="_blank">
+                                <Link to={resource.url} target="_blank">
                                     <div className="p-3 h-full" style={{ borderRadius: '8px' }}>
                                         <div
                                             className={resource.bg_color + ' flex align-items-center justify-content-center mb-3'}
@@ -33,7 +34,7 @@ export default function ResourcesComponent() {
                                         <h5 className="mb-2 text-900">{resource.title}</h5>
                                         <span className="text-600">{resource.text}</span>
                                     </div>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     ))}
