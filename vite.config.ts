@@ -22,6 +22,13 @@ export default defineConfig({
         modules: {
             // fix for class names that are not formatted consistently
             generateScopedName: '[name]__[local]--[hash:base64:5]' // Replace with your own format
+        },
+        // https://vite.dev/config/shared-options.html#css-preprocessoroptions
+        // https://sass-lang.com/d/legacy-js-api
+        preprocessorOptions: {
+            scss: {
+                api: 'modern-compiler' // or "modern", "legacy"
+            }
         }
     },
     build: {
