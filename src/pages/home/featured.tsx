@@ -21,7 +21,7 @@ export default function ActionCallComponent() {
                             The funding provided by WFP will also benefit the Kenya Meteorological Department and Ethiopian Meteorological Institute, aiding in the enhancement of their national and sub-national forecasts. By transforming the quality
                             of early warning information available to communities in disaster-prone regions, the project endeavors to facilitate proactive responses to critical alerts.
                         </p>
-                        <img src="/images/layout/sewaa-logo-banner.png" className="mt-4" alt="Company logo" />
+                        <img src="/images/layout/sewaa-final-landscape.png" className="mt-4" width="60%" alt="Sewa Landscape logo" />
                     </div>
                 </div>
             </div>

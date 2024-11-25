@@ -2,6 +2,18 @@
     font-family: Helvetica;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.layout-main .fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
 .layout-main .top-menu,
 .layout-main .collapse-menu {
     background-color: #2b5b45;
@@ -29,6 +41,8 @@
 
 .layout-main .footer-panel {
     background-color: #262c38;
+    left: 0;
+    right: 0;
 }
 
 .layout-main #forecast-products a,
@@ -71,9 +85,10 @@
 }
 
 @media screen and (min-width: 1960px) {
-
     .layout-main,
-    .landing-wrapper {
+    .landing-wrapper,
+    .layout-main .top-menu-navs,
+    .layout-main .footer-panel-navs {
         width: 1504px;
         margin-left: auto !important;
         margin-right: auto !important;

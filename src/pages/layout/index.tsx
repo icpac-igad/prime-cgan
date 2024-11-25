@@ -4,12 +4,12 @@ import FooterComponent from './footer';
 
 export default function LandingPage() {
     return (
-        <div className="surface-0 flex justify-content-center layout-main">
+        <div className="surface-0 justify-content-center layout-main">
+            <HeaderComponent />
             <div id="home" className="landing-wrapper overflow-hidden">
-                <HeaderComponent />
                 <Outlet />
-                <FooterComponent />
             </div>
+            <FooterComponent />
         </div>
     );
 }

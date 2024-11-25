@@ -2,8 +2,8 @@ import * as types from './types';
 
 export const pages: types.NavigationItem[] = [
     { name: 'Home', url: '/' },
-    { name: 'Mapviewer', url: '/mapviewer/' },
     { name: 'Forecast Systems', url: '/forecast-systems/' },
+    { name: 'Mapviewer', url: '/mapviewer/' },
     { name: 'Resources', url: '/useful-links/' },
     { name: 'Contact Us', url: '/contact-us/' }
 ];
@@ -13,19 +13,25 @@ export const products: types.ForecastProduct[] = [
         title: 'cGAN 6h Forecasts',
         text: ' State-of-the-art AI-based weather models to give more accurate and local predictions enabling particular countries and regions to better anticipate and prepare for extreme weather.',
         icon: 'pi pi-microchip-ai',
-        url: '/forecast-systems/cgan-6h-forecasts/'
+        url: '/forecast-systems/'
     },
     {
         title: 'ECMWF IFS Ensemble Forecast',
         text: 'The IFS is a sophisticated data assimilation system combined with a global numerical model of the Earth system, supported by infrastructure to make forecast products available to Member and Co-operating States, and other users.',
-        icon: 'pi pi-globe',
-        url: '/forecast-systems/ecmwf-open-ifs/'
+        icon: 'pi pi-folder-open',
+        url: '/forecast-systems/?q=open-ifs'
     },
     {
         title: 'Global Ensemble Forecast System (GEFS)',
         text: 'A weather forecasting model developed by the National Centers for Environmental Prediction (NCEP). It generates 21 separate forecasts, or ensemble members, to address underlying uncertainties in the input data and model limitations. Each forecast compensates for a different set of uncertainties, resulting in a range of potential outcomes.',
-        icon: 'pi pi pi-desktop',
-        url: '/forecast-systems/gefs-forecasts/'
+        icon: 'pi pi-objects-column',
+        url: '/forecast-systems/?q=gefs'
+    },
+    {
+        title: 'Embended External System',
+        text: 'Forecast products sourced from partner systems and embended as-is.',
+        icon: 'pi pi-external-link',
+        url: '/forecast-systems/?q=embed'
     }
 ];
 

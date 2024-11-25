@@ -16,11 +16,11 @@ export default function HeaderComponent() {
     };
 
     return (
-        <div className="top-menu relative lg:static">
-            <div className="py-2 px-4 mx-0 md:mx-6 lg:mx-8 lg:px-8 flex align-items-center justify-content-between relative lg:static">
+        <div className="top-menu fixed-top z-5">
+            <div className="top-menu-navs py-2 px-4 mx-0 md:mx-6 lg:mx-8 lg:px-8 flex align-items-center justify-content-between relative lg:static">
                 <div className="flex align-items-center">
                     <NavLink to="/">
-                        <img src={`/images/layout/ICPAC_Website_Header_Logo.svg`} alt="cGAN Logo" height="80" className="mr-0 lg:mr-2" />
+                        <img src={`/images/layout/sewaa-final-potrait.png`} alt="cGAN Logo" height="80" className="mr-0 lg:mr-2" />
                     </NavLink>
                 </div>
                 <StyleClass nodeRef={menuRef as NodeRef} selector="@next" enterFromClassName="hidden" leaveToClassName="hidden" hideOnOutsideClick>

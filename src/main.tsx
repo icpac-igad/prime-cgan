@@ -34,8 +34,8 @@ const router = createBrowserRouter(
                     path: '/forecast-systems/',
                     children: [
                         { element: <CGANForecasts />, index: true },
-                        { element: <OpenIfsForecasts />, path: '/forecast-systems/ecmwf-open-ifs/' },
-                        { element: <GEFSForecasts />, path: '/forecast-systems/gefs-forecasts/' }
+                        { element: <OpenIfsForecasts />, path: '/forecast-systems/?q=open-ifs' },
+                        { element: <GEFSForecasts />, path: '/forecast-systems/?q=gefs' }
                     ]
                 },
                 { element: <ResourcesPage />, path: '/useful-links/' },

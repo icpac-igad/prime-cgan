@@ -4,7 +4,7 @@ export default function HeroComponent() {
     return (
         <div
             id="hero"
-            className="flex flex-column pt-2 px-4 lg:px-8 overflow-hidden"
+            className="flex flex-column pt-7 px-4 lg:px-8 overflow-hidden"
             style={{
                 background: 'linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, #EEEFAF 0%, #C3E3FA 100%)',
                 clipPath: 'ellipse(150% 87% at 93% 13%)'
