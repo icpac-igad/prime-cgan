@@ -56,36 +56,59 @@ export const resources: types.ResourceItem[] = [
         icon: 'pi pi-fw pi-globe text-2xl text-purple-700',
         bg_color: 'bg-purple-200',
         url: 'https://www.icpac.net/news/icpacs-project-selected-by-crafd-to-address-climate-disasters-in-eastern-africa/'
+    },
+    {
+        title: 'Download Data',
+        text: 'Please click here to download cGAN, ECMWF Open IFS and aggregated ECMWF IFS forecasts data for analysis on other tools than this web interface',
+        icon: 'pi pi-database text-2xl text-green-700',
+        bg_color: 'bg-blue-200',
+        url: 'https://cgan.icpac.net/ftp/'
+    },
+    {
+        title: 'cGAN Model Source Code',
+        text: 'Use this link for instructions on how to setup cGAN source code used for adding ensemble mean and variance predictors on IFS model',
+        icon: 'pi pi-github text-2xl text-white-700',
+        bg_color: 'bg-grey-200',
+        url: 'https://github.com/Fenwick-Cooper/ensemble-cgan'
     }
 ];
 
 export const timelines: types.TimelineItem[] = [
     {
-        title: 'Outcome 1',
-        text: 'National stakeholders benefit from improved historical weather observational datasets  and capacity to collect non-traditional weather observations',
-        start_date: 'August 2023',
-        final_date: 'July 2024',
+        title: 'Project Objective',
+        text: 'Assess the skilfulness and sustainability of developing a cloud-based machine learning post processing technique for improved high-impact weather forecasts. This will be implemented in phases as described below.',
+        start_date: 'May 2023',
+        final_date: 'December 2026',
         icon: 'pi pi-check-circle',
         color: 'green',
-        image: '/images/layout/noaa--urO88VoCRE-unsplash.jpg'
+        image: '/images/timelines/sewaa-project-implementation-phases.png'
     },
     {
-        title: 'Outcome 2',
-        text: 'National and regional stakeholders benefit from improved capacity to generate high resolution calibrated probabilistic weather forecasts',
-        start_date: 'August 2024',
-        final_date: 'July 2025',
+        title: 'Year 1 Outcomes',
+        text: 'Concerned about downscaling of cGAN for daily weather forecasts valid at 6 hours time step. During this period, 6h forecasts produces were availed through an interactive visualization platform for use and verification. Supported visualizations included maps, threshold exceedence chance and location histograms.',
+        start_date: 'May 2023',
+        final_date: 'June 2024',
         icon: 'pi pi-hourglass',
-        color: 'purple',
-        image: '/images/layout/cgan-forecast-model-pipeline.png'
+        color: 'blue',
+        image: '/images/timelines/cgan-outputs-visualization.png'
     },
     {
-        title: 'Outcome 3',
-        text: 'National and regional stakeholders benefit from improved capacity to generate high resolution calibrated probabilistic weather forecasts',
-        start_date: 'August 2025',
-        final_date: 'July 2026',
-        icon: 'pi pi-plus-circle',
+        title: 'Year 2 Outcomes',
+        text: 'Second year was used to evaluate skillfulness of the forecasts and assess effectiveness of producing the forecasts. Additionali, other activities such as assessment on hardware and software requirements, training and capacity building, cGAN model review and improvements were carried out.',
+        start_date: 'July 2024',
+        final_date: 'June 2025',
+        icon: 'pi pi-spinner-dotted',
         color: 'grey',
-        image: '/images/layout/cgan-forecast-model-pipeline.png'
+        image: '/images/timelines/sewaa-cgan-training-workshop.png'
+    },
+    {
+        title: 'Year 3 Outcomes',
+        text: 'Year three focuses on finalising daily 6h weather forecasting model verification and operationalization and extension of the model to produce 7-day, sub-seasonal and seasonal forecasts.',
+        start_date: 'July 2025',
+        final_date: 'June 2026',
+        icon: 'pi pi-spinner-dotted',
+        color: 'grey',
+        image: '/images/timelines/kmd-evaluation-of-cgan.png'
     }
 ];
 
