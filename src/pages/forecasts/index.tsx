@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { TabMenu } from 'primereact/tabmenu';
 import { MenuItem } from 'primereact/menuitem';
@@ -11,48 +12,57 @@ const ExternalSystem = () => {
 };
 
 export default function ForecastsPage() {
-    const itemRenderer = (item: MenuItem) => (
-        <Link to={item?.url || '#'} className="p-menuitem-link flex align-items-center gap-2">
+    const [activeIndex, setActiveIndex] = useState<number>(0);
+
+    const itemRenderer = (item: MenuItem, itemIndex: number) => (
+        <Link to={item?.url || '#'} className="p-menuitem-link flex align-items-center gap-2" onClick={() => setActiveIndex(itemIndex)}>
             <span className={item.icon} />
             <span className="mx-2 font-bold">{item.label}</span>
         </Link>
     );
     const items: MenuItem[] = [
-        { label: 'cGAN Forecasts', icon: 'pi pi-microchip-ai', url: '/forecast-systems/', template: (item) => itemRenderer(item) },
+        { label: 'cGAN Forecasts', icon: 'pi pi-microchip-ai', url: '/forecast-systems/', template: (item) => itemRenderer(item, 0) },
         {
             label: 'Open IFS Forecasts',
             icon: 'pi pi-folder-open',
             url: '/forecast-systems/?q=open-ifs',
-            template: (item) => itemRenderer(item)
+            template: (item) => itemRenderer(item, 1)
         },
-        { label: 'GEFS Forecasts', icon: 'pi pi-objects-column', url: '/forecast-systems/?q=gefs', template: (item) => itemRenderer(item) },
-        { label: 'Embended External System', icon: 'pi pi-external-link', url: '/forecast-systems/?q=embed', template: (item) => itemRenderer(item) }
+        { label: 'GEFS Forecasts', icon: 'pi pi-objects-column', url: '/forecast-systems/?q=gefs', template: (item) => itemRenderer(item, 2) },
+        { label: 'Embended External System', icon: 'pi pi-external-link', url: '/forecast-systems/?q=embed', template: (item) => itemRenderer(item, 3) }
     ];
 
     let [searchParams] = useSearchParams();
-    let activeIndex;
-    switch (searchParams.get('q')) {
-        case 'embed':
-            activeIndex = 3;
-            break;
-        case 'gefs':
-            activeIndex = 2;
-            break;
-        case 'open-ifs':
-            activeIndex = 1;
-            break;
-        default:
-            activeIndex = 0;
-    }
+    useEffect(() => {
+        switch (searchParams.get('q')) {
+            case 'embed':
+                setActiveIndex(3);
+                break;
+            case 'gefs':
+                setActiveIndex(2);
+                break;
+            case 'open-ifs':
+                setActiveIndex(1);
+                break;
+            default:
+                setActiveIndex(0);
+        }
+    }, [searchParams]);
+
     return (
-        <>
-            <h1 className="text-5xl">This is Forecast Products Index Page</h1>
+        <div className="shadow-0 mx-4 px-4 pt-2 pb-8">
+            <h1 className="text-3xl text-center font-bold">Forecasting Systems and Generated Products</h1>
             <div className="card">
-                <div className="card">
-                    <TabMenu model={items} activeIndex={activeIndex} />
-                </div>
+                <p className="font-medium line-height-3">
+                    With climate change exacerbating the frequency and intensity of natural hazard induced disasters, timely and accurate early warning systems are more critical than ever. The Google.org-funded project aims to address this urgent
+                    need by leveraging cutting-edge technology and innovative approaches to improve the effectiveness of early warning information generation .By harnessing the latest advancements in artificial intelligence, machine learning, and
+                    data analytics, the project aims to enhance the accuracy and timeliness of disaster alerts, enabling communities to take proactive measures to mitigate risks and protect lives and livelihoods.
+                </p>
+            </div>
+            <div className="card">
+                <TabMenu model={items} activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)} />
             </div>
             {activeIndex === 3 ? <ExternalSystem /> : activeIndex === 2 ? <GEFSForecasts /> : activeIndex === 1 ? <OpenIFSForecasts /> : <CGANForecasts />}
-        </>
+        </div>
     );
 }
