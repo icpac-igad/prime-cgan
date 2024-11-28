@@ -1,10 +1,11 @@
 import { Button } from 'primereact/button';
+import { Link } from 'react-router-dom';
 
 export default function HeroComponent() {
     return (
         <div
             id="hero"
-            className="flex flex-column pt-7 px-4 lg:px-8 overflow-hidden"
+            className="flex flex-column overflow-hidden"
             style={{
                 background: 'linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, #EEEFAF 0%, #C3E3FA 100%)',
                 clipPath: 'ellipse(150% 87% at 93% 13%)'
@@ -23,7 +24,9 @@ export default function HeroComponent() {
                     two thematic areas by utilizing the state of the art Machine learning techniques. These themes include (i) National stakeholders benefit from improved historical weather observation data sets and capacity to collect
                     non-traditional weather observations, (ii) National and regional stakeholders benefit from improved capacity to generate high-resolution calibrated probabilistic weather forecasts.
                 </p>
-                <Button type="button" label="Learn More" rounded className="text-xl border-none mt-3 bg-blue-500 font-normal line-height-3 px-3 text-white"></Button>
+                <Link to="/forecast-systems/">
+                    <Button type="button" label="Explore Forecasts" rounded className="text-xl border-none mt-3 bg-blue-500 font-normal line-height-3 px-3 text-white"></Button>
+                </Link>
             </div>
             <div className="flex justify-content-center md:justify-content-end">
                 <img src="/images/layout/cgan-forecast-model-pipeline.png" alt="Hero Image" className="w-9 md:w-auto" />

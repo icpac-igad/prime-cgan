@@ -35,4 +35,42 @@ export interface HttpError {
     message?: string;
 }
 
+export interface InputValue {
+    id: string;
+    value?: number | string | boolean | null;
+}
+
+export type OnValueChangeFunc = (value: InputValue) => void;
+
+export interface InputFieldProps {
+    label: string;
+    placeholder?: string | null;
+    inputId: string;
+    helpText: string;
+    onChange: OnValueChangeFunc;
+}
+
+export interface CascadeOption {
+    name: string;
+    code: string;
+}
+
+export interface CascadeLevel2 extends CascadeOption {
+    level3?: CascadeOption[] | null;
+}
+
+export interface CascadeLevel1 extends CascadeOption {
+    level2?: CascadeLevel2[] | null;
+}
+
+export interface CascadeLevel0 extends CascadeOption {
+    level1?: CascadeLevel1[] | null;
+}
+
+export interface CascadeOptions extends CascadeLevel0, CascadeLevel1, CascadeLevel2, CascadeOption {}
+
+export interface CascadeInputProps extends InputFieldProps {
+    data: CascadeOptions[];
+}
+
 export type NodeRef = MutableRefObject<ReactNode>;
