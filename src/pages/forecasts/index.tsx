@@ -8,7 +8,12 @@ import GEFSForecasts from './gefs';
 import IFrame from 'react-iframe';
 
 const ExternalSystem = () => {
-    return <IFrame url="http://megacorr.dynu.net/ICPAC/cGAN_examplePlots/fastData.html" width="100%" height="718" overflow="hidden" frameBorder={0} loading="lazy" position="relative" allowFullScreen />;
+    return (
+        <div className="shadow-0 mx-4 px-4 pt-2 pb-8">
+            <h1 className="text-2xl text-left font-semibold">Embended External Forecasting Systems</h1>
+            <IFrame url="http://megacorr.dynu.net/ICPAC/cGAN_examplePlots/fastData.html" width="100%" height="718" overflow="hidden" frameBorder={0} loading="lazy" position="relative" allowFullScreen />
+        </div>
+    );
 };
 
 export default function ForecastsPage() {
@@ -28,7 +33,7 @@ export default function ForecastsPage() {
             url: '/forecast-systems/?q=open-ifs',
             template: (item) => itemRenderer(item, 1)
         },
-        { label: 'GEFS Forecasts', icon: 'pi pi-objects-column', url: '/forecast-systems/?q=gefs', template: (item) => itemRenderer(item, 2) },
+        { label: 'GEFS Forecasts', disabled: true, icon: 'pi pi-objects-column', url: '/forecast-systems/?q=gefs', template: (item) => itemRenderer(item, 2) },
         { label: 'Embended External System', icon: 'pi pi-external-link', url: '/forecast-systems/?q=embed', template: (item) => itemRenderer(item, 3) }
     ];
 

@@ -1,3 +1,4 @@
+import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
@@ -16,7 +17,7 @@ export default defineConfig({
         viteCompression({ algorithm: 'brotliCompress' })
     ],
     resolve: {
-        alias: [{ find: /^@\//, replacement: '/src/' }]
+        alias: [{ find: /^@\//, replacement: path.resolve('./src') }]
     },
     css: {
         modules: {

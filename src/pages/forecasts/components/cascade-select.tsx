@@ -1,6 +1,6 @@
 import { CascadeSelect, CascadeSelectChangeEvent } from 'primereact/cascadeselect';
-import { CascadeInputProps } from '../../tools/types';
-import '../../../assets/flags.scss';
+import { CascadeInputProps } from '@/pages/tools/types';
+import '@/assets/flags.scss';
 
 export default function CascadeSelectInput(props: CascadeInputProps) {
     const cascadeOptionTemplate = (option: any) => {

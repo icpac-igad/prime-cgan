@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { partners, pages } from '../tools/store';
+import { partners, pages } from '@/pages/tools/store';
 
 export default function FooterComponent() {
     return (

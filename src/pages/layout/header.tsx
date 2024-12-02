@@ -4,8 +4,8 @@ import { StyleClass } from 'primereact/styleclass';
 import { Ripple } from 'primereact/ripple';
 import { classNames } from 'primereact/utils';
 
-import { NodeRef } from '../tools/types';
-import { pages } from '../tools/store';
+import { NodeRef } from '@/pages/tools/types';
+import { pages } from '@/pages/tools/store';
 
 export default function HeaderComponent() {
     const [isHidden, setIsHidden] = useState(false);

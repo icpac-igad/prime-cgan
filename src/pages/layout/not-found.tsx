@@ -1,6 +1,6 @@
 import { useRouteError, isRouteErrorResponse } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { HttpError } from '../tools/types';
+import { HttpError } from '@/pages/tools/types';
 
 export default function NotFound() {
     const error: HttpError | unknown = useRouteError();

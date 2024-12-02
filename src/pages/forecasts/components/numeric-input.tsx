@@ -1,5 +1,5 @@
 import { InputNumber, InputNumberValueChangeEvent } from 'primereact/inputnumber';
-import { InputFieldProps } from '../../tools/types';
+import { InputFieldProps } from '@/pages/tools/types';
 
 export default function NumericInput(props: InputFieldProps) {
     return (

@@ -1,6 +1,6 @@
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 import { SelectItem } from 'primereact/selectitem';
-import { InputFieldProps } from '../../tools/types';
+import { InputFieldProps } from '@/pages/tools/types';
 
 export default function SelectInput(props: InputFieldProps) {
     const options: SelectItem[] = [

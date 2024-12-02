@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { products } from '../tools/store';
+import { products } from '@/pages/tools/store';
 
 export default function ForecastsComponent() {
     return (

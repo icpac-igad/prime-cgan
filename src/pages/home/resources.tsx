@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { resources } from '../tools/store';
+import { resources } from '@/pages/tools/store';
 
 export default function ResourcesComponent() {
     return (

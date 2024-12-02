@@ -1,8 +1,8 @@
 import { Card } from 'primereact/card';
 import { Timeline } from 'primereact/timeline';
 
-import { timelines } from '../tools/store';
-import { TimelineItem } from '../tools/types';
+import { timelines } from '@/pages/tools/store';
+import { TimelineItem } from '@/pages/tools/types';
 
 export default function TimelinesComponent() {
     const customizedContent = (item: TimelineItem) => {

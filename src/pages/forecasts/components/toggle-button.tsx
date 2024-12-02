@@ -1,5 +1,5 @@
 import { SelectButton, SelectButtonChangeEvent } from 'primereact/selectbutton';
-import { InputFieldProps } from '../../tools/types';
+import { InputFieldProps } from '@/pages/tools/types';
 
 export default function ToggleButton(props: InputFieldProps) {
     const options: string[] = ['Off', 'On'];

@@ -7,6 +7,10 @@
         "useDefineForClassFields": true,
         "lib": ["ES2020", "DOM", "DOM.Iterable", "WebWorker"],
         "module": "ESNext",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"]
+        },
         "skipLibCheck": true,
         "sourceMap": true,
         "esModuleInterop": true,

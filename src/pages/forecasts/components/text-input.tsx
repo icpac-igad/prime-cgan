@@ -1,5 +1,5 @@
 import { InputText } from 'primereact/inputtext';
-import { InputFieldProps } from '../../tools/types';
+import { InputFieldProps } from '@/pages/tools/types';
 
 export default function LabeledTextInput(props: InputFieldProps) {
     return (
