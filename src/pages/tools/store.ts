@@ -88,17 +88,17 @@ export const timelines: types.TimelineItem[] = [
         text: 'Concerned about downscaling of cGAN for daily weather forecasts valid at 6 hours time step. During this period, 6h forecasts produces were availed through an interactive visualization platform for use and verification. Supported visualizations included maps, threshold exceedence chance and location histograms.',
         start_date: 'May 2023',
         final_date: 'June 2024',
-        icon: 'pi pi-hourglass',
-        color: 'blue',
+        icon: 'pi pi-check-circle',
+        color: 'green',
         image: '/images/timelines/cgan-outputs-visualization.png'
     },
     {
         title: 'Year 2 Outcomes',
-        text: 'Second year was used to evaluate skillfulness of the forecasts and assess effectiveness of producing the forecasts. Additionali, other activities such as assessment on hardware and software requirements, training and capacity building, cGAN model review and improvements were carried out.',
+        text: 'Second year was used to evaluate skillfulness of the forecasts and assess effectiveness of producing the forecasts. Additionally, other activities such as assessment on hardware and software requirements, training and capacity building, cGAN model review and improvements were carried out.',
         start_date: 'July 2024',
         final_date: 'June 2025',
-        icon: 'pi pi-spinner-dotted',
-        color: 'grey',
+        icon: 'pi pi-hourglass',
+        color: 'blue',
         image: '/images/timelines/sewaa-cgan-training-workshop.png'
     },
     {

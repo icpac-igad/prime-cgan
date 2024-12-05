@@ -3,6 +3,11 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { PrimeReactProvider } from 'primereact/api';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import { Provider } from 'react-redux';
+import { store } from '@/gateway/store';
+// import { client } from '@/client/sdk.gen';
+
 import LayoutPage from './pages/layout';
 import NotFound from './pages/layout/not-found';
 import HomePage from './pages/home';
@@ -11,8 +16,9 @@ import ForecastsPage from './pages/forecasts';
 import ResourcesPage from './pages/resources';
 import ContactPage from './pages/contact';
 import OpenIfsForecasts from './pages/forecasts/open-ifs';
-import CGANForecasts from './pages/forecasts/cgan';
+import CGANForecasts from './pages/forecasts/cgan.tsx';
 import GEFSForecasts from './pages/forecasts/gefs';
+
 import * as serviceWorker from './serviceWorker.ts';
 import 'primereact/resources/themes/mdc-light-indigo/theme.css';
 import 'primereact/resources/primereact.min.css';
@@ -54,16 +60,22 @@ const router = createBrowserRouter(
     }
 );
 
+// client.setConfig({
+//     baseUrl: import.meta.env.VITE_API_URL
+// });
+
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <PrimeReactProvider value={{ autoZIndex: true, ripple: true, locale: 'en' }}>
-            <RouterProvider
-                router={router}
-                future={{
-                    v7_startTransition: true
-                }}
-            />
-        </PrimeReactProvider>
+        <Provider store={store}>
+            <PrimeReactProvider value={{ autoZIndex: true, ripple: true, locale: 'en' }}>
+                <RouterProvider
+                    router={router}
+                    future={{
+                        v7_startTransition: true
+                    }}
+                />
+            </PrimeReactProvider>
+        </Provider>
     </StrictMode>
 );
 

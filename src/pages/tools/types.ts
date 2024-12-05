@@ -67,6 +67,8 @@ export interface CascadeLevel0 extends CascadeOption {
     level1?: CascadeLevel1[] | null;
 }
 
+export type LoadingStatus = 'loading' | 'failed' | 'loaded' | 'idle';
+
 export interface CascadeOptions extends CascadeLevel0, CascadeLevel1, CascadeLevel2, CascadeOption {}
 
 export interface CascadeInputProps extends InputFieldProps {

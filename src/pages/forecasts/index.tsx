@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+import { useFetchForecastDatesQuery } from '@/gateway/slices/settings';
 import { TabMenu } from 'primereact/tabmenu';
 import { MenuItem } from 'primereact/menuitem';
 import CGANForecasts from './cgan';
@@ -8,16 +9,38 @@ import GEFSForecasts from './gefs';
 import IFrame from 'react-iframe';
 
 const ExternalSystem = () => {
+    // extername sys: http://megacorr.dynu.net/ICPAC/cGAN_examplePlots/fastData.html
     return (
         <div className="shadow-0 mx-4 px-4 pt-2 pb-8">
             <h1 className="text-2xl text-left font-semibold">Embended External Forecasting Systems</h1>
-            <IFrame url="http://megacorr.dynu.net/ICPAC/cGAN_examplePlots/fastData.html" width="100%" height="718" overflow="hidden" frameBorder={0} loading="lazy" position="relative" allowFullScreen />
+            <IFrame url="https://eahazardswatch.icpac.net/map/ea/" width="100%" height="718" overflow="hidden" frameBorder={0} loading="lazy" position="relative" allowFullScreen />
         </div>
     );
 };
 
 export default function ForecastsPage() {
     const [activeIndex, setActiveIndex] = useState<number>(0);
+
+    const {
+        data = [],
+        isFetching,
+        isLoading,
+        isSuccess,
+        isError,
+        error
+    } = useFetchForecastDatesQuery({
+        query: { forecast: 'cgan' },
+        url: '/settings/data-dates'
+    });
+    if (!isFetching && !isLoading && isSuccess) {
+        console.log(data);
+    }
+    if (isLoading) {
+        console.log('loading settings data');
+    }
+    if (isError) {
+        console.log(error);
+    }
 
     const itemRenderer = (item: MenuItem, itemIndex: number) => (
         <Link to={item?.url || '#'} className="p-menuitem-link flex align-items-center gap-2" onClick={() => setActiveIndex(itemIndex)}>
@@ -37,7 +60,7 @@ export default function ForecastsPage() {
         { label: 'Embended External System', icon: 'pi pi-external-link', url: '/forecast-systems/?q=embed', template: (item) => itemRenderer(item, 3) }
     ];
 
-    let [searchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     useEffect(() => {
         switch (searchParams.get('q')) {
             case 'embed':
