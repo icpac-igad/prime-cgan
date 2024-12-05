@@ -17,7 +17,7 @@ export default defineConfig({
         viteCompression({ algorithm: 'brotliCompress' })
     ],
     resolve: {
-        alias: [{ find: /^@\//, replacement: path.resolve('./src') }]
+        alias: [{ find: '@', replacement: path.resolve('./src') }]
     },
     css: {
         modules: {
