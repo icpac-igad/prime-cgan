@@ -3,14 +3,16 @@ import { configureStore } from '@reduxjs/toolkit';
 import { ganApiSlice } from './slices/cgan';
 import { openIfsApiSlice } from './slices/open-ifs';
 import { settingsApiSlice } from './slices/settings';
+import { ParamSlice } from './slices/params';
 
 export const store = configureStore({
     reducer: {
+        [ParamSlice.reducerPath]: ParamSlice.reducer,
         [settingsApiSlice.reducerPath]: settingsApiSlice.reducer,
         [ganApiSlice.reducerPath]: ganApiSlice.reducer,
         [openIfsApiSlice.reducerPath]: openIfsApiSlice.reducer
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(settingsApiSlice.middleware)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([settingsApiSlice.middleware, ganApiSlice.middleware, openIfsApiSlice.middleware])
 });
 
 // Infer the type of `store`

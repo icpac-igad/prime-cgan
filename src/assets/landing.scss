@@ -62,6 +62,18 @@ body {
         line-height: 1;
     }
 }
+#root {
+    .landing-wrapper {
+        .p-selectbutton .p-button.p-highlight {
+            background: #0a70b6;
+            border-color: #e0e0e1;
+            color: rgb(255 255 255);
+        }
+        .card small {
+            max-width: 250px;
+        }
+    }
+}
 
 @media screen and (min-width: 1960px) {
     .layout-main,

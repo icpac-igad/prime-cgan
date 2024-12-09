@@ -40,14 +40,41 @@ export interface InputValue {
     value?: number | string | boolean | null;
 }
 
-export type OnValueChangeFunc = (value: InputValue) => void;
+export type OnValueChangeFunc = (value: string) => void;
+export type onNumberChangeFunc = (value: number) => void;
 
-export interface InputFieldProps {
+export interface BaseInputProps {
     label: string;
     placeholder?: string | null;
     inputId: string;
     helpText: string;
+}
+
+export interface InputFieldProps extends BaseInputProps {
+    value: string;
     onChange: OnValueChangeFunc;
+}
+
+export interface SelectOption {
+    label: string;
+    value: string;
+}
+
+export interface SelectInputProps extends InputFieldProps {
+    options: SelectOption[];
+}
+
+export interface ToggleButtonProps extends InputFieldProps {
+    options: string[];
+}
+
+export interface NumberInputProps extends BaseInputProps {
+    prefix?: string | undefined;
+    suffix?: string | undefined;
+    max?: number | undefined;
+    min?: number | undefined;
+    value: number | undefined;
+    onChange: onNumberChangeFunc;
 }
 
 export interface CascadeOption {

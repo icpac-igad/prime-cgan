@@ -18,7 +18,7 @@ export default function CascadeSelectInput(props: CascadeInputProps) {
         <div className="flex flex-column gap-1">
             <label htmlFor={props.inputId}>{props.label}</label>
             <CascadeSelect
-                onChange={(e: CascadeSelectChangeEvent) => props.onChange({ id: props.inputId, value: e.value })}
+                onChange={(e: CascadeSelectChangeEvent) => props.onChange(e.value)}
                 options={props.data}
                 optionLabel="name"
                 optionGroupLabel="code"

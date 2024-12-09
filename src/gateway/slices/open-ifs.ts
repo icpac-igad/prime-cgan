@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { type ForecastMap, type GetOpenIfsForecastEnsemblePlotsForecastOpenIfsEnsembleGetData, type GetOpenIfsForecastForecastOpenIfsGetData } from '@/client';
+import { urlEncodeParams } from './tools';
+import { isEmpty } from 'lodash';
 
 export const openIfsApiSlice = createApi({
     reducerPath: 'open-ifs',
@@ -7,8 +9,10 @@ export const openIfsApiSlice = createApi({
         baseUrl: `${import.meta.env.VITE_API_URL}`
     }),
     endpoints: (builder) => ({
-        fetchOpenIfsForecast: builder.query<ForecastMap[], GetOpenIfsForecastForecastOpenIfsGetData>({ query: (params) => ({ url: params.url, method: 'GET', body: params }) }),
-        fetchOpenIfsEnsemble: builder.query<ForecastMap[], GetOpenIfsForecastEnsemblePlotsForecastOpenIfsEnsembleGetData>({ query: (params) => ({ url: params.url, method: 'GET', body: params }) })
+        fetchOpenIfsForecast: builder.query<ForecastMap[], GetOpenIfsForecastForecastOpenIfsGetData>({ query: (params) => ({ url: `${params.url}?${urlEncodeParams(!isEmpty(params?.query) ? params?.query : {})}`, method: 'GET' }) }),
+        fetchOpenIfsEnsemble: builder.query<ForecastMap[], GetOpenIfsForecastEnsemblePlotsForecastOpenIfsEnsembleGetData>({
+            query: (params) => ({ url: `${params.url}?${urlEncodeParams(!isEmpty(params?.query) ? params?.query : {})}`, method: 'GET' })
+        })
     })
 });
 
