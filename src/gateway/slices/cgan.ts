@@ -16,7 +16,7 @@ export const ganApiSlice = createApi({
     }),
     endpoints: (builder) => ({
         fetchGanForecast: builder.query<ForecastMap[], GetCganForecastForecastCganForecastGetData>({
-            query: (params) => ({ url: `${`${params.url}?${urlEncodeParams(!isEmpty(params?.query) ? params?.query : {})}`}?${urlEncodeParams(!isEmpty(params?.query) ? params?.query : {})}`, method: 'GET' })
+            query: (params) => ({ url: `${`${params.url}?${urlEncodeParams(!isEmpty(params?.query) ? params?.query : {})}`}`, method: 'GET' })
         }),
         fetchGanEnsemble: builder.query<ForecastMap[], GetCganForecastEnsemblePlotForecastCganEnsembleGetData>({ query: (params) => ({ url: `${params.url}?${urlEncodeParams(!isEmpty(params?.query) ? params?.query : {})}`, method: 'GET' }) }),
         fetchGanHistogram: builder.query<ForecastMap[], GetCganHistogramPlotForecastCganHistogramGetData>({ query: (params) => ({ url: `${params.url}?${urlEncodeParams(!isEmpty(params?.query) ? params?.query : {})}`, method: 'GET' }) }),

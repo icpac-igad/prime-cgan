@@ -42,6 +42,7 @@ export interface InputValue {
 
 export type OnValueChangeFunc = (value: string) => void;
 export type onNumberChangeFunc = (value: number) => void;
+export type onButtonClickFunc = () => void;
 
 export interface BaseInputProps {
     label: string;
@@ -100,6 +101,18 @@ export interface CascadeOptions extends CascadeLevel0, CascadeLevel1, CascadeLev
 
 export interface CascadeInputProps extends InputFieldProps {
     data: CascadeOptions[];
+}
+
+export interface SubmitButtonProps {
+    onClick: onButtonClickFunc;
+    label: string;
+    severity: 'info' | 'success' | 'warning' | 'danger' | 'help' | 'secondary';
+    iconPos?: 'left' | 'right' | 'top' | 'bottom';
+    icon?: string;
+    rounded?: boolean;
+    outline?: boolean;
+    loading?: boolean;
+    disabled?: boolean;
 }
 
 export type NodeRef = MutableRefObject<ReactNode>;

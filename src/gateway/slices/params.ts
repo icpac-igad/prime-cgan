@@ -1,14 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { LoadingStatus } from '@/pages/tools/types';
-import { PrecipitationUnit, IfsDataParameter, AccumulationTime } from '@/client';
 
 export interface Forecastparams {
     status?: LoadingStatus;
     mask_area?: string;
     color_style?: string;
-    plot_units?: PrecipitationUnit;
-    acc_time?: AccumulationTime;
+    plot_units?: string;
+    acc_time?: string;
     forecast_date?: string;
     forecast_time?: string;
 }
@@ -28,7 +27,7 @@ export interface GanParams {
 }
 
 export interface OpenIfsParams {
-    vis_param?: IfsDataParameter;
+    vis_param?: string;
     show_ensemble?: boolean;
     max_ens_plots?: number;
 }
@@ -49,21 +48,27 @@ export const ParamSlice = createSlice({
     initialState,
     reducers: {
         onForecastParamChange(state, action: PayloadAction<Forecastparams>) {
-            state = {
+            return {
                 ...state,
                 ...action.payload
             };
         },
         onGanParamChange(state, action: PayloadAction<GanParams>) {
-            state.cgan = {
-                ...state.cgan,
-                ...action.payload
+            return {
+                ...state,
+                cgan: {
+                    ...state.cgan,
+                    ...action.payload
+                }
             };
         },
         onOpenIfsParamChange(state, action: PayloadAction<OpenIfsParams>) {
-            state.open_ifs = {
-                ...state.open_ifs,
-                ...action.payload
+            return {
+                ...state,
+                open_ifs: {
+                    ...state.open_ifs,
+                    ...action.payload
+                }
             };
         }
     },

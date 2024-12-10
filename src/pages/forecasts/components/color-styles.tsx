@@ -11,6 +11,7 @@ export default function SelectColorStyle() {
     const color_style = useAppSelector((state) => state.params?.color_style);
 
     const onValueChange = (value: string) => {
+        console.log({ color_style: value });
         dispatch(onForecastParamChange({ color_style: value }));
     };
 

@@ -9,26 +9,16 @@ export default function VisualizationParamater() {
     const vis_param = useAppSelector((state) => state.params.open_ifs?.vis_param);
 
     const onValueChange = (value: string) => {
-        if (
-            value === 'TOTAL_PRECIPITATION' ||
-            value === 'SURFACE_RUNOFF_WATER' ||
-            value === 'SURFACE_PRESSURE' ||
-            value === 'PRESSURE_AT_MEAN_SEA_LEVEL' ||
-            value === 'PRESSURE_AT_MEAN_SEA_LEVEL' ||
-            value === 'TWO_METRE_TEMPERATURE' ||
-            value === 'WIND_SPEED'
-        ) {
-            dispatch(onOpenIfsParamChange({ vis_param: IfsDataParameter[value] }));
-        }
+        dispatch(onOpenIfsParamChange({ vis_param: value }));
     };
 
     const options: SelectOption[] = [
-        { label: IfsDataParameter.TOTAL_PRECIPITATION, value: 'TOTAL_PRECIPITATION' },
-        { label: IfsDataParameter.SURFACE_RUNOFF_WATER, value: 'SURFACE_RUNOFF_WATER' },
-        { label: IfsDataParameter.SURFACE_PRESSURE, value: 'SURFACE_PRESSURE' },
-        { label: IfsDataParameter.PRESSURE_AT_MEAN_SEA_LEVEL, value: 'PRESSURE_AT_MEAN_SEA_LEVEL' },
-        { label: IfsDataParameter.TWO_METRE_TEMPERATURE, value: 'TWO_METRE_TEMPERATURE' },
-        { label: IfsDataParameter.WIND_SPEED, value: 'WIND_SPEED' }
+        { label: IfsDataParameter.TOTAL_PRECIPITATION, value: IfsDataParameter.TOTAL_PRECIPITATION },
+        { label: IfsDataParameter.SURFACE_RUNOFF_WATER, value: IfsDataParameter.SURFACE_RUNOFF_WATER },
+        { label: IfsDataParameter.SURFACE_PRESSURE, value: IfsDataParameter.SURFACE_PRESSURE },
+        { label: IfsDataParameter.PRESSURE_AT_MEAN_SEA_LEVEL, value: IfsDataParameter.PRESSURE_AT_MEAN_SEA_LEVEL },
+        { label: IfsDataParameter.TWO_METRE_TEMPERATURE, value: IfsDataParameter.TWO_METRE_TEMPERATURE },
+        { label: IfsDataParameter.WIND_SPEED, value: IfsDataParameter.WIND_SPEED }
     ];
     return <SelectInput {...{ inputId: 'visualization-param', label: 'Visualization Parameter', helpText: 'select forecast parameter to be visualized', options: options, value: vis_param || options[0].value, onChange: onValueChange }} />;
 }

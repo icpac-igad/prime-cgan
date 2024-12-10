@@ -19,7 +19,7 @@ const ExternalSystem = () => {
     return (
         <div className="shadow-0 mx-4 px-4 pt-2 pb-8">
             <h1 className="text-2xl text-left font-semibold">Embended External Forecasting Systems</h1>
-            <IFrame url="https://eahazardswatch.icpac.net/map/ea/" width="100%" height="718" overflow="hidden" frameBorder={0} loading="lazy" position="relative" allowFullScreen />
+            <IFrame url="http://megacorr.dynu.net/ICPAC/cGAN_examplePlots/fastData.html" width="100%" height="718" overflow="hidden" frameBorder={0} loading="lazy" position="relative" allowFullScreen />
         </div>
     );
 };
