@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Message } from 'primereact/message';
 import { useFetchGanHistogramQuery } from '@/gateway/slices/cgan';
 import { forecastParams, ganHistogramParams } from '@/gateway/slices/params';
@@ -6,7 +7,7 @@ import { isEmpty } from 'lodash';
 import Spinner from '../spinner';
 
 export default function FetchGanHistogram() {
-    const forecast_params = validObjectEntries({ ...forecastParams, ...ganHistogramParams });
+    const forecast_params = validObjectEntries({ ...useSelector(forecastParams), ...useSelector(ganHistogramParams) });
     const {
         data = [],
         isFetching,

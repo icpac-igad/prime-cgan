@@ -115,7 +115,7 @@ export type GetForecastDatesSettingsDataDatesGetData = {
     body?: never;
     path?: never;
     query?: {
-        forecast?: ('cgan' | 'open-ifs') | null;
+        forecast?: ('cgan-forecast' | 'open-ifs') | null;
     };
     url: '/settings/data-dates';
 };
@@ -198,11 +198,10 @@ export type GetOpenIfsForecastForecastOpenIfsGetData = {
     path?: never;
     query?: {
         mask_area?: string | null;
-        color_style?: string | null;
         forecast_date?: string | null;
         plot_units?: PrecipitationUnit | null;
+        color_style?: string | null;
         vis_param?: IfsDataParameter | null;
-        acc_time?: AccumulationTime | null;
     };
     url: '/forecast/open-ifs';
 };
@@ -230,11 +229,10 @@ export type GetOpenIfsForecastEnsemblePlotsForecastOpenIfsEnsembleGetData = {
     path?: never;
     query?: {
         mask_area?: string | null;
-        color_style?: string | null;
         forecast_date?: string | null;
         plot_units?: PrecipitationUnit | null;
+        color_style?: string | null;
         vis_param?: IfsDataParameter | null;
-        acc_time?: AccumulationTime | null;
     };
     url: '/forecast/open-ifs-ensemble';
 };
@@ -262,11 +260,11 @@ export type GetCganForecastForecastCganForecastGetData = {
     path?: never;
     query?: {
         mask_area?: string | null;
-        color_style?: string | null;
         forecast_date?: string | null;
         plot_units?: PrecipitationUnit | null;
-        acc_time?: AccumulationTime | null;
+        color_style?: string | null;
         start_time?: ValidStartTime | null;
+        acc_time?: AccumulationTime | null;
     };
     url: '/forecast/cgan-forecast';
 };
@@ -294,11 +292,9 @@ export type GetCganForecastEnsemblePlotForecastCganEnsembleGetData = {
     path?: never;
     query?: {
         mask_area?: string | null;
-        color_style?: string | null;
         forecast_date?: string | null;
         plot_units?: PrecipitationUnit | null;
-        acc_time?: AccumulationTime | null;
-        start_time?: ValidStartTime | null;
+        color_style?: string | null;
         max_ens_plots?: number | null;
     };
     url: '/forecast/cgan-ensemble';
@@ -327,11 +323,9 @@ export type GetCganThesholdChancePlotForecastCganThresholdChanceGetData = {
     path?: never;
     query?: {
         mask_area?: string | null;
-        color_style?: string | null;
         forecast_date?: string | null;
         plot_units?: PrecipitationUnit | null;
-        acc_time?: AccumulationTime | null;
-        start_time?: ValidStartTime | null;
+        color_style?: string | null;
         threshold?: number | null;
         show_percentages?: boolean | null;
     };
@@ -361,7 +355,6 @@ export type GetCganHistogramPlotForecastCganHistogramGetData = {
     path?: never;
     query?: {
         mask_area?: string | null;
-        color_style?: string | null;
         forecast_date?: string | null;
         plot_units?: PrecipitationUnit | null;
         location?: string | null;

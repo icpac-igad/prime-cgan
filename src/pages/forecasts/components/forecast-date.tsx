@@ -14,7 +14,7 @@ export default function SelectColorStyle() {
         dispatch(onForecastParamChange({ forecast_date: value }));
     };
 
-    const { data = [], isFetching, isSuccess, isLoading } = useFetchForecastDatesQuery({ url: '/settings/data-dates', query: { forecast: 'cgan' } });
+    const { data = [], isFetching, isSuccess, isLoading } = useFetchForecastDatesQuery({ url: '/settings/data-dates', query: { forecast: 'cgan-forecast' } });
     if (isFetching || isLoading) {
         return <Spinner />;
     } else if (isSuccess && !isEmpty(data)) {

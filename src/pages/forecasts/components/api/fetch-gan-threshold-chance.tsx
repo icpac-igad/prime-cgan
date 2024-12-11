@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Message } from 'primereact/message';
 import { useFetchGanThresholdChanceQuery } from '@/gateway/slices/cgan';
 import { forecastParams, ganThresholdChanceParams } from '@/gateway/slices/params';
@@ -6,7 +7,7 @@ import { isEmpty } from 'lodash';
 import Spinner from '../spinner';
 
 export default function FetchGanThresholdChance() {
-    const forecast_params = validObjectEntries({ ...forecastParams, ...ganThresholdChanceParams });
+    const forecast_params = validObjectEntries({ ...useSelector(forecastParams), ...useSelector(ganThresholdChanceParams) });
     const {
         data = [],
         isFetching,

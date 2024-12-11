@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Message } from 'primereact/message';
 import { useFetchGanEnsembleQuery } from '@/gateway/slices/cgan';
 import { forecastParams, ganEnsembleParams } from '@/gateway/slices/params';
@@ -6,7 +7,7 @@ import { isEmpty } from 'lodash';
 import Spinner from '../spinner';
 
 export default function FetchGanEnsemble() {
-    const forecast_params = validObjectEntries({ ...forecastParams, ...ganEnsembleParams });
+    const forecast_params = validObjectEntries({ ...useSelector(forecastParams), ...useSelector(ganEnsembleParams) });
     const {
         data = [],
         isFetching,

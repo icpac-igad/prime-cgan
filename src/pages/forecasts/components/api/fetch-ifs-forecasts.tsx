@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Message } from 'primereact/message';
 import { useFetchOpenIfsForecastQuery } from '@/gateway/slices/open-ifs';
 import { forecastParams, openIfsParams } from '@/gateway/slices/params';
@@ -6,7 +7,7 @@ import { isEmpty } from 'lodash';
 import Spinner from '../spinner';
 
 export default function FetchOpenIfsForecast() {
-    const forecast_params = validObjectEntries({ ...forecastParams, ...openIfsParams });
+    const forecast_params = validObjectEntries({ ...useSelector(forecastParams), ...useSelector(openIfsParams) });
     const {
         data = [],
         isFetching,
