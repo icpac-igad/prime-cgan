@@ -7,7 +7,6 @@ import SelectInput from './form/select-input';
 export default function SelectPlotunits() {
     const dispatch = useAppDispatch();
     const plot_units = useAppSelector((state) => state.params?.plot_units);
-    console.log('plot_units', plot_units);
 
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ plot_units: value }));

@@ -8,6 +8,8 @@ import OpenIFSForecasts from './open-ifs';
 import GEFSForecasts from './gefs';
 import IFrame from 'react-iframe';
 
+import { useFetchForecastDatesQuery } from '@/gateway/slices/settings';
+
 import MaskAreaSelect from './components/area-of-interest';
 import ColorStyleSelect from './components/color-styles';
 import AccTimeSelect from './components/acc-time';
@@ -46,6 +48,7 @@ export default function ForecastsPage() {
     ];
 
     const [searchParams] = useSearchParams();
+
     useEffect(() => {
         switch (searchParams.get('q')) {
             case 'embed':
@@ -62,6 +65,8 @@ export default function ForecastsPage() {
         }
     }, [searchParams]);
 
+    const { data: datesData = [], isFetching: datesFetching, isSuccess: datesSuccess, isLoading: datesLoading } = useFetchForecastDatesQuery({ url: '/settings/data-dates', query: { forecast: activeIndex === 0 ? 'cgan-forecast' : 'open-ifs' } });
+
     return (
         <div className="shadow-0 mx-4 px-4 pt-2 pb-8">
             <h1 className="text-3xl text-center font-bold">Forecasting Systems and Generated Products</h1>
@@ -77,7 +82,7 @@ export default function ForecastsPage() {
             <div className="card shadow-2 p-4 mb-6 mt-4 ">
                 <div className="flex flex-wrap gap-2 align-items-left justify-content-start">
                     <MaskAreaSelect />
-                    <ForecastDateSelect />
+                    <ForecastDateSelect data={datesData} isFetching={datesFetching} isLoading={datesLoading} isSuccess={datesSuccess} />
                     <ForecastTimeSelect />
                     <PlotUnitsSelect />
                     <AccTimeSelect />

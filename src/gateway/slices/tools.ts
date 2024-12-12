@@ -11,22 +11,14 @@ export const validObjectEntries = (items: LooseObject) => {
             validKeys.push(key);
         }
     });
-    let newItems: LooseObject = {};
-    for (let i = 0; i <= validKeys.length; i++) {
-        newItems[validKeys[i]] = items[validKeys[i]];
-    }
-    return newItems;
-};
 
-export const urlEncodedParams = (params: LooseObject) => {
-    let search_params: string[] = [];
-    Object.entries(params).forEach(([key, value]) => {
-        if (!isEmpty(value)) {
-            search_params.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
-        }
-    });
-    console.log('urlEncodedParams', search_params.join('&'));
-    return search_params.join('&');
+    if (isEmpty(validKeys)) return {};
+
+    const validItems: LooseObject = {};
+    for (const key of validKeys) {
+        validItems[key] = items[key];
+    }
+    return validItems;
 };
 
 export const urlEncodeParams = (params: LooseObject) => {
@@ -36,6 +28,5 @@ export const urlEncodeParams = (params: LooseObject) => {
             search_params.append(key, value);
         }
     });
-    console.info('urlEncodeParams', search_params);
     return search_params;
 };

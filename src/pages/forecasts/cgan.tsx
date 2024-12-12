@@ -12,7 +12,7 @@ import PlotType from './components/plot-type';
 // import SubmitButton from './components/form/submit-button';
 
 import FetchGanForecast from './components/api/fetch-gan-forecast';
-import FetchGanEnsemble from './components/api/fetch-cgan-ensemble';
+import FetchGanEnsemble from './components/api/fetch-gan-ensemble';
 import FetchGanThresholdChance from './components/api/fetch-gan-threshold-chance';
 import FetchGanHistogram from './components/api/fetch-gan-histogram';
 

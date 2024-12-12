@@ -6,7 +6,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 import { store } from '@/gateway/store';
-// import { client } from '@/client/sdk.gen';
 
 import LayoutPage from './pages/layout';
 import NotFound from './pages/layout/not-found';
@@ -59,10 +58,6 @@ const router = createBrowserRouter(
         }
     }
 );
-
-// client.setConfig({
-//     baseUrl: import.meta.env.VITE_API_URL
-// });
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
