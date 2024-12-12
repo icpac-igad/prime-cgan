@@ -16,3 +16,4 @@ services:
             - ${CGAN_DATA_DIR:-./data/store/cgan}:${PUBLIC_DATA_DIR:-/opt/data}/cgan-forecast
             - ${GBMC_DATA_DIR:-./data/store/gbmc}:${PUBLIC_DATA_DIR:-/opt/data}/cgan-ifs
             - ${IFS_DATA_DIR:-./data/store/open-ifs}:${PUBLIC_DATA_DIR:-/srv/data}/open-ifs
+            - ${API_CACHE_DIR:-../fast-cgan/cache}:/opt/api-cache
