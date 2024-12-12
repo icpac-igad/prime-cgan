@@ -117,7 +117,7 @@ export const partners: types.FooterItem[] = [
     { name: 'WFP', logo: '/images/layout/wfp-logo-standard-white-en.png', url: 'https://www.wfp.org/', width: 238 },
     { name: 'University of Oxford', logo: '/images/layout/oxford-large.png', url: 'https://www.physics.ox.ac.uk/', width: 238 },
     { name: 'EMI', logo: '/images/layout/emi-logo-large.png', url: 'http://www.ethiomet.gov.et/', width: 238 },
-    { name: 'KMD', logo: '/images/layout/meteor-department-kenya.jpeg', url: 'https://meteo.go.ke/', width: 238 },
+    { name: 'KMD', logo: '/images/layout/kmd-logo.png', url: 'https://meteo.go.ke/', width: 238 },
     { name: 'ECMWF', logo: '/images/layout/ecmwf-logo-white.png', url: 'https://www.ecmwf.int/', width: 238 },
     { name: 'Google Org', logo: '/images/layout/logo_Google.org_Support_FullColor.png', url: 'https://www.google.org/', width: 238 }
 ];
