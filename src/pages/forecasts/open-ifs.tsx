@@ -1,6 +1,3 @@
-import VisualizationParameter from './components/vis-parameter';
-import ShowEnsemble from './components/show-ensemble';
-import MaxEnsemblePlots from './components/ensemble-plots';
 import FetchOpenIfsForecast from './components/api/fetch-ifs-forecasts';
 import FetchOpenIfsEnsemble from './components/api/fetch-ifs-ensemble';
 import { useAppSelector } from '@/gateway/hooks';
@@ -24,21 +21,17 @@ export default function OpenIFSForecasts() {
             </div>
 
             <div className="card p-4 m-4 shadow-4">
-                <div className="flex flex-wrap gap-6 align-items-left justify-content-start">
-                    <VisualizationParameter />
+                <div className="flex flex-wrap gap-6 align-items-center justify-content-center">
                     <FetchOpenIfsForecast />
                 </div>
             </div>
-
-            <div className="card p-4 shadow-4">
-                <div className="flex flex-wrap gap-4 align-items-left justify-content-start">
-                    <div className="flex flex-column gap-4">
-                        <ShowEnsemble forecast="open-ifs" />
-                        <MaxEnsemblePlots forecast="open-ifs" />
+            {show_ensemble && (
+                <div className="card p-4 shadow-4">
+                    <div className="flex flex-wrap gap-4 align-items-center justify-content-center">
+                        <FetchOpenIfsEnsemble />
                     </div>
-                    {show_ensemble && <FetchOpenIfsEnsemble />}
                 </div>
-            </div>
+            )}
         </div>
     );
 }

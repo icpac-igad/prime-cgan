@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { TabMenu } from 'primereact/tabmenu';
 import { MenuItem } from 'primereact/menuitem';
@@ -9,13 +9,20 @@ import GEFSForecasts from './gefs';
 import IFrame from 'react-iframe';
 
 import { useFetchForecastDatesQuery } from '@/gateway/slices/settings';
+import { onForecastParamChange, onActiveIndexPageChange } from '@/gateway/slices/params';
+import { useAppDispatch, useAppSelector } from '@/gateway/hooks';
 
+import VisualizationParameter from './components/vis-parameter';
 import MaskAreaSelect from './components/area-of-interest';
 import ColorStyleSelect from './components/color-styles';
 import AccTimeSelect from './components/acc-time';
 import PlotUnitsSelect from './components/plot-units';
 import ForecastDateSelect from './components/forecast-date';
 import ForecastTimeSelect from './components/forecast-time';
+
+import ShowEnsemble from './components/show-ensemble';
+
+import { isEmpty } from 'lodash';
 
 const ExternalSystem = () => {
     return (
@@ -27,10 +34,11 @@ const ExternalSystem = () => {
 };
 
 export default function ForecastsPage() {
-    const [activeIndex, setActiveIndex] = useState<number>(0);
+    const activePage = useAppSelector((state) => state.params.pages.activeIndex);
+    const dispatch = useAppDispatch();
 
     const itemRenderer = (item: MenuItem, itemIndex: number) => (
-        <Link to={item?.url || '#'} className="p-menuitem-link flex align-items-center gap-2" onClick={() => setActiveIndex(itemIndex)}>
+        <Link to={item?.url || '#'} className="p-menuitem-link flex align-items-center gap-2" onClick={() => dispatch(onActiveIndexPageChange(itemIndex))}>
             <span className={item.icon} />
             <span className="mx-2 font-bold">{item.label}</span>
         </Link>
@@ -52,20 +60,23 @@ export default function ForecastsPage() {
     useEffect(() => {
         switch (searchParams.get('q')) {
             case 'embed':
-                setActiveIndex(3);
+                dispatch(onActiveIndexPageChange(3));
                 break;
             case 'gefs':
-                setActiveIndex(2);
+                dispatch(onActiveIndexPageChange(2));
                 break;
             case 'open-ifs':
-                setActiveIndex(1);
+                dispatch(onActiveIndexPageChange(1));
                 break;
             default:
-                setActiveIndex(0);
+                dispatch(onActiveIndexPageChange(0));
         }
     }, [searchParams]);
 
-    const { data: datesData = [], isFetching: datesFetching, isSuccess: datesSuccess, isLoading: datesLoading } = useFetchForecastDatesQuery({ url: '/settings/data-dates', query: { forecast: activeIndex === 0 ? 'cgan-forecast' : 'open-ifs' } });
+    const { data: datesData = [], isFetching: datesFetching, isSuccess: datesSuccess, isLoading: datesLoading } = useFetchForecastDatesQuery({ url: '/settings/data-dates', query: { forecast: activePage === 0 ? 'cgan-forecast' : 'open-ifs' } });
+    if (!datesLoading && datesSuccess && !isEmpty(datesData)) {
+        dispatch(onForecastParamChange({ forecast_date: datesData[0].date }));
+    }
 
     return (
         <div className="shadow-0 mx-4 px-4 pt-2 pb-8">
@@ -81,19 +92,21 @@ export default function ForecastsPage() {
 
             <div className="card shadow-2 p-4 mb-6 mt-4 ">
                 <div className="flex flex-wrap gap-2 align-items-left justify-content-start">
+                    {activePage == 1 && <VisualizationParameter />}
                     <MaskAreaSelect />
                     <ForecastDateSelect data={datesData} isFetching={datesFetching} isLoading={datesLoading} isSuccess={datesSuccess} />
-                    <ForecastTimeSelect />
+                    {activePage === 0 && <ForecastTimeSelect />}
                     <PlotUnitsSelect />
-                    <AccTimeSelect />
+                    {activePage === 0 && <AccTimeSelect />}
                     <ColorStyleSelect />
+                    {activePage == 1 && <ShowEnsemble forecast="open-ifs" />}
                 </div>
             </div>
 
             <div className="card">
-                <TabMenu model={items} activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)} />
+                <TabMenu model={items} activeIndex={activePage} onTabChange={(e) => dispatch(onActiveIndexPageChange(e.index))} />
             </div>
-            {activeIndex === 3 ? <ExternalSystem /> : activeIndex === 2 ? <GEFSForecasts /> : activeIndex === 1 ? <OpenIFSForecasts /> : <CGANForecasts />}
+            {activePage === 3 ? <ExternalSystem /> : activePage === 2 ? <GEFSForecasts /> : activePage === 1 ? <OpenIFSForecasts /> : <CGANForecasts />}
         </div>
     );
 }

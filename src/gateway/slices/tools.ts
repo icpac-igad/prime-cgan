@@ -1,13 +1,14 @@
 import { isEmpty } from 'lodash';
+
 interface LooseObject {
     [key: string | number]: any;
 }
 
 export const validObjectEntries = (items: LooseObject) => {
     let validKeys: string[] = [];
-    const excludeKeys: string[] = ['show_ensemble', 'show_percentages'];
+    const excludeKeys: string[] = ['show_ensemble'];
     Object.entries(items).forEach(([key, value]) => {
-        if (!isEmpty(value) && !excludeKeys.includes(key)) {
+        if (value !== null && value !== undefined && !excludeKeys.includes(key)) {
             validKeys.push(key);
         }
     });
@@ -24,7 +25,7 @@ export const validObjectEntries = (items: LooseObject) => {
 export const urlEncodeParams = (params: LooseObject) => {
     const search_params = new URLSearchParams();
     Object.entries(params).forEach(([key, value]) => {
-        if (!isEmpty(value)) {
+        if (value !== null && value !== undefined) {
             search_params.append(key, value);
         }
     });

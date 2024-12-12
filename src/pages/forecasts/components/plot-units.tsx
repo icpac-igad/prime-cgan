@@ -18,5 +18,5 @@ export default function SelectPlotunits() {
         { label: PrecipitationUnit.MM_DAY, value: PrecipitationUnit.MM_DAY },
         { label: PrecipitationUnit.MM_WEEK, value: PrecipitationUnit.MM_WEEK }
     ];
-    return <SelectInput {...{ inputId: 'select-plot-units', label: 'Plot Units', helpText: 'select units to be used for plotting maps', options: options, value: plot_units || options[1].value, onChange: onValueChange }} />;
+    return <SelectInput {...{ inputId: 'select-plot-units', label: 'Accumulation Units', helpText: 'select precipitation accumulation for visualization maps', options: options, value: plot_units || options[1].value, onChange: onValueChange }} />;
 }

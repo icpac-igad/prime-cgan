@@ -6,10 +6,10 @@ import SelectInput from './form/select-input';
 
 export default function SelectAccTime() {
     const dispatch = useAppDispatch();
-    const forecast_time = useAppSelector((state) => state.params?.forecast_time);
+    const start_time = useAppSelector((state) => state.params?.start_time);
 
     const onValueChange = (value: string) => {
-        dispatch(onForecastParamChange({ forecast_time: value }));
+        dispatch(onForecastParamChange({ start_time: value }));
     };
 
     const options: SelectOption[] = [
@@ -18,5 +18,5 @@ export default function SelectAccTime() {
         { label: '12:00 UTC', value: ValidStartTime['12'] },
         { label: '18:00 UTC', value: ValidStartTime['18'] }
     ];
-    return <SelectInput {...{ inputId: 'select-forecast-time', label: 'Forecast Initialization Time', helpText: 'select forecast initialization time', options: options, value: forecast_time || options[0].value, onChange: onValueChange }} />;
+    return <SelectInput {...{ inputId: 'select-forecast-time', label: 'Forecast Initialization Time', helpText: 'select forecast initialization time', options: options, value: start_time || options[0].value, onChange: onValueChange }} />;
 }

@@ -5,11 +5,11 @@ import { onGanParamChange } from '@/gateway/slices/params';
 export default function ShowPercentage() {
     const dispatch = useAppDispatch();
 
-    const show_percent = useAppSelector((state) => state.params.cgan?.show_percentages || true);
+    const show_percent = useAppSelector((state) => state.params.cgan?.show_percentages || false);
     const options = ['Percentages', 'Words'];
 
     const onValueChange = (value: string) => {
-        dispatch(onGanParamChange({ show_percentages: value === 'Percentages' ? true : false }));
+        dispatch(onGanParamChange({ show_percentages: value === options[0] ? true : false }));
     };
 
     return <ToggleButton {...{ label: 'Legend Units', inputId: 'show-percent', helpText: 'Show percentages or words', options: options, value: show_percent ? options[0] : options[1], onChange: onValueChange }} />;

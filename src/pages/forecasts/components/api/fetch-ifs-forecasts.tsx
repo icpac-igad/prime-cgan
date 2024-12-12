@@ -23,11 +23,11 @@ export default function FetchOpenIfsForecast() {
         return (
             <div className="flex flex-column gap-1">
                 {data.map((plot) => (
-                    <img key={plot.image_url} src={plot.image_url} alt={`Open IFS Forecast for ${forecast_params?.forecast_date} - ${forecast_params?.forecast_time}`} />
+                    <img key={plot.image_url} src={plot.image_url} alt={`Open IFS Forecast for ${forecast_params?.forecast_date} - ${forecast_params?.start_time}`} />
                 ))}
             </div>
         );
     } else {
-        return <Message severity="error" text={`Failed to fetch Open IFS Forecast for ${forecast_params?.forecast_date} - ${forecast_params?.forecast_time}`} />;
+        return <Message severity="error" text={`Failed to fetch Open IFS Forecast for ${forecast_params?.forecast_date} - ${forecast_params?.start_time}`} />;
     }
 }

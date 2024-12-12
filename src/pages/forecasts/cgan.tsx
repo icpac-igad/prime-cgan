@@ -1,3 +1,5 @@
+import { useAppSelector } from '@/gateway/hooks';
+
 import ShowEnsemble from './components/show-ensemble';
 import MaxEnsemblePlots from './components/ensemble-plots';
 import ThresholdChance from './components/threshold-chance';
@@ -9,17 +11,21 @@ import HistogramCertainity from './components/hist-certainity';
 // import ForecastModel from './components/forecast-model';
 import PlotType from './components/plot-type';
 
-// import SubmitButton from './components/form/submit-button';
+import SubmitButton from './components/form/submit-button';
 
 import FetchGanForecast from './components/api/fetch-gan-forecast';
 import FetchGanEnsemble from './components/api/fetch-gan-ensemble';
 import FetchGanThresholdChance from './components/api/fetch-gan-threshold-chance';
 import FetchGanHistogram from './components/api/fetch-gan-histogram';
 
-// import { forecastParams, ganParams } from '@/gateway/slices/params';
-// import { validObjectEntries } from '@/gateway/slices/tools';
-
 export default function CGANForecasts() {
+    const show_ensemble = useAppSelector((state) => state.params.cgan?.show_ensemble);
+    const show_histogram = useAppSelector((state) => state.params.cgan?.show_histogram);
+
+    const onShowHistogramPlots = () => {
+        console.log('show histogram plot');
+    };
+
     return (
         <div className="shadow-0 mx-4 px-4 pt-2 pb-8">
             <h1 className="text-2xl text-left font-semibold">cGAN Forecast Products</h1>
@@ -51,7 +57,7 @@ export default function CGANForecasts() {
                         <ShowEnsemble forecast="cgan" />
                         <MaxEnsemblePlots forecast="cgan" />
                     </div>
-                    <FetchGanEnsemble />
+                    {show_ensemble && <FetchGanEnsemble />}
                 </div>
             </div>
 
@@ -68,14 +74,15 @@ export default function CGANForecasts() {
             <div className="card p-4 shadow-3">
                 <div className="flex flex-wrap gap-4 align-items-left justify-content-start">
                     <div className="flex flex-column gap-4">
-                        <PlotType />
                         <LocationSelector />
+                        <PlotType />
                         <LatitudeLongitude target="latitude" />
                         <LatitudeLongitude target="longitude" />
                         <HistogramBins />
                         <HistogramCertainity />
+                        <SubmitButton {...{ label: 'Refresh/Show Histogram', severity: 'info', iconPos: 'left', icon: 'pi pi-sync', onClick: onShowHistogramPlots, rounded: true }} />
                     </div>
-                    <FetchGanHistogram />
+                    {show_histogram && <FetchGanHistogram />}
                 </div>
             </div>
         </div>

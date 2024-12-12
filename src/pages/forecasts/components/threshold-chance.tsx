@@ -5,11 +5,11 @@ import NumericInput from './form/numeric-input';
 
 export default function ThresholdChance() {
     const dispatch = useAppDispatch();
-    const threshold = useAppSelector((state) => state.params.cgan?.threshold_chance);
+    const threshold = useAppSelector((state) => state.params.cgan?.threshold);
     const plot_units = useAppSelector((state) => state.params?.plot_units || PrecipitationUnit.MM_6H);
 
     const onValueChange = (value: number) => {
-        dispatch(onGanParamChange({ threshold_chance: value }));
+        dispatch(onGanParamChange({ threshold: value }));
     };
 
     return (

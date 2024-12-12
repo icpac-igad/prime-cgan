@@ -10,14 +10,15 @@ export interface Forecastparams {
     plot_units?: string;
     acc_time?: string;
     forecast_date?: string;
-    forecast_time?: string;
+    start_time?: string;
 }
 
 export interface GanParams {
     model?: string;
     show_ensemble?: boolean;
     max_ens_plots?: number;
-    threshold_chance?: number;
+    threshold?: number;
+    show_histogram?: boolean;
     histogram_plot?: string;
     histogram_bins?: number;
     histogram_certainity?: number;
@@ -33,15 +34,21 @@ export interface OpenIfsParams {
     max_ens_plots?: number;
 }
 
+interface IndexPageProps {
+    activeIndex: number;
+}
+
 export interface ParamState extends Forecastparams {
     cgan: GanParams;
     open_ifs: OpenIfsParams;
+    pages: IndexPageProps;
 }
 
 const initialState: ParamState = {
     status: 'idle',
-    cgan: {},
-    open_ifs: {}
+    cgan: { threshold: 5, show_histogram: false },
+    open_ifs: {},
+    pages: { activeIndex: 0 }
 };
 
 export const ParamSlice = createSlice({
@@ -71,6 +78,9 @@ export const ParamSlice = createSlice({
                     ...action.payload
                 }
             };
+        },
+        onActiveIndexPageChange(state, action: PayloadAction<number>) {
+            state.pages.activeIndex = action.payload;
         }
     },
     selectors: {
@@ -94,12 +104,12 @@ export const ParamSlice = createSlice({
             validObjectEntries({
                 acc_time: paramState.acc_time,
                 forecast_date: paramState.forecast_date,
-                forecast_time: paramState.forecast_time
+                start_time: paramState.start_time
             }),
         selectGanEnsembleParams: (paramState) =>
             validObjectEntries({
-                show_ensemble: paramState.cgan?.show_ensemble,
-                max_ens_plots: paramState.cgan?.max_ens_plots
+                show_ensemble: paramState.cgan.show_ensemble,
+                max_ens_plots: paramState.cgan.max_ens_plots
             }),
         selectGanHistogramParams: (paramState) =>
             validObjectEntries({
@@ -112,12 +122,12 @@ export const ParamSlice = createSlice({
             }),
         selectGanThresholdParams: (paramState) =>
             validObjectEntries({
-                threshold_chance: paramState.cgan?.threshold_chance,
+                threshold: paramState.cgan?.threshold,
                 show_percentages: paramState.cgan?.show_percentages
             })
     }
 });
 
-export const { onForecastParamChange, onGanParamChange, onOpenIfsParamChange } = ParamSlice.actions;
+export const { onForecastParamChange, onGanParamChange, onOpenIfsParamChange, onActiveIndexPageChange } = ParamSlice.actions;
 export const { selectForecastParams, selectOpenIfsParams, selectOpenEnsembleParams, selectGanParams, selectGanHistogramParams, selectGanEnsembleParams, selectGanThresholdParams } = ParamSlice.selectors;
 export default ParamSlice.reducer;
