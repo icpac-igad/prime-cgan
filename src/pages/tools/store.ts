@@ -2,10 +2,10 @@ import * as types from './types';
 
 export const pages: types.NavigationItem[] = [
     { name: 'Home', url: '/' },
-    { name: 'Forecast Systems', url: '/forecast-systems/' },
-    { name: 'Mapviewer', url: '/mapviewer/' },
-    { name: 'Resources', url: '/useful-links/' },
-    { name: 'Contact Us', url: '/contact-us/' }
+    { name: 'Forecast Systems', url: '/forecast-systems/' }
+    // { name: 'Mapviewer', url: '/mapviewer/' },
+    // { name: 'Resources', url: '/useful-links/' },
+    // { name: 'Contact Us', url: '/contact-us/' }
 ];
 
 export const products: types.ForecastProduct[] = [
