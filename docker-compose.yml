@@ -17,3 +17,4 @@ services:
             - ${GBMC_DATA_DIR:-./data/store/gbmc}:${PUBLIC_DATA_DIR:-/opt/data}/cgan-ifs
             - ${IFS_DATA_DIR:-./data/store/open-ifs}:${PUBLIC_DATA_DIR:-/srv/data}/open-ifs
             - ${API_CACHE_DIR:-../fast-cgan/cache}:/opt/api-cache
+            - ${NGINX_SSL_CERTS:-./data/ssl-certs}:${CERTS_DIR:-/var/srv/ssl-certs}

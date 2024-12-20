@@ -29,4 +29,5 @@ WORKDIR ${APP_HOME}
 COPY --from=builder ${APP_DIR}/dist ${APP_HOME}
 COPY --from=builder /opt/share ${ERROR_PAGES}
 COPY --from=builder ${DHPARAM_DIR}/dhparams.pem ${DHPARAM_DIR}/dhparams.pem
-COPY ./nginx/default.conf /etc/nginx/sites-enabled
+COPY ./nginx/default.conf ./nginx/site.conf /etc/nginx/conf.d/
+COPY ./nginx/security.conf ./nginx/ssl-options.conf /etc/nginx/
