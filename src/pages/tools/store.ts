@@ -2,7 +2,8 @@ import * as types from './types';
 
 export const pages: types.NavigationItem[] = [
     { name: 'Home', url: '/' },
-    { name: 'Forecast Systems', url: '/forecast-systems/' }
+    { name: 'Forecast Systems', url: '/forecast-systems/' },
+    { name: 'Data Download', url: '/ftp/' }
     // { name: 'Mapviewer', url: '/mapviewer/' },
     // { name: 'Resources', url: '/useful-links/' },
     // { name: 'Contact Us', url: '/contact-us/' }

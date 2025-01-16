@@ -6,6 +6,7 @@ import { MenuItem } from 'primereact/menuitem';
 import CGANForecasts from './cgan';
 import OpenIFSForecasts from './open-ifs';
 import GEFSForecasts from './gefs';
+import JsIframe from './external';
 import IFrame from 'react-iframe';
 
 import { useFetchForecastDatesQuery } from '@/gateway/slices/settings';
@@ -52,13 +53,17 @@ export default function ForecastsPage() {
             template: (item) => itemRenderer(item, 1)
         },
         { label: 'GEFS Forecasts', disabled: true, icon: 'pi pi-objects-column', url: '/forecast-systems/?q=gefs', template: (item) => itemRenderer(item, 2) },
-        { label: 'Embended External System', icon: 'pi pi-external-link', url: '/forecast-systems/?q=embed', template: (item) => itemRenderer(item, 3) }
+        { label: 'Embended External System', icon: 'pi pi-external-link', url: '/forecast-systems/?q=embed', template: (item) => itemRenderer(item, 3) },
+        { label: 'External JS Library', icon: 'pi pi-external-link', url: '/forecast-systems/?q=external', template: (item) => itemRenderer(item, 4) }
     ];
 
     const [searchParams] = useSearchParams();
 
     useEffect(() => {
         switch (searchParams.get('q')) {
+            case 'external':
+                dispatch(onActiveIndexPageChange(4));
+                break;
             case 'embed':
                 dispatch(onActiveIndexPageChange(3));
                 break;
@@ -106,7 +111,7 @@ export default function ForecastsPage() {
             <div className="card">
                 <TabMenu model={items} activeIndex={activePage} onTabChange={(e) => dispatch(onActiveIndexPageChange(e.index))} />
             </div>
-            {activePage === 3 ? <ExternalSystem /> : activePage === 2 ? <GEFSForecasts /> : activePage === 1 ? <OpenIFSForecasts /> : <CGANForecasts />}
+            {activePage === 4 ? <JsIframe /> : activePage === 3 ? <ExternalSystem /> : activePage === 2 ? <GEFSForecasts /> : activePage === 1 ? <OpenIFSForecasts /> : <CGANForecasts />}
         </div>
     );
 }
