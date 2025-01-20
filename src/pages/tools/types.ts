@@ -68,6 +68,7 @@ export interface SelectInputProps extends InputFieldProps {
 
 export interface ToggleButtonProps extends InputFieldProps {
     options: string[];
+    disabled?: boolean;
 }
 
 export interface NumberInputProps extends BaseInputProps {

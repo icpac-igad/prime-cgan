@@ -3,6 +3,7 @@ import { onForecastParamChange } from '@/gateway/slices/params';
 import { SelectOption } from '@/pages/tools/types';
 import SelectInput from './form/select-input';
 
+import { GanModels } from '@/pages/tools/constants';
 import { validTimeSelect } from '@/pages/tools/plotsLib';
 
 export default function SelectValidTime() {
@@ -10,6 +11,7 @@ export default function SelectValidTime() {
     const forecast_date = useAppSelector((state) => state.params?.forecast_date);
     const start_time = useAppSelector((state) => state.params?.start_time);
     const valid_time = useAppSelector((state) => state.params?.valid_time);
+    const model = useAppSelector((state) => state.params.cgan?.model) || GanModels[0].value;
 
     const getValidTimeOptions = () => {
         const dataDate = new Date(forecast_date || 'Nov 27, 2024');
@@ -25,7 +27,9 @@ export default function SelectValidTime() {
 
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ valid_time: value }));
-        validTimeSelect(forecast_date, start_time, value);
+        if (GanModels.map((m) => m.value).includes(model)) {
+            validTimeSelect(forecast_date, start_time, value);
+        }
     };
 
     const options: SelectOption[] = getValidTimeOptions();

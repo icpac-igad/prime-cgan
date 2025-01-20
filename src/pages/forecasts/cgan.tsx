@@ -61,18 +61,20 @@ export default function CGANForecasts() {
 
             <div className="card p-4 m-2 shadow-3">
                 <div className="flex flex-wrap gap-2 align-items-left justify-content-start">
-                    <PlotTypeSelector />
-                    <HistogramThresholdValue />
-                    <ThresholdChance />
-                    <ShowPercentage />
-                </div>
-                <div className="flex flex-wrap gap-2 align-items-center justify-content-center">
-                    <p className="font-medium line-height-3" id="statusText" style={{ color: 'rgb(204, 0, 0)' }}>
-                        Loading borders ...
-                    </p>
-                    <canvas id="myCanvas" width="1024" height="504">
-                        Your browser does not support the HTML canvas tag.
-                    </canvas>
+                    <div className="flex flex-column gap-4">
+                        <PlotTypeSelector />
+                        <HistogramThresholdValue />
+                        <ThresholdChance />
+                        <ShowPercentage />
+                    </div>
+                    <div className="flex flex-column gap-1">
+                        <p className="font-medium line-height-3" id="statusText" style={{ color: 'rgb(204, 0, 0)' }}>
+                            Loading borders ...
+                        </p>
+                        <canvas id="myCanvas" width="1024" height="504">
+                            Your browser does not support the HTML canvas tag.
+                        </canvas>
+                    </div>
                 </div>
             </div>
 

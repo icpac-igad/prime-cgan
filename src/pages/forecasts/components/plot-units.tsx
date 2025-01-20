@@ -1,19 +1,28 @@
 import { useAppDispatch, useAppSelector } from '@/gateway/hooks';
-import { onForecastParamChange } from '@/gateway/slices/params';
+import { onForecastParamChange, onGanParamChange } from '@/gateway/slices/params';
 import { PrecipitationUnit } from '@/client';
 import { SelectOption } from '@/pages/tools/types';
 import SelectInput from './form/select-input';
 
+import { GanModels } from '@/pages/tools/constants';
 import { unitsSelect } from '@/pages/tools/plotsLib';
+import { getPlotNormalisation, roundSF } from '@/pages/tools/plotForecasts';
 
 export default function SelectPlotunits() {
     const dispatch = useAppDispatch();
     const plot_units = useAppSelector((state) => state.params?.plot_units);
+    const threshold = useAppSelector((state) => state.params?.cgan.threshold) || 5;
+    const model = useAppSelector((state) => state.params.cgan?.model) || GanModels[0].value;
 
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ plot_units: value }));
 
-        unitsSelect(value);
+        if (GanModels.map((m) => m.value).includes(model)) {
+            let norm = getPlotNormalisation(value);
+            let maxRain = threshold * norm;
+            dispatch(onGanParamChange({ threshold: roundSF(maxRain * norm, 3) }));
+            unitsSelect(value, maxRain);
+        }
     };
 
     const options: SelectOption[] = [

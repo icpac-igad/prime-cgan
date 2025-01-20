@@ -6,15 +6,19 @@ import SelectInput from './form/select-input';
 import Spinner from './spinner';
 import { isEmpty } from 'lodash';
 
+import { GanModels } from '@/pages/tools/constants';
 import { setRegionSelect } from '@/pages/tools/plotsLib';
 
 export default function SelectAreaOfInterest() {
     const dispatch = useAppDispatch();
     const mask_area = useAppSelector((state) => state.params?.mask_area);
+    const model = useAppSelector((state) => state.params.cgan?.model) || GanModels[0].value;
 
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ mask_area: value }));
-        setRegionSelect(value);
+        if (GanModels.map((m) => m.value).includes(model)) {
+            setRegionSelect(value);
+        }
     };
 
     const { data = [], isFetching, isSuccess, isLoading } = useFetchMaskAreasQuery({ url: '/settings/mask-areas' });

@@ -49,19 +49,15 @@ export async function validTimeSelect(forecast_date, start_time, valid_time) {
 }
 
 // Called by the styleSelect menu
-export function setStyleSelect(value) {
+export function setStyleSelect(value, model) {
     style = value;
+    modelName = model;
     drawPlots();
 }
 
 // Called by the plotSelect menu
 export function plotSelect(plot) {
     plotType = plot;
-    if (plotType == 'Probability') {
-        document.getElementById('percentagesSelect').removeAttribute('disabled', '');
-    } else {
-        document.getElementById('percentagesSelect').setAttribute('disabled', '');
-    }
     drawPlots();
 }
 
@@ -76,15 +72,10 @@ export function percentagesSelect(value) {
 }
 
 // Called by the unitsSelect menu
-export function unitsSelect(value) {
+export function unitsSelect(value, max_rain) {
     // Get the unitsSelect menu's value
     units = value;
-    // Set the units in the description to the selected units
-    document.getElementById('unitsDescription').innerHTML = units;
-    // Update the value threshold to display in the current units
-    let norm = plots.getPlotNormalisation(units);
-    document.getElementById('threshold-value').value = plots.roundSF(maxRain * norm, 3);
-    // Draw plots with the new units
+    maxRain = max_rain;
     drawPlots();
 }
 
@@ -124,26 +115,6 @@ export async function loadForecast(forecast_date, start_time, valid_time) {
     await GANForecast.loadGANForecast(fileName, modelName, accumulationHours);
 }
 
-export function initControls() {
-    // XXX Actually should keep the settings on reload and reload the correct plots
-
-    // Need to get the units correct
-    let norm = plots.getPlotNormalisation(units);
-    document.getElementById('threshold-value').value = plots.roundSF(maxRain * norm, 3);
-
-    // if (showPercentages) {
-    //     document.getElementById('percentagesSelect').value = 'Percentages';
-    // } else {
-    //     document.getElementById('percentagesSelect').value = 'Words';
-    // }
-
-    // if (plotType == 'Probability') {
-    //     document.getElementById('percentagesSelect').removeAttribute('disabled', '');
-    // } else {
-    //     document.getElementById('percentagesSelect').setAttribute('disabled', '');
-    // }
-}
-
 // Function to inform the user what is going on
 //    code - 0 = Not waiting
 //           1 = Waiting for data to load
@@ -165,7 +136,18 @@ export function showLoadingStatus(code, message) {
 
 export async function init(forecast_date, start_time, valid_time) {
     // Set the default values of the plot controls
-    initControls();
+
+    // if (showPercentages) {
+    //     document.getElementById('percentagesSelect').value = 'Percentages';
+    // } else {
+    //     document.getElementById('percentagesSelect').value = 'Words';
+    // }
+
+    // if (plotType == 'Probability') {
+    //     document.getElementById('percentagesSelect').removeAttribute('disabled', '');
+    // } else {
+    //     document.getElementById('percentagesSelect').setAttribute('disabled', '');
+    // }
 
     // Specify the function to call to inform the user what is going on
     plots.setStatusUpdateFunction(showLoadingStatus);
@@ -214,25 +196,17 @@ export async function init(forecast_date, start_time, valid_time) {
             requestAnimationFrame(drawPlots);
         }
     });
+}
 
-    // Detect if the enter or return key is pressed in the value threshold input field
-    let inputField = document.getElementById('threshold-value');
-    inputField.addEventListener('keypress', function (event) {
-        if (event.key === 'Enter') {
-            let norm = plots.getPlotNormalisation(units);
-            let maxRain = document.getElementById('threshold-value').value / norm;
-            drawPlots();
-        }
-    });
+export function thresholdValueSet(threshold) {
+    let norm = plots.getPlotNormalisation(units);
+    maxRain = threshold / norm;
+    drawPlots();
+}
 
-    // Detect if the enter or return key is pressed in the probability threshold input field
-    inputField = document.getElementById('threshold-chance');
-    inputField.addEventListener('keypress', function (event) {
-        if (event.key === 'Enter') {
-            let probability = document.getElementById('threshold-chance').value / 100.0;
-            drawPlots();
-        }
-    });
+export function thresholdChanceSet(chance) {
+    probability = chance / 100;
+    drawPlots();
 }
 
 export async function drawPlots() {
