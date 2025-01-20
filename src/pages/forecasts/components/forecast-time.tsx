@@ -4,12 +4,17 @@ import { ValidStartTime } from '@/client';
 import { SelectOption } from '@/pages/tools/types';
 import SelectInput from './form/select-input';
 
+import { initTimeSelect } from '@/pages/tools/plotsLib';
+
 export default function SelectAccTime() {
     const dispatch = useAppDispatch();
     const start_time = useAppSelector((state) => state.params?.start_time);
+    const valid_time = useAppSelector((state) => state.params?.valid_time);
+    const forecast_date = useAppSelector((state) => state.params?.forecast_date);
 
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ start_time: value }));
+        initTimeSelect(forecast_date, value, valid_time);
     };
 
     const options: SelectOption[] = [

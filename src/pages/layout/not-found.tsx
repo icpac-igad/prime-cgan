@@ -29,32 +29,32 @@ export default function NotFound() {
                                 {error?.status || '404'} - {error?.statusText || 'Not Found'}
                             </span>
                             <h1 className="text-900 font-bold text-2xl mb-2">{error?.data || 'Requested resource is not available'}</h1>
-                            <div className="text-600 mb-5">Please use any of the below options to explore other resources</div>
+                            <div className="text-600 mb-5">Please use any of the below options to explore other available options</div>
                             <Link to="/" className="w-full flex align-items-center py-5 border-300 border-bottom-1">
                                 <span className="flex justify-content-center align-items-center bg-cyan-400 border-round" style={{ height: '3.5rem', width: '3.5rem' }}>
-                                    <i className="text-50 pi pi-fw pi-table text-2xl"></i>
+                                    <i className="text-50 pi pi-fw pi-home text-2xl"></i>
                                 </span>
                                 <span className="ml-4 flex flex-column">
-                                    <span className="text-900 lg:text-xl font-medium mb-1">Frequently Asked Questions</span>
-                                    <span className="text-600 lg:text-lg">Ultricies mi quis hendrerit dolor.</span>
+                                    <span className="text-900 lg:text-xl font-medium mb-1">Browse Home Page</span>
+                                    <span className="text-600 lg:text-lg">If you are lost, this is the best place-mark to find your way!</span>
                                 </span>
                             </Link>
-                            <Link to="/" className="w-full flex align-items-center py-5 border-300 border-bottom-1">
+                            <Link to="/forecast-systems/" className="w-full flex align-items-center py-5 border-300 border-bottom-1">
                                 <span className="flex justify-content-center align-items-center bg-orange-400 border-round" style={{ height: '3.5rem', width: '3.5rem' }}>
-                                    <i className="pi pi-fw pi-question-circle text-50 text-2xl"></i>
+                                    <i className="pi pi-fw pi-globe text-50 text-2xl"></i>
                                 </span>
                                 <span className="ml-4 flex flex-column">
-                                    <span className="text-900 lg:text-xl font-medium mb-1">Solution Center</span>
-                                    <span className="text-600 lg:text-lg">Phasellus faucibus scelerisque eleifend.</span>
+                                    <span className="text-900 lg:text-xl font-medium mb-1">Explore Forecasting Systems</span>
+                                    <span className="text-600 lg:text-lg">A collection of tools and products produced by forecasting models.</span>
                                 </span>
                             </Link>
-                            <Link to="/" className="w-full flex align-items-center mb-5 py-5 border-300 border-bottom-1">
+                            <Link to={import.meta.env.VITE_FTP_DATA_URL || '/ftp/'} className="w-full flex align-items-center mb-5 py-5 border-300 border-bottom-1">
                                 <span className="flex justify-content-center align-items-center bg-indigo-400 border-round" style={{ height: '3.5rem', width: '3.5rem' }}>
-                                    <i className="pi pi-fw pi-unlock text-50 text-2xl"></i>
+                                    <i className="pi pi-fw pi-download text-50 text-2xl"></i>
                                 </span>
                                 <span className="ml-4 flex flex-column">
-                                    <span className="text-900 lg:text-xl font-medium mb-1">Permission Manager</span>
-                                    <span className="text-600 lg:text-lg">Accumsan in nisl nisi scelerisque</span>
+                                    <span className="text-900 lg:text-xl font-medium mb-1">Access Forecasts Data</span>
+                                    <span className="text-600 lg:text-lg">Gateway to forecast data repository </span>
                                 </span>
                             </Link>
                         </div>

@@ -6,12 +6,15 @@ import SelectInput from './form/select-input';
 import Spinner from './spinner';
 import { isEmpty } from 'lodash';
 
+import { setStyleSelect } from '@/pages/tools/plotsLib';
+
 export default function SelectColorStyle() {
     const dispatch = useAppDispatch();
     const color_style = useAppSelector((state) => state.params?.color_style);
 
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ color_style: value }));
+        setStyleSelect(value);
     };
 
     const { data = [], isFetching, isSuccess, isLoading } = useFetchColorStylesQuery({ url: '/settings/color-styles' });

@@ -6,6 +6,8 @@ import SelectInput from './form/select-input';
 import Spinner from './spinner';
 import { isEmpty } from 'lodash';
 
+import { loadForecast } from '@/pages/tools/plotsLib';
+
 interface componentProps {
     data: ForecastDate[];
     isFetching: boolean;
@@ -16,9 +18,12 @@ interface componentProps {
 export default function ForecastDates(props: componentProps) {
     const dispatch = useAppDispatch();
     const forecast_date = useAppSelector((state) => state.params?.forecast_date);
+    const start_time = useAppSelector((state) => state.params?.start_time);
+    const valid_time = useAppSelector((state) => state.params?.valid_time);
 
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ forecast_date: value }));
+        loadForecast(value, start_time, valid_time);
     };
 
     if (props.isFetching || props.isLoading) {

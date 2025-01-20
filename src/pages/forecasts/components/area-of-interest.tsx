@@ -6,12 +6,15 @@ import SelectInput from './form/select-input';
 import Spinner from './spinner';
 import { isEmpty } from 'lodash';
 
+import { setRegionSelect } from '@/pages/tools/plotsLib';
+
 export default function SelectAreaOfInterest() {
     const dispatch = useAppDispatch();
     const mask_area = useAppSelector((state) => state.params?.mask_area);
 
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ mask_area: value }));
+        setRegionSelect(value);
     };
 
     const { data = [], isFetching, isSuccess, isLoading } = useFetchMaskAreasQuery({ url: '/settings/mask-areas' });

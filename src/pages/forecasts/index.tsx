@@ -6,12 +6,13 @@ import { MenuItem } from 'primereact/menuitem';
 import CGANForecasts from './cgan';
 import OpenIFSForecasts from './open-ifs';
 import GEFSForecasts from './gefs';
-import JsIframe from './external';
 import IFrame from 'react-iframe';
 
 import { useFetchForecastDatesQuery } from '@/gateway/slices/settings';
 import { onForecastParamChange, onActiveIndexPageChange } from '@/gateway/slices/params';
 import { useAppDispatch, useAppSelector } from '@/gateway/hooks';
+
+import ForecastModel from './components/forecast-model';
 
 import VisualizationParameter from './components/vis-parameter';
 import MaskAreaSelect from './components/area-of-interest';
@@ -20,6 +21,7 @@ import AccTimeSelect from './components/acc-time';
 import PlotUnitsSelect from './components/plot-units';
 import ForecastDateSelect from './components/forecast-date';
 import ForecastTimeSelect from './components/forecast-time';
+import ValidTimeSelect from './components/forecast-validity';
 
 import ShowEnsemble from './components/show-ensemble';
 
@@ -28,8 +30,8 @@ import { isEmpty } from 'lodash';
 const ExternalSystem = () => {
     return (
         <div className="shadow-0 mx-4 px-4 pt-2 pb-8">
-            <h1 className="text-2xl text-left font-semibold">Embended External Forecasting Systems</h1>
-            <IFrame url="http://megacorr.dynu.net/ICPAC/cGAN_examplePlots/fastData.html" width="100%" height="718" overflow="hidden" frameBorder={0} loading="lazy" position="relative" allowFullScreen />
+            <h1 className="text-2xl text-left font-semibold">Embeded External Early Information System</h1>
+            <IFrame url="https://eahazardswatch.icpac.net/map/ea/" width="100%" height="718" overflow="hidden" frameBorder={0} loading="lazy" position="relative" allowFullScreen />
         </div>
     );
 };
@@ -53,17 +55,13 @@ export default function ForecastsPage() {
             template: (item) => itemRenderer(item, 1)
         },
         { label: 'GEFS Forecasts', disabled: true, icon: 'pi pi-objects-column', url: '/forecast-systems/?q=gefs', template: (item) => itemRenderer(item, 2) },
-        { label: 'Embended External System', icon: 'pi pi-external-link', url: '/forecast-systems/?q=embed', template: (item) => itemRenderer(item, 3) },
-        { label: 'External JS Library', icon: 'pi pi-external-link', url: '/forecast-systems/?q=external', template: (item) => itemRenderer(item, 4) }
+        { label: 'Embeded External System', icon: 'pi pi-external-link', url: '/forecast-systems/?q=embed', template: (item) => itemRenderer(item, 3) }
     ];
 
     const [searchParams] = useSearchParams();
 
     useEffect(() => {
         switch (searchParams.get('q')) {
-            case 'external':
-                dispatch(onActiveIndexPageChange(4));
-                break;
             case 'embed':
                 dispatch(onActiveIndexPageChange(3));
                 break;
@@ -97,10 +95,20 @@ export default function ForecastsPage() {
 
             <div className="card shadow-2 p-4 mb-6 mt-4 ">
                 <div className="flex flex-wrap gap-2 align-items-left justify-content-start">
-                    {activePage == 1 && <VisualizationParameter />}
-                    <MaskAreaSelect />
+                    {activePage === 0 && (
+                        <>
+                            <ForecastModel />
+                            <MaskAreaSelect />
+                        </>
+                    )}
+                    {activePage === 1 && <VisualizationParameter />}
                     <ForecastDateSelect data={datesData} isFetching={datesFetching} isLoading={datesLoading} isSuccess={datesSuccess} />
-                    {activePage === 0 && <ForecastTimeSelect />}
+                    {activePage === 0 && (
+                        <>
+                            <ForecastTimeSelect />
+                            <ValidTimeSelect />
+                        </>
+                    )}
                     <PlotUnitsSelect />
                     {activePage === 0 && <AccTimeSelect />}
                     <ColorStyleSelect />
@@ -111,7 +119,7 @@ export default function ForecastsPage() {
             <div className="card">
                 <TabMenu model={items} activeIndex={activePage} onTabChange={(e) => dispatch(onActiveIndexPageChange(e.index))} />
             </div>
-            {activePage === 4 ? <JsIframe /> : activePage === 3 ? <ExternalSystem /> : activePage === 2 ? <GEFSForecasts /> : activePage === 1 ? <OpenIFSForecasts /> : <CGANForecasts />}
+            {activePage === 3 ? <ExternalSystem /> : activePage === 2 ? <GEFSForecasts /> : activePage === 1 ? <OpenIFSForecasts /> : <CGANForecasts />}
         </div>
     );
 }

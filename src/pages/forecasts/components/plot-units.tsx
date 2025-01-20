@@ -4,12 +4,16 @@ import { PrecipitationUnit } from '@/client';
 import { SelectOption } from '@/pages/tools/types';
 import SelectInput from './form/select-input';
 
+import { unitsSelect } from '@/pages/tools/plotsLib';
+
 export default function SelectPlotunits() {
     const dispatch = useAppDispatch();
     const plot_units = useAppSelector((state) => state.params?.plot_units);
 
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ plot_units: value }));
+
+        unitsSelect(value);
     };
 
     const options: SelectOption[] = [

@@ -11,6 +11,7 @@ export interface Forecastparams {
     acc_time?: string;
     forecast_date?: string;
     start_time?: string;
+    valid_time?: string;
 }
 
 export interface GanParams {
