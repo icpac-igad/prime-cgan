@@ -31,7 +31,7 @@ export default function HeaderComponent() {
                         {pages &&
                             pages.map((page) => (
                                 <li key={page.name}>
-                                    <NavLink to={page.url} onClick={toggleMenuItemClick} className="p-ripple flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
+                                    <NavLink to={page.url} target={page?.target ? page.target : '_self'} onClick={toggleMenuItemClick} className="p-ripple flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
                                         <span>{page.name}</span>
                                         <Ripple />
                                     </NavLink>

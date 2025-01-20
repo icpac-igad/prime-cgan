@@ -10,7 +10,7 @@ export default function FooterComponent() {
                         <div className="flex flex-wrap justify-content-center column-gap-4 row-gap-6 justify-content-center text-center">
                             {partners &&
                                 partners.map((partner) => (
-                                    <a href={partner.url} target="_blank" key={partner.name}>
+                                    <a href={partner.url} target={partner?.target ? partner.target : '_blank'} key={partner.name}>
                                         <img src={partner.logo} alt={partner.name} width={partner.width} />
                                     </a>
                                 ))}
@@ -24,7 +24,7 @@ export default function FooterComponent() {
                                 {pages &&
                                     pages.map((page) => (
                                         <li key={page.name}>
-                                            <Link to={page.url}>
+                                            <Link to={page.url} target={page?.target ? page.target : '_self'}>
                                                 <i className="pi pi-angle-right mr-3" style={{ fontSize: '1.5rem', color: 'slateblue' }}></i>
                                                 <span className="text-white text-xl">{page.name}</span>
                                             </Link>

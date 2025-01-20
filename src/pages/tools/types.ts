@@ -8,6 +8,7 @@ interface PublicProduct {
 export interface NavigationItem {
     name: string;
     url: string;
+    target?: string;
 }
 
 export interface ForecastProduct extends PublicProduct {
