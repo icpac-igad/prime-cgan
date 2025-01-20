@@ -6,15 +6,16 @@ services:
             args:
                 - VITE_API_URL=${VITE_API_URL}
         image: ${NGINX_IMAGE_NAME:-icpac/sewaa-proxy-server}
-        container_name: ${NGINX_CNTR_NAME:-proxy-server}
+        container_name: ${NGINX_CNTR_NAME:-cgan-proxy}
         restart: ${RESTART_POLICY:-always}
         ports:
             - ${HTTP_HOST_IP:-0.0.0.0}:${HTTP_HOST_PORT:-80}:80
             - ${HTTPS_HOST_IP:-0.0.0.0}:${HTTPS_HOST_PORT:-443}:443
+        environment:
+            - VITE_API_URL
+            - OPENAPI_URL
         volumes:
-            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-            - ${CGAN_DATA_DIR:-./data/store/cgan}:${PUBLIC_DATA_DIR:-/opt/data}/cgan-forecast
-            - ${GBMC_DATA_DIR:-./data/store/gbmc}:${PUBLIC_DATA_DIR:-/opt/data}/cgan-ifs
-            - ${IFS_DATA_DIR:-./data/store/open-ifs}:${PUBLIC_DATA_DIR:-/srv/data}/open-ifs
+            - ${SITE_CONF:-./nginx/live-site.conf}:/etc/nginx/conf.d/site.conf
+            - ${FORECASTS_DATA_DIR:-./data/forecasts}:${PUBLIC_DATA_DIR:-/opt/data}
             - ${API_CACHE_DIR:-../fast-cgan/cache}:/opt/api-cache
             - ${NGINX_SSL_CERTS:-./data/ssl-certs}:${CERTS_DIR:-/var/srv/ssl-certs}

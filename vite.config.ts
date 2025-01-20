@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import viteCompression from 'vite-plugin-compression';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -14,7 +15,9 @@ export default defineConfig({
         // Gzip by default
         viteCompression(),
         // Brotli compression
-        viteCompression({ algorithm: 'brotliCompress' })
+        viteCompression({ algorithm: 'brotliCompress' }),
+        // Generate a visual report of dependencies
+        visualizer({ open: true })
     ],
     resolve: {
         alias: [{ find: '@', replacement: path.resolve('./src') }]
@@ -33,6 +36,7 @@ export default defineConfig({
         }
     },
     build: {
+        chunkSizeWarningLimit: 1000, // Set limit to 1000 KB
         rollupOptions: {
             output: {
                 manualChunks(id: string, { getModuleInfo }) {
@@ -47,17 +51,17 @@ export default defineConfig({
                     }
 
                     // Add your large packages to the list
-                    for (const largePackage of ['react-map-gl', 'maplibre-gl']) {
+                    for (const largePackage of ['react-map-gl', 'maplibre-gl', 'lodash']) {
                         if (id.includes(`/node_modules/${largePackage}/`)) {
                             return largePackage;
                         }
                     }
 
                     // All other packages in the `node_modules` folder will be bundled together
-                    if (id.includes('/node_modules/')) {
-                        return 'vendors';
+                    if (id.includes('node_modules')) {
+                        return 'vendor'; // Split vendor libraries
                     }
-
+                    return 'shared';
                     // Use the default behavior for other modules
                 },
                 entryFileNames: 'assets/[name].js',

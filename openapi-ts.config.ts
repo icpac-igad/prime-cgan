@@ -1,6 +1,6 @@
 // see https://fastapi.tiangolo.com/advanced/generate-clients/#openapi-client-generators
 
-import { defineConfig, defaultPlugins } from '@hey-api/openapi-ts';
+import { defineConfig } from '@hey-api/openapi-ts';
 import * as dotenv from 'dotenv';
 import { env } from 'process';
 
