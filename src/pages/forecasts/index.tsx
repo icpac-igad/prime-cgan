@@ -11,6 +11,7 @@ import IFrame from 'react-iframe';
 import { useFetchForecastDatesQuery } from '@/gateway/slices/settings';
 import { onForecastParamChange, onActiveIndexPageChange } from '@/gateway/slices/params';
 import { useAppDispatch, useAppSelector } from '@/gateway/hooks';
+import { GanForecastModel } from '@/pages/tools/types';
 
 import ForecastModel from './components/forecast-model';
 
@@ -38,6 +39,7 @@ const ExternalSystem = () => {
 
 export default function ForecastsPage() {
     const activePage = useAppSelector((state) => state.params.pages.activeIndex);
+    const model = useAppSelector((state) => state.params.cgan?.model) as GanForecastModel;
     const dispatch = useAppDispatch();
 
     const itemRenderer = (item: MenuItem, itemIndex: number) => (
@@ -76,7 +78,7 @@ export default function ForecastsPage() {
         }
     }, [searchParams]);
 
-    const { data: datesData = [], isFetching: datesFetching, isSuccess: datesSuccess, isLoading: datesLoading } = useFetchForecastDatesQuery({ url: '/settings/data-dates', query: { forecast: activePage === 0 ? 'cgan-forecast' : 'open-ifs' } });
+    const { data: datesData = [], isFetching: datesFetching, isSuccess: datesSuccess, isLoading: datesLoading } = useFetchForecastDatesQuery({ url: '/settings/data-dates', query: { forecast: model } });
     if (!datesLoading && datesSuccess && !isEmpty(datesData)) {
         dispatch(onForecastParamChange({ forecast_date: datesData[0].date }));
     }

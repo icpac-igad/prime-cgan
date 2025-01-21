@@ -1,6 +1,6 @@
 import * as plots from './plotForecasts';
-// Models: "Jurre brishti", "Muva kubwa"
-let modelName = 'Jurre brishti';
+// Models: "jurre-brishti", "muva-kubwa"
+let modelName = 'jurre-brishti';
 // Regions: Burundi, Djibouti, Eritrea, Ethiopia, Kenya, Rwanda, Somalia, South Sudan,
 //          Sudan, Tanzania, Uganda, ICPAC, East Africa, All.
 let regionName = 'East Africa';
@@ -89,7 +89,7 @@ export async function loadForecast(forecast_date, start_time, valid_time) {
     let year = 2024;
     let month = 12;
     let day = 11;
-    let time = start_time || 18;
+    let time = start_time || 0;
     let validTime = valid_time || '30';
     if (forecast_date) {
         let date = new Date(forecast_date);
@@ -99,13 +99,11 @@ export async function loadForecast(forecast_date, start_time, valid_time) {
     }
 
     // The directory name depends upon which model we are looking at
-    let countsDir;
+    let countsDir = `${modelName}-count`;
     let accumulationHours;
-    if (modelName == 'Jurre brishti') {
-        countsDir = 'jurre-brishti';
+    if (modelName == 'jurre-brishti') {
         accumulationHours = 6;
-    } else if (modelName == 'Mvua kubwa') {
-        countsDir = 'mvua-kubwa';
+    } else if (modelName == 'mvua-kubwa') {
         accumulationHours = 24;
     }
     // The cGAN forecast file to load

@@ -87,6 +87,7 @@ export const ParamSlice = createSlice({
     selectors: {
         selectForecastParams: (paramState) =>
             validObjectEntries({
+                model: paramState.cgan.model,
                 mask_area: paramState.mask_area,
                 color_style: paramState.color_style,
                 plot_units: paramState.plot_units,
@@ -94,6 +95,7 @@ export const ParamSlice = createSlice({
             }),
         selectOpenIfsParams: (paramState) =>
             validObjectEntries({
+                model: paramState.cgan.model,
                 vis_param: paramState.open_ifs?.vis_param
             }),
         selectOpenEnsembleParams: (paramState) =>

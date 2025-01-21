@@ -15,6 +15,12 @@ export type ForecastMap = {
     image_url: string;
 };
 
+export type ForecastModel = {
+    name: string;
+    label: string;
+    value: string;
+};
+
 export type HttpValidationError = {
     detail?: Array<ValidationError>;
 };
@@ -111,11 +117,25 @@ export type FaviconIcoFaviconIcoGetErrors = {
 
 export type FaviconIcoFaviconIcoGetError = FaviconIcoFaviconIcoGetErrors[keyof FaviconIcoFaviconIcoGetErrors];
 
+export type GetGanForecastModelsSettingsGanForecastModelsGetData = {
+    body?: never;
+    url: '/settings/gan-forecast-models';
+};
+
+export type GetGanForecastModelsSettingsGanForecastModelsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: Array<ForecastModel>;
+};
+
+export type GetGanForecastModelsSettingsGanForecastModelsGetResponse = GetGanForecastModelsSettingsGanForecastModelsGetResponses[keyof GetGanForecastModelsSettingsGanForecastModelsGetResponses];
+
 export type GetForecastDatesSettingsDataDatesGetData = {
     body?: never;
     path?: never;
     query?: {
-        forecast?: ('cgan-forecast' | 'open-ifs') | null;
+        forecast?: ('mvua-kubwa' | 'jurre-brishti') | null;
     };
     url: '/settings/data-dates';
 };
@@ -197,6 +217,7 @@ export type GetOpenIfsForecastForecastOpenIfsGetData = {
     body?: never;
     path?: never;
     query?: {
+        model?: ('mvua-kubwa' | 'jurre-brishti') | null;
         mask_area?: string | null;
         forecast_date?: string | null;
         plot_units?: PrecipitationUnit | null;
@@ -228,6 +249,7 @@ export type GetOpenIfsForecastEnsemblePlotsForecastOpenIfsEnsembleGetData = {
     body?: never;
     path?: never;
     query?: {
+        model?: ('mvua-kubwa' | 'jurre-brishti') | null;
         mask_area?: string | null;
         forecast_date?: string | null;
         plot_units?: PrecipitationUnit | null;
@@ -259,6 +281,7 @@ export type GetCganForecastForecastCganForecastGetData = {
     body?: never;
     path?: never;
     query?: {
+        model?: ('mvua-kubwa' | 'jurre-brishti') | null;
         mask_area?: string | null;
         forecast_date?: string | null;
         plot_units?: PrecipitationUnit | null;
@@ -291,6 +314,7 @@ export type GetCganForecastEnsemblePlotForecastCganEnsembleGetData = {
     body?: never;
     path?: never;
     query?: {
+        model?: ('mvua-kubwa' | 'jurre-brishti') | null;
         mask_area?: string | null;
         forecast_date?: string | null;
         plot_units?: PrecipitationUnit | null;
@@ -322,6 +346,7 @@ export type GetCganThesholdChancePlotForecastCganThresholdChanceGetData = {
     body?: never;
     path?: never;
     query?: {
+        model?: ('mvua-kubwa' | 'jurre-brishti') | null;
         mask_area?: string | null;
         forecast_date?: string | null;
         plot_units?: PrecipitationUnit | null;
@@ -354,6 +379,7 @@ export type GetCganHistogramPlotForecastCganHistogramGetData = {
     body?: never;
     path?: never;
     query?: {
+        model?: ('mvua-kubwa' | 'jurre-brishti') | null;
         mask_area?: string | null;
         forecast_date?: string | null;
         plot_units?: PrecipitationUnit | null;

@@ -117,4 +117,6 @@ export interface SubmitButtonProps {
     disabled?: boolean;
 }
 
+export type GanForecastModel = 'mvua-kubwa' | 'jurre-brishti' | null | undefined;
+
 export type NodeRef = MutableRefObject<ReactNode>;
