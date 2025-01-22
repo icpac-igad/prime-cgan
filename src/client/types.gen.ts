@@ -135,7 +135,7 @@ export type GetForecastDatesSettingsDataDatesGetData = {
     body?: never;
     path?: never;
     query?: {
-        forecast?: ('mvua-kubwa' | 'jurre-brishti') | null;
+        model?: ('jurre-brishti' | 'mvua-kubwa' | 'open-ifs') | null;
     };
     url: '/settings/data-dates';
 };

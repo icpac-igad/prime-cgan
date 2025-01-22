@@ -78,7 +78,7 @@ export default function ForecastsPage() {
         }
     }, [searchParams]);
 
-    const { data: datesData = [], isFetching: datesFetching, isSuccess: datesSuccess, isLoading: datesLoading } = useFetchForecastDatesQuery({ url: '/settings/data-dates', query: { forecast: model } });
+    const { data: datesData = [], isFetching: datesFetching, isSuccess: datesSuccess, isLoading: datesLoading } = useFetchForecastDatesQuery({ url: '/settings/data-dates', query: { model: activePage === 1 ? 'open-ifs' : model } });
     if (!datesLoading && datesSuccess && !isEmpty(datesData)) {
         dispatch(onForecastParamChange({ forecast_date: datesData[0].date }));
     }
