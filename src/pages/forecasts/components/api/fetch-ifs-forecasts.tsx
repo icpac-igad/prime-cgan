@@ -3,7 +3,7 @@ import { Message } from 'primereact/message';
 import { useFetchOpenIfsForecastQuery } from '@/gateway/slices/open-ifs';
 import { selectForecastParams, selectOpenIfsParams } from '@/gateway/slices/params';
 import { validObjectEntries } from '@/gateway/slices/tools';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import Spinner from '../spinner';
 
 export default function FetchOpenIfsForecast() {

@@ -3,7 +3,7 @@ import { Message } from 'primereact/message';
 import { useFetchGanEnsembleQuery } from '@/gateway/slices/cgan';
 import { selectForecastParams, selectGanEnsembleParams } from '@/gateway/slices/params';
 
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import Spinner from '../spinner';
 
 export default function FetchGanEnsemble() {

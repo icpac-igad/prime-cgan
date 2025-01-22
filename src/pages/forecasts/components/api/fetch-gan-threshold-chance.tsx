@@ -3,7 +3,7 @@ import { Message } from 'primereact/message';
 import { useFetchGanThresholdChanceQuery } from '@/gateway/slices/cgan';
 import { selectForecastParams, selectGanThresholdParams } from '@/gateway/slices/params';
 import { validObjectEntries } from '@/gateway/slices/tools';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import Spinner from '../spinner';
 
 export default function FetchGanThresholdChance() {

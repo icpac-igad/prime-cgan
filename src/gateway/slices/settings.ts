@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { type MaskArea, type ForecastDate, type VisualizationColorStyle, type GetMaskAreasSettingsMaskAreasGetData, type GetForecastDatesSettingsDataDatesGetData, type GetColorStylesSettingsColorStylesGetData } from '@/client';
 import { urlEncodeParams } from './tools';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 export const settingsApiSlice = createApi({
     reducerPath: 'settings',
     baseQuery: fetchBaseQuery({

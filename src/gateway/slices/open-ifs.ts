@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { type ForecastMap, type GetOpenIfsForecastEnsemblePlotsForecastOpenIfsEnsembleGetData, type GetOpenIfsForecastForecastOpenIfsGetData } from '@/client';
 import { urlEncodeParams } from './tools';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 
 export const openIfsApiSlice = createApi({
     reducerPath: 'open-ifs',

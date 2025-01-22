@@ -7,7 +7,7 @@ import {
     type GetCganForecastForecastCganForecastGetData
 } from '@/client';
 import { urlEncodeParams } from './tools';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 
 export const ganApiSlice = createApi({
     reducerPath: 'cgan',

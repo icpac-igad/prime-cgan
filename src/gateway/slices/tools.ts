@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 
 interface LooseObject {
     [key: string | number]: any;

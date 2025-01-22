@@ -26,7 +26,7 @@ import ValidTimeSelect from './components/forecast-validity';
 
 import ShowEnsemble from './components/show-ensemble';
 
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 
 const ExternalSystem = () => {
     return (

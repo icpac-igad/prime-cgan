@@ -2,7 +2,7 @@ import { Message } from 'primereact/message';
 import { useSelector, shallowEqual } from 'react-redux';
 import { useFetchGanForecastQuery } from '@/gateway/slices/cgan';
 import { selectForecastParams, selectGanParams } from '@/gateway/slices/params';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import Spinner from '../spinner';
 
 export default function FetchGanForecast() {

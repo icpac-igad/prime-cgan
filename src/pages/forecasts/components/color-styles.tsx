@@ -4,7 +4,7 @@ import { useFetchColorStylesQuery } from '@/gateway/slices/settings';
 import { onForecastParamChange } from '@/gateway/slices/params';
 import SelectInput from './form/select-input';
 import Spinner from './spinner';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 
 import { GanModels } from '@/pages/tools/constants';
 import { setStyleSelect } from '@/pages/tools/plotsLib';

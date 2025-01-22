@@ -4,7 +4,7 @@ import { onForecastParamChange } from '@/gateway/slices/params';
 import { ForecastDate } from '@/client';
 import SelectInput from './form/select-input';
 import Spinner from './spinner';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 
 import { GanModels } from '@/pages/tools/constants';
 import { loadForecast } from '@/pages/tools/plotsLib';

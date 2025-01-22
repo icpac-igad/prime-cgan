@@ -38,11 +38,12 @@ export default defineConfig({
     build: {
         chunkSizeWarningLimit: 1000, // Set limit to 1000 KB
         rollupOptions: {
+            treeshake: true,
             output: {
                 manualChunks(id: string, { getModuleInfo }) {
                     // Dynamically check if the module has React-related dependencies
                     const hasReactDependency = (id: string): boolean => {
-                        return getModuleInfo(id)?.importedIds.some((importedId) => importedId.includes('react') || importedId.includes('react-dom') || importedId.includes('react-router')) ?? false;
+                        return getModuleInfo(id)?.importedIds.some((importedId) => importedId.includes('react') || importedId.includes('react-dom')) ?? false;
                     };
 
                     // Caution: React-related packages should be bundled together otherwise it may cause runtime errors
@@ -51,7 +52,7 @@ export default defineConfig({
                     }
 
                     // Add your large packages to the list
-                    for (const largePackage of ['react-map-gl', 'maplibre-gl', 'lodash']) {
+                    for (const largePackage of ['react-map-gl', 'maplibre-gl', 'lodash-es', 'react-router', 'primereact']) {
                         if (id.includes(`/node_modules/${largePackage}/`)) {
                             return largePackage;
                         }
