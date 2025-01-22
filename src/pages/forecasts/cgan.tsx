@@ -77,7 +77,7 @@ export default function CGANForecasts() {
                     </div>
                 </div>
             </div>
-            {model === 'jurre-brishti' && (
+            {(!model || model === 'jurre-brishti') && (
                 <>
                     <div className="card p-4 m-4 shadow-3">
                         <div className="flex flex-wrap align-items-center justify-content-center">
