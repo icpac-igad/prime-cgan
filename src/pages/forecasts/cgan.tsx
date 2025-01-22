@@ -34,7 +34,7 @@ export default function CGANForecasts() {
             'The <a href="https://www.ecmwf.int/" target="_blank">ECMWF</a> <a href="https://confluence.ecmwf.int/display/FUG/Section+2+The+ECMWF+Integrated+Forecasting+System+-+IFS" target="_blank">IFS</a> output is post-processed using <a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2022MS003120" target="_blank">cGAN</a> trained on <a href="https://gpm.nasa.gov/data/imerg" target="_blank"> IMERG</a> v6 from 2018 and 2019 to produce forecasts of 6h rainfall intervals.',
             'The <a href="https://www.ecmwf.int/" target="_blank">ECMWF</a> <a href="https://confluence.ecmwf.int/display/FUG/Section+2+The+ECMWF+Integrated+Forecasting+System+-+IFS" target="_blank">IFS</a> output is post-processed using <a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2022MS003120" target="_blank">cGAN</a> trained on <a href="https://gpm.nasa.gov/data/imerg" target="_blank"> IMERG</a> v7 from 2018 and 2019 to produce forecasts of 24h rainfall intervals.'
         ];
-        if (model === 'Mvua kubwa') {
+        if (model === 'mvua-kubwa') {
             infoNode.innerHTML = modelInfoList[1];
         } else {
             infoNode.innerHTML = modelInfoList[0];
@@ -77,32 +77,35 @@ export default function CGANForecasts() {
                     </div>
                 </div>
             </div>
-
-            <div className="card p-4 m-4 shadow-3">
-                <div className="flex flex-wrap align-items-center justify-content-center">
-                    <FetchGanForecast />
-                </div>
-            </div>
-
-            <div className="card p-4 m-4 shadow-3">
-                <div className="flex flex-wrap gap-4 align-items-left justify-content-start">
-                    <div className="flex flex-column gap-4">
-                        <ShowEnsemble forecast="cgan" />
-                        <MaxEnsemblePlots forecast="cgan" />
+            {model === 'jurre-brishti' && (
+                <>
+                    <div className="card p-4 m-4 shadow-3">
+                        <div className="flex flex-wrap align-items-center justify-content-center">
+                            <FetchGanForecast />
+                        </div>
                     </div>
-                    {show_ensemble && <FetchGanEnsemble />}
-                </div>
-            </div>
 
-            <div className="card p-4 m-4 shadow-3">
-                <div className="flex flex-wrap gap-4 align-items-left justify-content-start">
-                    <div className="flex flex-column gap-4">
-                        <ThresholdChance />
-                        <ShowPercentage />
+                    <div className="card p-4 m-4 shadow-3">
+                        <div className="flex flex-wrap gap-4 align-items-left justify-content-start">
+                            <div className="flex flex-column gap-4">
+                                <ShowEnsemble forecast="cgan" />
+                                <MaxEnsemblePlots forecast="cgan" />
+                            </div>
+                            {show_ensemble && <FetchGanEnsemble />}
+                        </div>
                     </div>
-                    <FetchGanThresholdChance />
-                </div>
-            </div>
+
+                    <div className="card p-4 m-4 shadow-3">
+                        <div className="flex flex-wrap gap-4 align-items-left justify-content-start">
+                            <div className="flex flex-column gap-4">
+                                <ThresholdChance />
+                                <ShowPercentage />
+                            </div>
+                            <FetchGanThresholdChance />
+                        </div>
+                    </div>
+                </>
+            )}
         </div>
     );
 }
