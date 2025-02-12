@@ -1,7 +1,7 @@
 import { useAppSelector } from '@/gateway/hooks';
 
-import ShowEnsemble from './components/show-ensemble';
-import MaxEnsemblePlots from './components/ensemble-plots';
+// import ShowEnsemble from './components/show-ensemble';
+// import MaxEnsemblePlots from './components/ensemble-plots';
 import ThresholdChance from './components/threshold-chance';
 import ShowPercentage from './components/show-percentage';
 import HistogramThresholdValue from './components/threshold-value';
@@ -17,7 +17,7 @@ import FetchGanThresholdChance from './components/api/fetch-gan-threshold-chance
 import { useEffect } from 'react';
 
 export default function CGANForecasts() {
-    const show_ensemble = useAppSelector((state) => state.params.cgan?.show_ensemble);
+    // const show_ensemble = useAppSelector((state) => state.params.cgan?.show_ensemble);
     const model = useAppSelector((state) => state.params.cgan?.model);
     const start_time = useAppSelector((state) => state.params?.start_time);
     const forecast_date = useAppSelector((state) => state.params?.forecast_date);
@@ -79,31 +79,9 @@ export default function CGANForecasts() {
             </div>
             {(!model || model === 'jurre-brishti') && (
                 <>
-                    <div className="card p-4 m-4 shadow-3">
-                        <div className="flex flex-wrap align-items-center justify-content-center">
-                            <FetchGanForecast />
-                        </div>
-                    </div>
-
-                    <div className="card p-4 m-4 shadow-3">
-                        <div className="flex flex-wrap gap-4 align-items-left justify-content-start">
-                            <div className="flex flex-column gap-4">
-                                <ShowEnsemble forecast="cgan" />
-                                <MaxEnsemblePlots forecast="cgan" />
-                            </div>
-                            {show_ensemble && <FetchGanEnsemble />}
-                        </div>
-                    </div>
-
-                    <div className="card p-4 m-4 shadow-3">
-                        <div className="flex flex-wrap gap-4 align-items-left justify-content-start">
-                            <div className="flex flex-column gap-4">
-                                <ThresholdChance />
-                                <ShowPercentage />
-                            </div>
-                            <FetchGanThresholdChance />
-                        </div>
-                    </div>
+                    <FetchGanForecast />
+                    <FetchGanEnsemble />
+                    <FetchGanThresholdChance />
                 </>
             )}
         </div>

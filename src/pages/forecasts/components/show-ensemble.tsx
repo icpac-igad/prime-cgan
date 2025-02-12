@@ -7,6 +7,7 @@ export default function ShowEnsemble(props: { forecast: 'cgan' | 'open-ifs' }) {
 
     const show_ensemble = useAppSelector((state) => (props.forecast === 'cgan' ? state.params.cgan?.show_ensemble : state.params.open_ifs?.show_ensemble));
     const options = ['Yes', 'No'];
+    const option_selected = show_ensemble === null || show_ensemble === undefined || show_ensemble === true ? 'Yes' : 'No';
 
     const onValueChange = (value: string) => {
         const boolValue = value === 'Yes' ? true : false;
@@ -18,5 +19,5 @@ export default function ShowEnsemble(props: { forecast: 'cgan' | 'open-ifs' }) {
         }
     };
 
-    return <ToggleButton {...{ label: 'Show Ensemble Members?', inputId: 'show-ensemble', helpText: 'Visualize ensemble member plots', options: options, value: show_ensemble ? options[0] : options[1], onChange: onValueChange }} />;
+    return <ToggleButton {...{ label: 'Show Ensemble Members?', inputId: 'show-ensemble', helpText: 'Visualize ensemble member plots', options: options, value: option_selected, onChange: onValueChange }} />;
 }

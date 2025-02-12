@@ -1,8 +1,12 @@
 import { useSelector, shallowEqual } from 'react-redux';
-import { Message } from 'primereact/message';
+// import { Message } from 'primereact/message';
 import { useFetchGanThresholdChanceQuery } from '@/gateway/slices/cgan';
 import { selectForecastParams, selectGanThresholdParams } from '@/gateway/slices/params';
 import { validObjectEntries } from '@/gateway/slices/tools';
+
+import ThresholdChance from '../threshold-chance';
+import ShowPercentage from '../show-percentage';
+
 import { isEmpty } from 'lodash-es';
 import Spinner from '../spinner';
 
@@ -21,13 +25,22 @@ export default function FetchGanThresholdChance() {
         return <Spinner />;
     } else if (isSuccess && !isEmpty(data)) {
         return (
-            <div className="flex flex-column gap-1">
-                {data.map((plot) => (
-                    <img key={plot.image_url} src={plot.image_url} alt={`cGAN threshold chance plots for ${forecast_params?.forecast_date} - ${forecast_params?.start_time}`} />
-                ))}
+            <div className="card p-4 m-4 shadow-3">
+                <div className="flex flex-wrap gap-4 align-items-left justify-content-start">
+                    <div className="flex flex-column gap-4">
+                        <ThresholdChance />
+                        <ShowPercentage />
+                    </div>
+                    <div className="flex flex-column gap-1">
+                        {data.map((plot) => (
+                            <img key={plot.image_url} src={plot.image_url} alt={`cGAN threshold chance plots for ${forecast_params?.forecast_date} - ${forecast_params?.start_time}`} />
+                        ))}
+                    </div>
+                </div>
             </div>
         );
     } else {
-        return <Message severity="error" text={`Failed to fetch cGAN threshold chance plots for ${forecast_params?.forecast_date} - ${forecast_params?.start_time}`} />;
+        // return <Message severity="error" text={`Failed to fetch cGAN threshold chance plots for ${forecast_params?.forecast_date} - ${forecast_params?.start_time}`} />;
+        return <></>;
     }
 }
