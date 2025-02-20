@@ -13,7 +13,7 @@ export default function PptAccumulationTime() {
     };
 
     const options: SelectOption[] = [
-        { label: AccumulationTime['6H'], value: AccumulationTime['6H'] },
+        { label: AccumulationTime['06H'], value: AccumulationTime['06H'] },
         { label: AccumulationTime['24H'], value: AccumulationTime['24H'] }
     ];
     return <SelectInput {...{ inputId: 'select-acc-time', label: 'Accumulation Time', helpText: 'select accumulation time of the forecast', options: options, value: acc_time || options[1].value, onChange: onValueChange }} />;
