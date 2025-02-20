@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/gateway/hooks';
 import { onForecastParamChange } from '@/gateway/slices/params';
-import { ValidStartTime } from '@/client';
+import { InitializationTime } from '@/client';
 import { SelectOption } from '@/pages/tools/types';
 import SelectInput from './form/select-input';
 
@@ -22,10 +22,10 @@ export default function SelectAccTime() {
     };
 
     const options: SelectOption[] = [
-        { label: '00:00 UTC', value: ValidStartTime['0'] },
-        { label: '06:00 UTC', value: ValidStartTime['6'] },
-        { label: '12:00 UTC', value: ValidStartTime['12'] },
-        { label: '18:00 UTC', value: ValidStartTime['18'] }
+        { label: '00:00 UTC', value: InitializationTime['00H'] },
+        { label: '06:00 UTC', value: InitializationTime['06H'] },
+        { label: '12:00 UTC', value: InitializationTime['12H'] },
+        { label: '18:00 UTC', value: InitializationTime['18H'] }
     ];
     return <SelectInput {...{ inputId: 'select-forecast-time', label: 'Forecast Initialization Time', helpText: 'select forecast initialization time', options: options, value: start_time || options[0].value, onChange: onValueChange }} />;
 }

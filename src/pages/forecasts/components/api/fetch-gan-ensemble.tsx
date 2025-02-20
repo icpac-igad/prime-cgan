@@ -12,7 +12,7 @@ import MaxEnsemblePlots from '../ensemble-plots';
 export default function FetchGanEnsemble() {
     const forecast_params = { ...useSelector(selectForecastParams, shallowEqual), ...useSelector(selectGanEnsembleParams, shallowEqual) };
     const show_ensemble = useAppSelector((state) => state.params.cgan?.show_ensemble);
-
+    const model = useAppSelector((state) => state.params.cgan?.model) === 'mvua-kubwa' ? 'Mvua Kubwa' : 'Jurre Brishti';
     if (show_ensemble) {
         const {
             data = [],
@@ -20,7 +20,7 @@ export default function FetchGanEnsemble() {
             isLoading,
             isSuccess
         } = useFetchGanEnsembleQuery({
-            url: '/forecast/cgan-ensemble',
+            url: '/cgan-forecats/cgan-ensemble',
             query: forecast_params
         });
         if (isFetching || isLoading) {
@@ -35,7 +35,7 @@ export default function FetchGanEnsemble() {
                         </div>
                         <div className="flex flex-column gap-1">
                             {data.map((plot) => (
-                                <img key={plot.image_url} src={plot.image_url} alt={`cGAN Ensemble Members for ${forecast_params?.forecast_date} - ${forecast_params?.start_time}`} />
+                                <img key={plot.image_url} src={plot.image_url} alt={`${model} Ensemble Members for ${forecast_params?.forecast_date} - ${forecast_params?.start_time}`} />
                             ))}
                         </div>
                     </div>

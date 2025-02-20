@@ -77,13 +77,11 @@ export default function CGANForecasts() {
                     </div>
                 </div>
             </div>
-            {(!model || model === 'jurre-brishti') && (
-                <>
-                    <FetchGanForecast />
-                    <FetchGanEnsemble />
-                    <FetchGanThresholdChance />
-                </>
-            )}
+            <>
+                <FetchGanForecast />
+                <FetchGanEnsemble />
+                <FetchGanThresholdChance />
+            </>
         </div>
     );
 }

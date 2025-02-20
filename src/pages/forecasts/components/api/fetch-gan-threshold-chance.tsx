@@ -3,6 +3,7 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { useFetchGanThresholdChanceQuery } from '@/gateway/slices/cgan';
 import { selectForecastParams, selectGanThresholdParams } from '@/gateway/slices/params';
 import { validObjectEntries } from '@/gateway/slices/tools';
+import { useAppSelector } from '@/gateway/hooks';
 
 import ThresholdChance from '../threshold-chance';
 import ShowPercentage from '../show-percentage';
@@ -18,9 +19,10 @@ export default function FetchGanThresholdChance() {
         isLoading,
         isSuccess
     } = useFetchGanThresholdChanceQuery({
-        url: '/forecast/cgan-threshold-chance',
+        url: '/cgan-forecats/cgan-threshold-chance',
         query: forecast_params
     });
+    const model = useAppSelector((state) => state.params.cgan?.model) === 'mvua-kubwa' ? 'Mvua Kubwa' : 'Jurre Brishti';
     if (isFetching || isLoading) {
         return <Spinner />;
     } else if (isSuccess && !isEmpty(data)) {
@@ -33,7 +35,7 @@ export default function FetchGanThresholdChance() {
                     </div>
                     <div className="flex flex-column gap-1">
                         {data.map((plot) => (
-                            <img key={plot.image_url} src={plot.image_url} alt={`cGAN threshold chance plots for ${forecast_params?.forecast_date} - ${forecast_params?.start_time}`} />
+                            <img key={plot.image_url} src={plot.image_url} alt={`${model} threshold chance plots for ${forecast_params?.forecast_date} - ${forecast_params?.start_time}`} />
                         ))}
                     </div>
                 </div>

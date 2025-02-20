@@ -14,7 +14,7 @@ export default function FetchOpenIfsForecast() {
         isLoading,
         isSuccess
     } = useFetchOpenIfsForecastQuery({
-        url: '/forecast/open-ifs',
+        url: '/open-ifs-forecats/open-ifs',
         query: forecast_params
     });
     if (isFetching || isLoading) {

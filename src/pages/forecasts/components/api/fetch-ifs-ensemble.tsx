@@ -14,7 +14,7 @@ export default function FetchOpenIfsEnsemble() {
         isLoading,
         isSuccess
     } = useFetchOpenIfsEnsembleQuery({
-        url: '/forecast/open-ifs-ensemble',
+        url: '/open-ifs-forecats/open-ifs-ensemble',
         query: forecast_params
     });
     if (isFetching || isLoading) {
