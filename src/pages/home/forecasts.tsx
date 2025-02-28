@@ -4,7 +4,7 @@ import { products } from '@/pages/tools/store';
 export default function ForecastsComponent() {
     return (
         <div id="forecast-products" className="grid justify-content-center">
-            <div className="surface-0 text-center">
+            <div className="surface-0 text-center mt-5">
                 <div className="mb-3 font-bold text-3xl">
                     <span className="text-900">Explore </span>
                     <span className="text-blue-600">Forecast Systems</span>

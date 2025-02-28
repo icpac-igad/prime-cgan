@@ -87,14 +87,6 @@ export default function ForecastsPage() {
         <div className="shadow-0 mx-4 px-4 pt-2 pb-8">
             <h1 className="text-3xl text-center font-bold">Forecasting Systems and Generated Products</h1>
 
-            <div className="card">
-                <p className="font-medium line-height-3">
-                    With climate change exacerbating the frequency and intensity of natural hazard induced disasters, timely and accurate early warning systems are more critical than ever. The Google.org-funded project aims to address this urgent
-                    need by leveraging cutting-edge technology and innovative approaches to improve the effectiveness of early warning information generation .By harnessing the latest advancements in artificial intelligence, machine learning, and
-                    data analytics, the project aims to enhance the accuracy and timeliness of disaster alerts, enabling communities to take proactive measures to mitigate risks and protect lives and livelihoods.
-                </p>
-            </div>
-
             <div className="card shadow-2 p-4 mb-6 mt-4 ">
                 <div className="flex flex-wrap gap-2 align-items-left justify-content-start">
                     {activePage === 0 && (

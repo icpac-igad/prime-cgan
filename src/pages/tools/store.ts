@@ -3,6 +3,7 @@ import * as types from './types';
 export const pages: types.NavigationItem[] = [
     { name: 'Home', url: '/' },
     { name: 'Forecast Systems', url: '/forecast-systems/' },
+    { name: 'Project Information', url: '/project-info/' },
     { name: 'Data Download', url: import.meta.env.VITE_FTP_DATA_URL || '/ftp/', target: '_blank' }
     // { name: 'Mapviewer', url: '/mapviewer/' },
     // { name: 'Resources', url: '/useful-links/' },

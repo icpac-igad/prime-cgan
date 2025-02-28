@@ -13,6 +13,7 @@ import HomePage from './pages/home';
 import MapviewerPage from './pages/mapviewer';
 import ForecastsPage from './pages/forecasts';
 import ResourcesPage from './pages/resources';
+import AboutPage from './pages/about';
 import ContactPage from './pages/contact';
 import OpenIfsForecasts from './pages/forecasts/open-ifs';
 import CGANForecasts from './pages/forecasts/cgan.tsx';
@@ -43,6 +44,7 @@ const router = createBrowserRouter(
                         { element: <GEFSForecasts />, path: '/forecast-systems/?q=gefs' }
                     ]
                 },
+                { element: <AboutPage />, path: '/project-info/' },
                 { element: <ResourcesPage />, path: '/useful-links/' },
                 { element: <ContactPage />, path: '/contact-us/' }
             ]
