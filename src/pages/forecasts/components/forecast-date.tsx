@@ -32,9 +32,9 @@ export default function ForecastDates(props: componentProps) {
 
     if (props.isFetching || props.isLoading) {
         return <Spinner />;
-    } else if (props.isSuccess && !isEmpty(props.data)) {
-        const options = props.data.map((item) => ({ label: item.date, value: item.date }));
-        return <SelectInput {...{ inputId: 'select-forecast-date', label: 'Forecast Initialization Date', helpText: 'select date of forecast initialization', options: options, value: forecast_date || options[0].value, onChange: onValueChange }} />;
+    } else if (props.isSuccess) {
+        const options = isEmpty(props.data) ? [] : props.data.map((item) => ({ label: item.date, value: item.date }));
+        return <SelectInput {...{ inputId: 'select-forecast-date', label: 'Forecast Initialization Date', helpText: 'select date of forecast initialization', options: options, value: forecast_date || options[0]?.value, onChange: onValueChange }} />;
     } else {
         return <Message severity="error" text="Error Loading Component" />;
     }

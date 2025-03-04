@@ -1,5 +1,5 @@
 import { useSelector, shallowEqual } from 'react-redux';
-// import { Message } from 'primereact/message';
+import { Message } from 'primereact/message';
 import { useFetchGanEnsembleQuery } from '@/gateway/slices/cgan';
 import { selectEnsembleParams, selectGanEnsembleParams } from '@/gateway/slices/params';
 import { useAppSelector } from '@/gateway/hooks';
@@ -11,9 +11,7 @@ import MaxEnsemblePlots from '../ensemble-plots';
 
 export default function FetchGanEnsemble() {
     const forecast_params = { ...useSelector(selectEnsembleParams, shallowEqual), ...useSelector(selectGanEnsembleParams, shallowEqual) };
-    const show_ensemble = useAppSelector((state) => state.params.ensemble?.show_ensemble);
     const model = useAppSelector((state) => state.params.ensemble?.model) === 'mvua-kubwa' ? 'Mvua Kubwa' : 'Jurre Brishti';
-    if (show_ensemble) {
         const {
             data = [],
             isFetching,
@@ -25,7 +23,10 @@ export default function FetchGanEnsemble() {
         });
         if (isFetching || isLoading) {
             return <Spinner />;
-        } else if (isSuccess && !isEmpty(data)) {
+        } else if (isSuccess) {
+            if (isEmpty(data)) {
+            return <Message severity="warn" text={`cGAN ensemble plots are not ready! Please try again later.`} />
+        } else {
             return (
                 <div className="card p-4 m-4 shadow-3">
                     <div className="flex flex-wrap gap-4 align-items-left justify-content-start">
@@ -40,12 +41,9 @@ export default function FetchGanEnsemble() {
                         </div>
                     </div>
                 </div>
-            );
+            );}
         } else {
-            // return <Message severity="error" text={`Failed to fetch cGAN Ensemble Members for ${forecast_params?.forecast_date} - ${forecast_params?.start_time}`} />;
-            return <></>;
+            return <Message severity="error" text={`Failed to fetch cGAN Ensemble Members for ${forecast_params?.forecast_date} - ${forecast_params?.start_time}`} />;
         }
-    } else {
-        return <></>;
     }
-}
+

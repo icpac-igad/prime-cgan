@@ -1,5 +1,5 @@
 import { useSelector, shallowEqual } from 'react-redux';
-// import { Message } from 'primereact/message';
+import { Message } from 'primereact/message';
 import { useFetchGanThresholdChanceQuery } from '@/gateway/slices/cgan';
 import { selectEnsembleParams, selectGanThresholdParams } from '@/gateway/slices/params';
 import { validObjectEntries } from '@/gateway/slices/tools';
@@ -25,7 +25,10 @@ export default function FetchGanThresholdChance() {
     const model = useAppSelector((state) => state.params.ensemble?.model) === 'mvua-kubwa' ? 'Mvua Kubwa' : 'Jurre Brishti';
     if (isFetching || isLoading) {
         return <Spinner />;
-    } else if (isSuccess && !isEmpty(data)) {
+    } else if (isSuccess) {
+        if (isEmpty(data)) {
+                    return <Message severity="warn" text={`cGAN threshold chance products are not ready! Please try again later.`} />
+                } else {
         return (
             <div className="card p-4 m-4 shadow-3">
                 <div className="flex flex-wrap gap-4 align-items-left justify-content-start">
@@ -41,8 +44,8 @@ export default function FetchGanThresholdChance() {
                 </div>
             </div>
         );
+    }
     } else {
-        // return <Message severity="error" text={`Failed to fetch cGAN threshold chance plots for ${forecast_params?.forecast_date} - ${forecast_params?.start_time}`} />;
-        return <></>;
+        return <Message severity="error" text={`Failed to fetch cGAN threshold chance plots for ${forecast_params?.forecast_date} - ${forecast_params?.start_time}`} />;
     }
 }

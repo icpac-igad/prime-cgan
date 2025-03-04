@@ -19,7 +19,10 @@ export default function FetchOpenIfsForecast() {
     });
     if (isFetching || isLoading) {
         return <Spinner />;
-    } else if (isSuccess && !isEmpty(data)) {
+    } else if (isSuccess) {
+        if (isEmpty(data)) {
+            return <Message severity="warn" text={`IFS Ensemble forecast is not ready! Please try again later.`} />
+        } else {
         return (
             <div className="flex flex-column gap-1">
                 {data.map((plot) => (
@@ -27,6 +30,7 @@ export default function FetchOpenIfsForecast() {
                 ))}
             </div>
         );
+    }
     } else {
         return <Message severity="error" text={`Failed to fetch Open IFS Forecast for ${forecast_params?.forecast_date} - ${forecast_params?.start_time}`} />;
     }
