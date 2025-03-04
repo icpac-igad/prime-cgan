@@ -12,7 +12,7 @@ import { setStyleSelect } from '@/pages/tools/plotsLib';
 export default function SelectColorStyle() {
     const dispatch = useAppDispatch();
     const color_style = useAppSelector((state) => state.params?.color_style);
-    const model = useAppSelector((state) => state.params.cgan?.model) || GanModels[0].value;
+    const model = useAppSelector((state) => state.params.ensemble?.model) || GanModels[0].value;
 
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ color_style: value }));

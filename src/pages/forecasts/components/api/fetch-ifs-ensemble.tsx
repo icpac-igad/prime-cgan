@@ -1,13 +1,13 @@
 import { useSelector, shallowEqual } from 'react-redux';
 import { Message } from 'primereact/message';
 import { useFetchOpenIfsEnsembleQuery } from '@/gateway/slices/open-ifs';
-import { selectForecastParams, selectOpenEnsembleParams } from '@/gateway/slices/params';
+import { selectEnsembleParams, selectOpenEnsembleParams } from '@/gateway/slices/params';
 import { validObjectEntries } from '@/gateway/slices/tools';
 import { isEmpty } from 'lodash-es';
 import Spinner from '../spinner';
 
 export default function FetchOpenIfsEnsemble() {
-    const forecast_params = validObjectEntries({ ...useSelector(selectForecastParams, shallowEqual), ...useSelector(selectOpenEnsembleParams, shallowEqual) });
+    const forecast_params = validObjectEntries({ ...useSelector(selectEnsembleParams, shallowEqual), ...useSelector(selectOpenEnsembleParams, shallowEqual) });
     const {
         data = [],
         isFetching,

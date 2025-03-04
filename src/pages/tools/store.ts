@@ -12,10 +12,16 @@ export const pages: types.NavigationItem[] = [
 
 export const products: types.ForecastProduct[] = [
     {
-        title: 'cGAN 6h Forecasts',
+        title: 'cGAN 1000 Ensemble',
         text: ' State-of-the-art AI-based weather models to give more accurate and local predictions enabling particular countries and regions to better anticipate and prepare for extreme weather.',
         icon: 'pi pi-microchip-ai',
         url: '/forecast-systems/'
+    },
+    {
+        title: 'cGAN 50 Ensemble',
+        text: ' State-of-the-art AI-based weather models to give more accurate and local predictions enabling particular countries and regions to better anticipate and prepare for extreme weather.',
+        icon: 'pi pi-microchip-ai',
+        url: '/forecast-systems/?q=cgan-50-ensemble'
     },
     {
         title: 'ECMWF IFS Ensemble Forecast',

@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@/gateway/hooks';
-import { onGanParamChange } from '@/gateway/slices/params';
+import { onEnsembleParamChange } from '@/gateway/slices/params';
 import { SelectOption } from '@/pages/tools/types';
 import SelectInput from './form/select-input';
 
@@ -14,11 +14,11 @@ export default function PlotType() {
         { label: 'Values below probability', value: 'Values' }
     ];
 
-    const plot = useAppSelector((state) => state.params.cgan?.histogram_plot) || options[0].value;
-    const model = useAppSelector((state) => state.params.cgan?.model) || GanModels[0].value;
+    const plot = useAppSelector((state) => state.params.ensemble?.plot_type) || options[0].value;
+    const model = useAppSelector((state) => state.params.ensemble?.model) || GanModels[0].value;
 
     const onValueChange = (value: string) => {
-        dispatch(onGanParamChange({ histogram_plot: value }));
+        dispatch(onEnsembleParamChange({ plot_type: value }));
 
         if (GanModels.map((m) => m.value).includes(model)) {
             plotSelect(value);

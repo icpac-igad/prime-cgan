@@ -11,6 +11,10 @@ export type ForecastDate = {
     date: string;
 };
 
+export type ForecastInitTime = {
+    hour: string;
+};
+
 export type ForecastMap = {
     image_url: string;
 };
@@ -182,6 +186,34 @@ export type GetForecastDatesSettingsDataDatesGetResponses = {
 
 export type GetForecastDatesSettingsDataDatesGetResponse = GetForecastDatesSettingsDataDatesGetResponses[keyof GetForecastDatesSettingsDataDatesGetResponses];
 
+export type GetForecastInitTimeSettingsForecastInitTimeGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        forecast_date?: string | null;
+        model_name?: ('jurre-brishti-ens' | 'jurre-bristi-count') | null;
+    };
+    url: '/settings/forecast-init-time';
+};
+
+export type GetForecastInitTimeSettingsForecastInitTimeGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetForecastInitTimeSettingsForecastInitTimeGetError = GetForecastInitTimeSettingsForecastInitTimeGetErrors[keyof GetForecastInitTimeSettingsForecastInitTimeGetErrors];
+
+export type GetForecastInitTimeSettingsForecastInitTimeGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: Array<ForecastInitTime>;
+};
+
+export type GetForecastInitTimeSettingsForecastInitTimeGetResponse = GetForecastInitTimeSettingsForecastInitTimeGetResponses[keyof GetForecastInitTimeSettingsForecastInitTimeGetResponses];
+
 export type GetMaskAreasSettingsMaskAreasGetData = {
     body?: never;
     url: '/settings/mask-areas';
@@ -276,7 +308,7 @@ export type GetCganForecastCganForecatsCganForecastGetData = {
     body?: never;
     path?: never;
     query?: {
-        model?: ('mvua-kubwa' | 'jurre-brishti') | null;
+        model?: ('mvua-kubwa-ens' | 'jurre-brishti-ens' | 'mvua-kubwa-count' | 'jurre-brishti-count') | null;
         mask_area?: string | null;
         forecast_date?: string | null;
         init_time?: InitializationTime | null;
@@ -310,7 +342,7 @@ export type GetCganForecastEnsemblePlotCganForecatsCganEnsembleGetData = {
     body?: never;
     path?: never;
     query?: {
-        model?: ('mvua-kubwa' | 'jurre-brishti') | null;
+        model?: ('mvua-kubwa-ens' | 'jurre-brishti-ens' | 'mvua-kubwa-count' | 'jurre-brishti-count') | null;
         mask_area?: string | null;
         forecast_date?: string | null;
         init_time?: InitializationTime | null;
@@ -345,7 +377,7 @@ export type GetCganThesholdChancePlotCganForecatsCganThresholdChanceGetData = {
     body?: never;
     path?: never;
     query?: {
-        model?: ('mvua-kubwa' | 'jurre-brishti') | null;
+        model?: ('mvua-kubwa-ens' | 'jurre-brishti-ens' | 'mvua-kubwa-count' | 'jurre-brishti-count') | null;
         mask_area?: string | null;
         forecast_date?: string | null;
         init_time?: InitializationTime | null;

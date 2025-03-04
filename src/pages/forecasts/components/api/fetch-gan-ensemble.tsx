@@ -1,7 +1,7 @@
 import { useSelector, shallowEqual } from 'react-redux';
 // import { Message } from 'primereact/message';
 import { useFetchGanEnsembleQuery } from '@/gateway/slices/cgan';
-import { selectForecastParams, selectGanEnsembleParams } from '@/gateway/slices/params';
+import { selectEnsembleParams, selectGanEnsembleParams } from '@/gateway/slices/params';
 import { useAppSelector } from '@/gateway/hooks';
 
 import { isEmpty } from 'lodash-es';
@@ -10,9 +10,9 @@ import ShowEnsemble from '../show-ensemble';
 import MaxEnsemblePlots from '../ensemble-plots';
 
 export default function FetchGanEnsemble() {
-    const forecast_params = { ...useSelector(selectForecastParams, shallowEqual), ...useSelector(selectGanEnsembleParams, shallowEqual) };
-    const show_ensemble = useAppSelector((state) => state.params.cgan?.show_ensemble);
-    const model = useAppSelector((state) => state.params.cgan?.model) === 'mvua-kubwa' ? 'Mvua Kubwa' : 'Jurre Brishti';
+    const forecast_params = { ...useSelector(selectEnsembleParams, shallowEqual), ...useSelector(selectGanEnsembleParams, shallowEqual) };
+    const show_ensemble = useAppSelector((state) => state.params.ensemble?.show_ensemble);
+    const model = useAppSelector((state) => state.params.ensemble?.model) === 'mvua-kubwa' ? 'Mvua Kubwa' : 'Jurre Brishti';
     if (show_ensemble) {
         const {
             data = [],

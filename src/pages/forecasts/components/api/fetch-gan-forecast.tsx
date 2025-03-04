@@ -2,16 +2,16 @@
 import { useSelector, shallowEqual } from 'react-redux';
 import { useAppSelector } from '@/gateway/hooks';
 import { useFetchGanForecastQuery } from '@/gateway/slices/cgan';
-import { selectForecastParams, selectGanParams } from '@/gateway/slices/params';
+import { selectEnsembleParams, selectEnsembleForecastParams } from '@/gateway/slices/params';
 import { isEmpty } from 'lodash-es';
 import Spinner from '../spinner';
 
 export default function FetchGanForecast() {
     const forecast_params = {
-        ...useSelector(selectForecastParams, shallowEqual),
-        ...useSelector(selectGanParams, shallowEqual)
+        ...useSelector(selectEnsembleParams, shallowEqual),
+        ...useSelector(selectEnsembleForecastParams, shallowEqual)
     };
-    const model = useAppSelector((state) => state.params.cgan?.model) === 'mvua-kubwa' ? 'Mvua Kubwa' : 'Jurre Brishti';
+    const model = useAppSelector((state) => state.params.ensemble?.model) === 'mvua-kubwa' ? 'Mvua Kubwa' : 'Jurre Brishti';
     const {
         data = [],
         isFetching,

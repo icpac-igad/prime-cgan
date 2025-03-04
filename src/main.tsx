@@ -16,7 +16,8 @@ import ResourcesPage from './pages/resources';
 import AboutPage from './pages/about';
 import ContactPage from './pages/contact';
 import OpenIfsForecasts from './pages/forecasts/open-ifs';
-import CGANForecasts from './pages/forecasts/cgan.tsx';
+import CGAN1000Ensemble from './pages/forecasts/cgan-1000-ens';
+import CGAN50Ensemble from './pages/forecasts/cgan-50-ens'
 import GEFSForecasts from './pages/forecasts/gefs';
 
 import * as serviceWorker from './serviceWorker.ts';
@@ -39,7 +40,8 @@ const router = createBrowserRouter(
                     element: <ForecastsPage />,
                     path: '/forecast-systems/',
                     children: [
-                        { element: <CGANForecasts />, index: true },
+                        { element: <CGAN1000Ensemble />, index: true },
+                        { element: <CGAN50Ensemble />, path: '/forecast-systems/?q=cgan-50-ensemble' },
                         { element: <OpenIfsForecasts />, path: '/forecast-systems/?q=open-ifs' },
                         { element: <GEFSForecasts />, path: '/forecast-systems/?q=gefs' }
                     ]

@@ -12,7 +12,7 @@ import { setRegionSelect } from '@/pages/tools/plotsLib';
 export default function SelectAreaOfInterest() {
     const dispatch = useAppDispatch();
     const mask_area = useAppSelector((state) => state.params?.mask_area);
-    const model = useAppSelector((state) => state.params.cgan?.model) || GanModels[0].value;
+    const model = useAppSelector((state) => state.params.ensemble?.model) || GanModels[0].value;
 
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ mask_area: value }));

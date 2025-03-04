@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { type MaskArea, type ForecastDate, type VisualizationColorStyle, type GetMaskAreasSettingsMaskAreasGetData, type GetForecastDatesSettingsDataDatesGetData, type GetColorStylesSettingsColorStylesGetData } from '@/client';
+import { type MaskArea, type ForecastDate, type ForecastInitTime, type VisualizationColorStyle, type GetMaskAreasSettingsMaskAreasGetData, type GetForecastDatesSettingsDataDatesGetData, type GetColorStylesSettingsColorStylesGetData, type GetForecastInitTimeSettingsForecastInitTimeGetData } from '@/client';
 import { urlEncodeParams } from './tools';
 import { isEmpty } from 'lodash-es';
 export const settingsApiSlice = createApi({
@@ -10,7 +10,8 @@ export const settingsApiSlice = createApi({
     endpoints: (builder) => ({
         fetchMaskAreas: builder.query<MaskArea[], GetMaskAreasSettingsMaskAreasGetData>({ query: (params) => ({ url: params.url, method: 'GET' }) }),
         fetchColorStyles: builder.query<VisualizationColorStyle[], GetColorStylesSettingsColorStylesGetData>({ query: (params) => ({ url: params.url, method: 'GET' }) }),
-        fetchForecastDates: builder.query<ForecastDate[], GetForecastDatesSettingsDataDatesGetData>({ query: (params) => ({ url: `${params.url}?${urlEncodeParams(!isEmpty(params?.query) ? params?.query : {})}`, method: 'GET' }) })
+        fetchForecastDates: builder.query<ForecastDate[], GetForecastDatesSettingsDataDatesGetData>({ query: (params) => ({ url: `${params.url}?${urlEncodeParams(!isEmpty(params?.query) ? params?.query : {})}`, method: 'GET' }) }),
+        FetchForecastInitTime: builder.query<ForecastInitTime[], GetForecastInitTimeSettingsForecastInitTimeGetData>({ query: (params) => ({ url: `${params.url}?${urlEncodeParams(!isEmpty(params?.query) ? params?.query : {})}`, method: 'GET' }) }),
     })
 });
 

@@ -1,7 +1,5 @@
 import { useAppSelector } from '@/gateway/hooks';
 
-// import ShowEnsemble from './components/show-ensemble';
-// import MaxEnsemblePlots from './components/ensemble-plots';
 import ThresholdChance from './components/threshold-chance';
 import ShowPercentage from './components/show-percentage';
 import HistogramThresholdValue from './components/threshold-value';
@@ -10,15 +8,11 @@ import * as plotLib from '@/pages/tools/plotsLib';
 
 import PlotTypeSelector from './components/plot-type';
 
-import FetchGanForecast from './components/api/fetch-gan-forecast';
-import FetchGanEnsemble from './components/api/fetch-gan-ensemble';
-import FetchGanThresholdChance from './components/api/fetch-gan-threshold-chance';
 
 import { useEffect } from 'react';
 
-export default function CGANForecasts() {
-    // const show_ensemble = useAppSelector((state) => state.params.cgan?.show_ensemble);
-    const model = useAppSelector((state) => state.params.cgan?.model);
+export default function CGAN1000Ensemble() {
+    const model = useAppSelector((state) => state.params.count?.model);
     const start_time = useAppSelector((state) => state.params?.start_time);
     const forecast_date = useAppSelector((state) => state.params?.forecast_date);
     const valid_time = useAppSelector((state) => state.params?.valid_time);
@@ -73,11 +67,6 @@ export default function CGANForecasts() {
                     </div>
                 </div>
             </div>
-            <>
-                <FetchGanForecast />
-                <FetchGanEnsemble />
-                <FetchGanThresholdChance />
-            </>
         </div>
     );
 }

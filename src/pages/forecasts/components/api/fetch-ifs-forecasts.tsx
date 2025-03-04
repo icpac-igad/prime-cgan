@@ -1,13 +1,13 @@
 import { useSelector, shallowEqual } from 'react-redux';
 import { Message } from 'primereact/message';
 import { useFetchOpenIfsForecastQuery } from '@/gateway/slices/open-ifs';
-import { selectForecastParams, selectOpenIfsParams } from '@/gateway/slices/params';
+import { selectEnsembleParams, selectOpenIfsParams } from '@/gateway/slices/params';
 import { validObjectEntries } from '@/gateway/slices/tools';
 import { isEmpty } from 'lodash-es';
 import Spinner from '../spinner';
 
 export default function FetchOpenIfsForecast() {
-    const forecast_params = validObjectEntries({ ...useSelector(selectForecastParams, shallowEqual), ...useSelector(selectOpenIfsParams, shallowEqual) });
+    const forecast_params = validObjectEntries({ ...useSelector(selectEnsembleParams, shallowEqual), ...useSelector(selectOpenIfsParams, shallowEqual) });
     const {
         data = [],
         isFetching,

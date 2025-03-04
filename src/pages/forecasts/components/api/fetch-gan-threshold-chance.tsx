@@ -1,7 +1,7 @@
 import { useSelector, shallowEqual } from 'react-redux';
 // import { Message } from 'primereact/message';
 import { useFetchGanThresholdChanceQuery } from '@/gateway/slices/cgan';
-import { selectForecastParams, selectGanThresholdParams } from '@/gateway/slices/params';
+import { selectEnsembleParams, selectGanThresholdParams } from '@/gateway/slices/params';
 import { validObjectEntries } from '@/gateway/slices/tools';
 import { useAppSelector } from '@/gateway/hooks';
 
@@ -12,7 +12,7 @@ import { isEmpty } from 'lodash-es';
 import Spinner from '../spinner';
 
 export default function FetchGanThresholdChance() {
-    const forecast_params = validObjectEntries({ ...useSelector(selectForecastParams, shallowEqual), ...useSelector(selectGanThresholdParams, shallowEqual) });
+    const forecast_params = validObjectEntries({ ...useSelector(selectEnsembleParams, shallowEqual), ...useSelector(selectGanThresholdParams, shallowEqual) });
     const {
         data = [],
         isFetching,
@@ -22,7 +22,7 @@ export default function FetchGanThresholdChance() {
         url: '/cgan-forecats/cgan-threshold-chance',
         query: forecast_params
     });
-    const model = useAppSelector((state) => state.params.cgan?.model) === 'mvua-kubwa' ? 'Mvua Kubwa' : 'Jurre Brishti';
+    const model = useAppSelector((state) => state.params.ensemble?.model) === 'mvua-kubwa' ? 'Mvua Kubwa' : 'Jurre Brishti';
     if (isFetching || isLoading) {
         return <Spinner />;
     } else if (isSuccess && !isEmpty(data)) {

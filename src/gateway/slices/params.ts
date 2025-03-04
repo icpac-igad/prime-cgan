@@ -14,19 +14,23 @@ export interface Forecastparams {
     valid_time?: string;
 }
 
-export interface GanParams {
+export interface EnsembleParams {
     model?: string;
     show_ensemble?: boolean;
     max_ens_plots?: number;
     threshold?: number;
-    show_histogram?: boolean;
+    certainity?: number;
+    plot_type?: string;
+    show_percentages?: boolean;
+}
+
+export interface CountParams {
+    model?: string;
     histogram_plot?: string;
     histogram_bins?: number;
     histogram_certainity?: number;
+    threshold?: number;
     show_percentages?: boolean;
-    location?: string;
-    latitude?: number;
-    longitude?: number;
 }
 
 export interface OpenIfsParams {
@@ -40,14 +44,16 @@ interface IndexPageProps {
 }
 
 export interface ParamState extends Forecastparams {
-    cgan: GanParams;
+    ensemble: EnsembleParams;
+    count: CountParams,
     open_ifs: OpenIfsParams;
     pages: IndexPageProps;
 }
 
 const initialState: ParamState = {
     status: 'idle',
-    cgan: { threshold: 5, show_histogram: false },
+    ensemble: { threshold: 5 },
+    count: {},
     open_ifs: {},
     pages: { activeIndex: 0 }
 };
@@ -62,11 +68,20 @@ export const ParamSlice = createSlice({
                 ...action.payload
             };
         },
-        onGanParamChange(state, action: PayloadAction<GanParams>) {
+        onEnsembleParamChange(state, action: PayloadAction<EnsembleParams>) {
             return {
                 ...state,
-                cgan: {
-                    ...state.cgan,
+                ensemble: {
+                    ...state.ensemble,
+                    ...action.payload
+                }
+            };
+        },
+        onCountParamChange(state, action: PayloadAction<CountParams>) {
+            return {
+                ...state,
+                count: {
+                    ...state.count,
                     ...action.payload
                 }
             };
@@ -85,9 +100,17 @@ export const ParamSlice = createSlice({
         }
     },
     selectors: {
-        selectForecastParams: (paramState) =>
+        selectEnsembleParams: (paramState) =>
             validObjectEntries({
-                model: paramState.cgan.model,
+                model: paramState.ensemble.model,
+                mask_area: paramState.mask_area,
+                color_style: paramState.color_style,
+                plot_units: paramState.plot_units,
+                forecast_date: paramState.forecast_date
+            }),
+        selectCountParams: (paramState) =>
+            validObjectEntries({
+                model: paramState.count.model,
                 mask_area: paramState.mask_area,
                 color_style: paramState.color_style,
                 plot_units: paramState.plot_units,
@@ -95,7 +118,6 @@ export const ParamSlice = createSlice({
             }),
         selectOpenIfsParams: (paramState) =>
             validObjectEntries({
-                model: paramState.cgan.model,
                 vis_param: paramState.open_ifs?.vis_param
             }),
         selectOpenEnsembleParams: (paramState) =>
@@ -103,7 +125,7 @@ export const ParamSlice = createSlice({
                 show_ensemble: paramState.open_ifs?.show_ensemble,
                 max_ens_plots: paramState.open_ifs?.max_ens_plots
             }),
-        selectGanParams: (paramState) =>
+        selectEnsembleForecastParams: (paramState) =>
             validObjectEntries({
                 acc_time: paramState.acc_time,
                 forecast_date: paramState.forecast_date,
@@ -111,26 +133,17 @@ export const ParamSlice = createSlice({
             }),
         selectGanEnsembleParams: (paramState) =>
             validObjectEntries({
-                show_ensemble: paramState.cgan.show_ensemble,
-                max_ens_plots: paramState.cgan.max_ens_plots
-            }),
-        selectGanHistogramParams: (paramState) =>
-            validObjectEntries({
-                histogram_plot: paramState.cgan?.histogram_plot,
-                histogram_bins: paramState.cgan?.histogram_bins,
-                histogram_certainity: paramState.cgan?.histogram_certainity,
-                location: paramState.cgan?.location,
-                latitude: paramState.cgan?.latitude,
-                longitude: paramState.cgan?.longitude
+                show_ensemble: paramState.ensemble.show_ensemble,
+                max_ens_plots: paramState.ensemble.max_ens_plots
             }),
         selectGanThresholdParams: (paramState) =>
             validObjectEntries({
-                threshold: paramState.cgan?.threshold,
-                show_percentages: paramState.cgan?.show_percentages
+                threshold: paramState.ensemble?.threshold,
+                show_percentages: paramState.ensemble?.show_percentages
             })
     }
 });
 
-export const { onForecastParamChange, onGanParamChange, onOpenIfsParamChange, onActiveIndexPageChange } = ParamSlice.actions;
-export const { selectForecastParams, selectOpenIfsParams, selectOpenEnsembleParams, selectGanParams, selectGanHistogramParams, selectGanEnsembleParams, selectGanThresholdParams } = ParamSlice.selectors;
+export const { onForecastParamChange, onEnsembleParamChange, onOpenIfsParamChange, onActiveIndexPageChange } = ParamSlice.actions;
+export const { selectEnsembleParams, selectOpenIfsParams, selectOpenEnsembleParams, selectEnsembleForecastParams, selectGanEnsembleParams, selectGanThresholdParams } = ParamSlice.selectors;
 export default ParamSlice.reducer;
