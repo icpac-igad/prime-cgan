@@ -40,7 +40,7 @@ const ExternalSystem = () => {
 
 export default function ForecastsPage() {
     const activePage = useAppSelector((state) => state.params.pages.activeIndex);
-    const model = useAppSelector((state) => state.params.cgan?.model) as GanForecastModel;
+    const model = useAppSelector((state) => state.params.ensemble?.model) as GanForecastModel;
     const dispatch = useAppDispatch();
 
     const itemRenderer = (item: MenuItem, itemIndex: number) => (
