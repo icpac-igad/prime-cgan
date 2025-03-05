@@ -28,7 +28,7 @@ export default function CGAN1000Ensemble() {
             'The <a href="https://www.ecmwf.int/" target="_blank">ECMWF</a> <a href="https://confluence.ecmwf.int/display/FUG/Section+2+The+ECMWF+Integrated+Forecasting+System+-+IFS" target="_blank">IFS</a> output is post-processed using <a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2022MS003120" target="_blank">cGAN</a> trained on <a href="https://gpm.nasa.gov/data/imerg" target="_blank"> IMERG</a> v6 from 2018 and 2019 to produce forecasts of 6h rainfall intervals.',
             'The <a href="https://www.ecmwf.int/" target="_blank">ECMWF</a> <a href="https://confluence.ecmwf.int/display/FUG/Section+2+The+ECMWF+Integrated+Forecasting+System+-+IFS" target="_blank">IFS</a> output is post-processed using <a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2022MS003120" target="_blank">cGAN</a> trained on <a href="https://gpm.nasa.gov/data/imerg" target="_blank"> IMERG</a> v7 from 2018 and 2019 to produce forecasts of 24h rainfall intervals.'
         ];
-        if (model === 'mvua-kubwa') {
+        if (model?.includes('mvua-kubwa')) {
             infoNode.innerHTML = modelInfoList[1];
         } else {
             infoNode.innerHTML = modelInfoList[0];

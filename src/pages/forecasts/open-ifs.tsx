@@ -3,7 +3,7 @@ import FetchOpenIfsEnsemble from './components/api/fetch-ifs-ensemble';
 import { useAppSelector } from '@/gateway/hooks';
 
 export default function OpenIFSForecasts() {
-    const show_ensemble = useAppSelector((state) => state.params.open_ifs?.show_ensemble);
+    const show_ensemble = useAppSelector((state) => state.params.open_ifs?.show_ensemble || false);
     return (
         <div className="shadow-0 mx-4 px-4 pt-2 pb-8">
             <h1 className="text-2xl text-left font-semibold">ECMWF Open IFS Forecast Products</h1>

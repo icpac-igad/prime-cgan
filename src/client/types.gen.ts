@@ -68,13 +68,12 @@ export type MaskArea = {
     name: string;
 };
 
-export type PrecipitationUnit = 'mm/h' | 'mm/6h' | 'mm/day' | 'mm/week';
+export type PrecipitationUnit = 'mm/h' | 'mm/6h' | 'mm/day';
 
 export const PrecipitationUnit = {
     MM_H: 'mm/h',
     MM_6H: 'mm/6h',
-    MM_DAY: 'mm/day',
-    MM_WEEK: 'mm/week'
+    MM_DAY: 'mm/day'
 } as const;
 
 export type ValidationError = {
@@ -147,8 +146,21 @@ export type FaviconIcoFaviconIcoGetError = FaviconIcoFaviconIcoGetErrors[keyof F
 
 export type GetGanForecastModelsSettingsGanForecastModelsGetData = {
     body?: never;
+    path?: never;
+    query?: {
+        no_ensemble?: number | null;
+    };
     url: '/settings/gan-forecast-models';
 };
+
+export type GetGanForecastModelsSettingsGanForecastModelsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetGanForecastModelsSettingsGanForecastModelsGetError = GetGanForecastModelsSettingsGanForecastModelsGetErrors[keyof GetGanForecastModelsSettingsGanForecastModelsGetErrors];
 
 export type GetGanForecastModelsSettingsGanForecastModelsGetResponses = {
     /**
@@ -163,7 +175,7 @@ export type GetForecastDatesSettingsDataDatesGetData = {
     body?: never;
     path?: never;
     query?: {
-        model?: ('jurre-brishti' | 'mvua-kubwa' | 'open-ifs') | null;
+        model?: ('jurre-brishti-ens' | 'mvua-kubwa-ens' | 'jurre-brishti-count' | 'mvua-kubwa-count' | 'open-ifs') | null;
     };
     url: '/settings/data-dates';
 };
@@ -191,7 +203,7 @@ export type GetForecastInitTimeSettingsForecastInitTimeGetData = {
     path?: never;
     query?: {
         forecast_date?: string | null;
-        model_name?: ('jurre-brishti-ens' | 'jurre-bristi-count') | null;
+        model_name?: ('jurre-brishti-ens' | 'jurre-brishti-count') | null;
     };
     url: '/settings/forecast-init-time';
 };

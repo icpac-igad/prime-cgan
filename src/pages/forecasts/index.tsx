@@ -40,7 +40,7 @@ const ExternalSystem = () => {
 
 export default function ForecastsPage() {
     const activePage = useAppSelector((state) => state.params.pages.activeIndex);
-    const model = useAppSelector((state) => state.params.ensemble?.model) as GanForecastModel;
+    const model = useAppSelector((state) => activePage === 2 ? 'open-ifs' : activePage == 1 ? state.params?.ensemble?.model : state.params?.count?.model) as GanForecastModel;
     const dispatch = useAppDispatch();
 
     const itemRenderer = (item: MenuItem, itemIndex: number) => (
@@ -83,7 +83,7 @@ export default function ForecastsPage() {
         }
     }, [searchParams]);
 
-    const { data: datesData = [], isFetching: datesFetching, isSuccess: datesSuccess, isLoading: datesLoading } = useFetchForecastDatesQuery({ url: '/settings/data-dates', query: { model: activePage === 1 ? 'open-ifs' : model } });
+    const { data: datesData = [], isFetching: datesFetching, isSuccess: datesSuccess, isLoading: datesLoading } = useFetchForecastDatesQuery({ url: '/settings/data-dates', query: { model: activePage === 2 ? 'open-ifs' : model } });
     if (!datesLoading && datesSuccess && !isEmpty(datesData)) {
         dispatch(onForecastParamChange({ forecast_date: datesData[0].date }));
     }
@@ -111,7 +111,7 @@ export default function ForecastsPage() {
                     <PlotUnitsSelect />
                     {[0, 1].includes(activePage) && <AccTimeSelect />}
                     <ColorStyleSelect />
-                    {activePage == 2 && <ShowEnsemble forecast="open-ifs" />}
+                    {activePage == 2 && <ShowEnsemble />}
                 </div>
             </div>
 
