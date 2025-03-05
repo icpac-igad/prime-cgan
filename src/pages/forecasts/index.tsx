@@ -9,10 +9,8 @@ import OpenIFSForecasts from './open-ifs';
 import GEFSForecasts from './gefs';
 import IFrame from 'react-iframe';
 
-import { useFetchForecastDatesQuery } from '@/gateway/slices/settings';
-import { onForecastParamChange, onActiveIndexPageChange } from '@/gateway/slices/params';
+import { onActiveIndexPageChange } from '@/gateway/slices/params';
 import { useAppDispatch, useAppSelector } from '@/gateway/hooks';
-import { GanForecastModel } from '@/pages/tools/types';
 
 import ForecastModel from './components/forecast-model';
 
@@ -27,8 +25,6 @@ import ValidTimeSelect from './components/forecast-validity';
 
 import ShowEnsemble from './components/show-ensemble';
 
-import { isEmpty } from 'lodash-es';
-
 const ExternalSystem = () => {
     return (
         <div className="shadow-0 mx-4 px-4 pt-2 pb-8">
@@ -40,7 +36,6 @@ const ExternalSystem = () => {
 
 export default function ForecastsPage() {
     const activePage = useAppSelector((state) => state.params.pages.activeIndex);
-    const model = useAppSelector((state) => activePage === 2 ? 'open-ifs' : activePage == 1 ? state.params?.ensemble?.model : state.params?.count?.model) as GanForecastModel;
     const dispatch = useAppDispatch();
 
     const itemRenderer = (item: MenuItem, itemIndex: number) => (
@@ -83,10 +78,7 @@ export default function ForecastsPage() {
         }
     }, [searchParams]);
 
-    const { data: datesData = [], isFetching: datesFetching, isSuccess: datesSuccess, isLoading: datesLoading } = useFetchForecastDatesQuery({ url: '/settings/data-dates', query: { model: activePage === 2 ? 'open-ifs' : model } });
-    if (!datesLoading && datesSuccess && !isEmpty(datesData)) {
-        dispatch(onForecastParamChange({ forecast_date: datesData[0].date }));
-    }
+
 
     return (
         <div className="shadow-0 mx-4 px-4 pt-2 pb-8">
@@ -101,7 +93,7 @@ export default function ForecastsPage() {
                         </>
                     )}
                     {activePage === 2 && <VisualizationParameter />}
-                    <ForecastDateSelect data={datesData} isFetching={datesFetching} isLoading={datesLoading} isSuccess={datesSuccess} />
+                    <ForecastDateSelect />
                     {[0, 1].includes(activePage) && (
                         <>
                             <ForecastTimeSelect />

@@ -6,17 +6,16 @@ import SelectInput from './form/select-input';
 import Spinner from './spinner';
 import { isEmpty } from 'lodash-es';
 
-import { GanModels } from '@/pages/tools/constants';
 import { setStyleSelect } from '@/pages/tools/plotsLib';
 
 export default function SelectColorStyle() {
     const dispatch = useAppDispatch();
     const color_style = useAppSelector((state) => state.params?.color_style);
-    const model = useAppSelector((state) => state.params.ensemble?.model) || GanModels[0].value;
+    const model = useAppSelector((state) => state.params?.model);
 
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ color_style: value }));
-        if (GanModels.map((m) => m.value).includes(model)) {
+        if (model?.includes('count')) {
             setStyleSelect(value, model);
         }
     };

@@ -22,7 +22,7 @@ export default function FetchGanThresholdChance() {
         url: '/cgan-forecats/cgan-threshold-chance',
         query: forecast_params
     });
-    const model = useAppSelector((state) => state.params.ensemble?.model) === 'mvua-kubwa' ? 'Mvua Kubwa' : 'Jurre Brishti';
+    const model = useAppSelector((state) => state.params?.model);
     if (isFetching || isLoading) {
         return <Spinner />;
     } else if (isSuccess) {

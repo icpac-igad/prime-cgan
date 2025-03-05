@@ -4,7 +4,6 @@ import { InitializationTime } from '@/client';
 import { SelectOption } from '@/pages/tools/types';
 import SelectInput from './form/select-input';
 
-import { GanModels } from '@/pages/tools/constants';
 import { initTimeSelect } from '@/pages/tools/plotsLib';
 
 export default function SelectAccTime() {
@@ -12,11 +11,11 @@ export default function SelectAccTime() {
     const start_time = useAppSelector((state) => state.params?.start_time);
     const valid_time = useAppSelector((state) => state.params?.valid_time);
     const forecast_date = useAppSelector((state) => state.params?.forecast_date);
-    const model = useAppSelector((state) => state.params.ensemble?.model) || GanModels[0].value;
+    const model = useAppSelector((state) => state.params?.model);
 
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ start_time: value }));
-        if (GanModels.map((m) => m.value).includes(model)) {
+        if (model?.includes('count')) {
             initTimeSelect(forecast_date, value, valid_time);
         }
     };

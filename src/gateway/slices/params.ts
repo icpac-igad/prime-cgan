@@ -5,31 +5,29 @@ import { validObjectEntries } from '@/gateway/slices/tools';
 
 export interface Forecastparams {
     status?: LoadingStatus;
+    model?: string;
+    forecast_date?: string;
+    start_time?: string;
+    valid_time?: string;
     mask_area?: string;
     color_style?: string;
     plot_units?: string;
     acc_time?: string;
-    forecast_date?: string;
-    start_time?: string;
-    valid_time?: string;
+    threshold?: number;
 }
 
 export interface EnsembleParams {
-    model?: string;
     show_ensemble?: boolean;
     max_ens_plots?: number;
-    threshold?: number;
     certainity?: number;
     plot_type?: string;
     show_percentages?: boolean;
 }
 
 export interface CountParams {
-    model?: string;
     histogram_plot?: string;
     histogram_bins?: number;
     histogram_certainity?: number;
-    threshold?: number;
     show_percentages?: boolean;
 }
 
@@ -52,7 +50,8 @@ export interface ParamState extends Forecastparams {
 
 const initialState: ParamState = {
     status: 'idle',
-    ensemble: { threshold: 5 },
+    threshold: 5,
+    ensemble: { },
     count: {},
     open_ifs: {},
     pages: { activeIndex: 0 }
@@ -102,7 +101,7 @@ export const ParamSlice = createSlice({
     selectors: {
         selectEnsembleParams: (paramState) =>
             validObjectEntries({
-                model: paramState.ensemble.model,
+                model: paramState.model,
                 mask_area: paramState.mask_area,
                 color_style: paramState.color_style,
                 plot_units: paramState.plot_units,
@@ -110,7 +109,7 @@ export const ParamSlice = createSlice({
             }),
         selectCountParams: (paramState) =>
             validObjectEntries({
-                model: paramState.count.model,
+                model: paramState.model,
                 mask_area: paramState.mask_area,
                 color_style: paramState.color_style,
                 plot_units: paramState.plot_units,
@@ -138,7 +137,7 @@ export const ParamSlice = createSlice({
             }),
         selectGanThresholdParams: (paramState) =>
             validObjectEntries({
-                threshold: paramState.ensemble?.threshold,
+                threshold: paramState?.threshold,
                 show_percentages: paramState.ensemble?.show_percentages
             })
     }

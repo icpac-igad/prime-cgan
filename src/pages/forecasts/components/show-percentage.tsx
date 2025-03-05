@@ -2,7 +2,6 @@ import { useAppDispatch, useAppSelector } from '@/gateway/hooks';
 import ToggleButton from './form/toggle-button';
 import { onEnsembleParamChange } from '@/gateway/slices/params';
 
-import { GanModels } from '@/pages/tools/constants';
 import { percentagesSelect } from '@/pages/tools/plotsLib';
 
 export default function ShowPercentage() {
@@ -10,12 +9,12 @@ export default function ShowPercentage() {
 
     const show_percent = useAppSelector((state) => state.params.ensemble?.show_percentages || false);
     const options = ['Percentages', 'Words'];
-    const model = useAppSelector((state) => state.params.ensemble?.model) || GanModels[0].value;
+    const model = useAppSelector((state) => state.params?.model);
 
     const onValueChange = (value: string) => {
         dispatch(onEnsembleParamChange({ show_percentages: value === options[0] ? true : false }));
 
-        if (GanModels.map((m) => m.value).includes(model)) {
+        if (model?.includes('count')) {
             percentagesSelect(value);
         }
     };

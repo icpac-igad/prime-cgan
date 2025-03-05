@@ -3,7 +3,6 @@ import { onEnsembleParamChange } from '@/gateway/slices/params';
 import { SelectOption } from '@/pages/tools/types';
 import SelectInput from './form/select-input';
 
-import { GanModels } from '@/pages/tools/constants';
 import { plotSelect } from '@/pages/tools/plotsLib';
 
 export default function PlotType() {
@@ -15,12 +14,12 @@ export default function PlotType() {
     ];
 
     const plot = useAppSelector((state) => state.params.ensemble?.plot_type) || options[0].value;
-    const model = useAppSelector((state) => state.params.ensemble?.model) || GanModels[0].value;
+    const model = useAppSelector((state) => state.params?.model);
 
     const onValueChange = (value: string) => {
         dispatch(onEnsembleParamChange({ plot_type: value }));
 
-        if (GanModels.map((m) => m.value).includes(model)) {
+        if (model?.includes('count')) {
             plotSelect(value);
         }
     };

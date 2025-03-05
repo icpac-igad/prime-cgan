@@ -11,7 +11,7 @@ export default function FetchGanForecast() {
         ...useSelector(selectEnsembleParams, shallowEqual),
         ...useSelector(selectEnsembleForecastParams, shallowEqual)
     };
-    const model = useAppSelector((state) => state.params.ensemble?.model) === 'mvua-kubwa' ? 'Mvua Kubwa' : 'Jurre Brishti';
+    const model = useAppSelector((state) => state.params?.model);
     const {
         data = [],
         isFetching,

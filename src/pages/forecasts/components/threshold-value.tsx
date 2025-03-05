@@ -1,21 +1,20 @@
 import { useAppDispatch, useAppSelector } from '@/gateway/hooks';
-import { onEnsembleParamChange } from '@/gateway/slices/params';
+import { onForecastParamChange } from '@/gateway/slices/params';
 import { PrecipitationUnit } from '@/client';
 import NumericInput from './form/numeric-input';
 
-import { GanModels } from '@/pages/tools/constants';
 import { thresholdValueSet } from '@/pages/tools/plotsLib';
 
 export default function HistogramThesholdValue() {
     const dispatch = useAppDispatch();
-    const threshold = useAppSelector((state) => state.params.ensemble?.threshold) || 5;
+    const threshold = useAppSelector((state) => state.params?.threshold) || 5;
     const plot_units = useAppSelector((state) => state.params?.plot_units || PrecipitationUnit.MM_6H);
-    const model = useAppSelector((state) => state.params.ensemble?.model) || GanModels[0].value;
+    const model = useAppSelector((state) => state.params?.model);
 
     const onValueChange = (value: number) => {
-        dispatch(onEnsembleParamChange({ threshold: value }));
+        dispatch(onForecastParamChange({ threshold: value }));
 
-        if (GanModels.map((m) => m.value).includes(model)) {
+        if (model?.includes('count')) {
             thresholdValueSet(threshold);
         }
     };

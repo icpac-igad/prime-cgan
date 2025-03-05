@@ -12,7 +12,7 @@ import PlotTypeSelector from './components/plot-type';
 import { useEffect } from 'react';
 
 export default function CGAN1000Ensemble() {
-    const model = useAppSelector((state) => state.params.count?.model);
+    const model = useAppSelector((state) => state.params.model);
     const start_time = useAppSelector((state) => state.params?.start_time);
     const forecast_date = useAppSelector((state) => state.params?.forecast_date);
     const valid_time = useAppSelector((state) => state.params?.valid_time);

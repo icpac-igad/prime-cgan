@@ -6,17 +6,16 @@ import SelectInput from './form/select-input';
 import Spinner from './spinner';
 import { isEmpty } from 'lodash-es';
 
-import { GanModels } from '@/pages/tools/constants';
 import { setRegionSelect } from '@/pages/tools/plotsLib';
 
 export default function SelectAreaOfInterest() {
     const dispatch = useAppDispatch();
     const mask_area = useAppSelector((state) => state.params?.mask_area);
-    const model = useAppSelector((state) => state.params.ensemble?.model) || GanModels[0].value;
+    const model = useAppSelector((state) => state.params.model);
 
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ mask_area: value }));
-        if (GanModels.map((m) => m.value).includes(model)) {
+        if (model?.includes('count')) {
             setRegionSelect(value);
         }
     };

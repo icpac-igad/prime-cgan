@@ -6,7 +6,7 @@ import { GanForecastModel } from '@/pages/tools/types';
 export default function ShowEnsemble() {
     const dispatch = useAppDispatch();
     const activePage = useAppSelector((state) => state.params.pages.activeIndex);
-    const model = useAppSelector((state) => activePage === 2 ? 'open-ifs' : activePage == 1 ? state.params?.ensemble?.model : state.params?.count?.model) as GanForecastModel;
+    const model = useAppSelector((state) => activePage === 2 ? 'open-ifs' : state.params?.model) as GanForecastModel;
 
     const show_ensemble = useAppSelector((state) => activePage === 2 ? state.params?.open_ifs?.show_ensemble : activePage === 1 ? state.params?.ensemble?.show_ensemble : false);
     const options = ['Yes', 'No'];

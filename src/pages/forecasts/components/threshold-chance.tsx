@@ -3,18 +3,17 @@ import { onEnsembleParamChange } from '@/gateway/slices/params';
 // import { PrecipitationUnit } from '@/client';
 import NumericInput from './form/numeric-input';
 
-import { GanModels } from '@/pages/tools/constants';
 import { thresholdChanceSet } from '@/pages/tools/plotsLib';
 
 export default function ThresholdChance() {
     const dispatch = useAppDispatch();
     const certainity = useAppSelector((state) => state.params.ensemble?.certainity) || 95;
-    const model = useAppSelector((state) => state.params.ensemble?.model) || GanModels[0].value;
+    const model = useAppSelector((state) => state.params?.model);
     // const plot_units = useAppSelector((state) => state.params?.plot_units || PrecipitationUnit.MM_6H);
 
     const onValueChange = (value: number) => {
         dispatch(onEnsembleParamChange({ certainity: value }));
-        if (GanModels.map((m) => m.value).includes(model)) {
+        if (model?.includes('count')) {
             thresholdChanceSet(certainity);
         }
     };

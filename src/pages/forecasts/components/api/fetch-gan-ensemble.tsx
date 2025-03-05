@@ -11,7 +11,7 @@ import MaxEnsemblePlots from '../ensemble-plots';
 
 export default function FetchGanEnsemble() {
     const forecast_params = { ...useSelector(selectEnsembleParams, shallowEqual), ...useSelector(selectGanEnsembleParams, shallowEqual) };
-    const model = useAppSelector((state) => state.params.ensemble?.model) === 'mvua-kubwa' ? 'Mvua Kubwa' : 'Jurre Brishti';
+    const model = useAppSelector((state) => state.params?.model) === 'mvua-kubwa' ? 'Mvua Kubwa' : 'Jurre Brishti';
         const {
             data = [],
             isFetching,
