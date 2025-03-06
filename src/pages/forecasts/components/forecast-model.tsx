@@ -7,6 +7,7 @@ import { showModelPlot } from '@/pages/tools/plotsLib';
 import Spinner from './spinner';
 
 import {isEmpty} from 'lodash-es'
+import { useEffect } from 'react';
 
 export default function ForecastModel() {
     const dispatch = useAppDispatch();
@@ -14,7 +15,6 @@ export default function ForecastModel() {
     const valid_time = useAppSelector((state) => state.params?.valid_time);
     const forecast_date = useAppSelector((state) => state.params?.forecast_date);
     const model = useAppSelector((state) => state.params?.model);
-
 
     const {
             data = [],
@@ -26,13 +26,19 @@ export default function ForecastModel() {
             query: {no_ensemble: model?.includes('ens') ? 50 : 1000}
         });
 
+    useEffect(() => {
+        if(!isEmpty(data) && isEmpty(model)) {
+            dispatch(onForecastParamChange({ model: data[0].name }));
+        }
+    }, [data, model])
+
     // Called by the modelSelect menu
     const onModelSelect = (value: string) => {
         // Set selected model in the store
         dispatch(onForecastParamChange({ model: value }));
         // show plots associated with the model
         if (model?.includes('-count')) {
-            showModelPlot(value, forecast_date, start_time, valid_time);
+            showModelPlot(value.replace("-count", ""), forecast_date, start_time, valid_time);
         }
     };
 
@@ -40,7 +46,7 @@ export default function ForecastModel() {
         return <Spinner />;
     } else if (isSuccess) {
         const options = isEmpty(data) ? [] : data.map((item) => ({ label: item.label, value: item.name }));
-        return <SelectInput {...{ inputId: 'forecast-model', label: 'Forecast Model', helpText: 'select cGAN forecasting model', options: options, value: isEmpty(options) ? "" : options[0].value, onChange: onModelSelect }} />
+        return <SelectInput {...{ inputId: 'forecast-model', label: 'Forecast Model', helpText: 'select cGAN forecasting model', options: options, value: model !== undefined ? model : "", onChange: onModelSelect }} />
     } else {
         return <Message severity="error" text="Error Loading Component" />;
     }

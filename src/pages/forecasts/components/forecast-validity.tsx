@@ -12,15 +12,44 @@ export default function SelectValidTime() {
     const valid_time = useAppSelector((state) => state.params?.valid_time);
     const model = useAppSelector((state) => state.params?.model);
 
-    const getValidTimeOptions = () => {
+    const addHours = (date: Date, hours: number) => {
+        const dateCopy = new Date(date.getTime());
+        const hoursToAdd = hours * 60 * 60 * 1000;
+        dateCopy.setTime(date.getTime() + hoursToAdd);
+        return dateCopy;
+    }
+
+    const formatDate = (date: Date) => {
+        const hours = date.getHours();
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const seconds = date.getSeconds();
+        const day = date.getDate().toString().padStart(2, '0')
+        const month = (date.getMonth()+1).toString().padStart(2, '0')
+        return`${date.getFullYear()}-${month}-${day}T${hours}:${minutes}:${seconds} UTC`
+    }
+
+    const getValidEnsembleTime = () => {
         const dataDate = new Date(forecast_date || 'Nov 27, 2024');
-        const dayOne = new Date(dataDate.getFullYear(), dataDate.getMonth(), dataDate.getDate() + 1);
-        const dayTwo = new Date(dataDate.getFullYear(), dataDate.getMonth(), dataDate.getDate() + 2);
+        const startDate = addHours(dataDate, start_time !== null && start_time !== undefined ? parseInt(start_time.replace('h','')) : 0)
         return [
-            { value: '30', label: `${dayOne.toDateString()} 12:00 UTC (+30h)` },
-            { value: '36', label: `${dayOne.toDateString()} 18:00 UTC (+36h)` },
-            { value: '42', label: `${dayTwo.toDateString()} 00:00 UTC (+42h)` },
-            { value: '48', label: `${dayTwo.toDateString()} 06:00 UTC (+48h)` }
+            { value: '30', label: `${formatDate(addHours(startDate, 30))} (+30h)` },
+            { value: '36', label: `${formatDate(addHours(startDate, 36))} (+36h)` },
+            { value: '42', label: `${formatDate(addHours(startDate, 42))} (+42h)` },
+            { value: '48', label: `${formatDate(addHours(startDate, 48))} (+48h)` }
+        ];
+    };
+
+    const getValidCountTime = () => {
+        const dataDate = new Date(forecast_date || 'Nov 27, 2024');
+        const startDate = addHours(dataDate, start_time !== null && start_time !== undefined ? parseInt(start_time.replace('h','')) : 0)
+        return [
+            { value: '06', label: `${formatDate(addHours(startDate, 6))} (+06h)` },
+            { value: '30', label: `${formatDate(addHours(startDate, 30))} (+30h)` },
+            { value: '54', label: `${formatDate(addHours(startDate, 54))} (+54h)` },
+            { value: '78', label: `${formatDate(addHours(startDate, 78))} (+78h)` },
+            { value: '102', label: `${formatDate(addHours(startDate, 102))} (+102)` },
+            { value: '126', label: `${formatDate(addHours(startDate, 126))} (+126)` },
+            { value: '150', label: `${formatDate(addHours(startDate, 150))} (+150)` }
         ];
     };
 
@@ -31,6 +60,6 @@ export default function SelectValidTime() {
         }
     };
 
-    const options: SelectOption[] = getValidTimeOptions();
+    const options: SelectOption[] = model?.includes('mvua-kubwa') ? getValidCountTime() : getValidEnsembleTime();
     return <SelectInput {...{ inputId: 'forecast-valid-time', label: 'Forecast Valid Time', helpText: 'select forecast initialization time', options: options, value: valid_time || options[0].value, onChange: onValueChange }} />;
 }

@@ -7,6 +7,7 @@ import Spinner from './spinner';
 import { isEmpty } from 'lodash-es';
 
 import { setRegionSelect } from '@/pages/tools/plotsLib';
+import { useEffect } from 'react';
 
 export default function SelectAreaOfInterest() {
     const dispatch = useAppDispatch();
@@ -21,6 +22,12 @@ export default function SelectAreaOfInterest() {
     };
 
     const { data = [], isFetching, isSuccess, isLoading } = useFetchMaskAreasQuery({ url: '/settings/mask-areas' });
+    useEffect(() => {
+        if(!isEmpty(data) && isEmpty(mask_area)) {
+            dispatch(onForecastParamChange({ mask_area: data[0].name }));
+        }
+    }, [data, mask_area])
+
     if (isFetching || isLoading) {
         return <Spinner />;
     } else if (isSuccess && !isEmpty(data)) {

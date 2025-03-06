@@ -5,6 +5,7 @@ import { SelectOption } from '@/pages/tools/types';
 import SelectInput from './form/select-input';
 
 import { initTimeSelect } from '@/pages/tools/plotsLib';
+import { useEffect } from 'react';
 
 export default function SelectAccTime() {
     const dispatch = useAppDispatch();
@@ -19,6 +20,12 @@ export default function SelectAccTime() {
             initTimeSelect(forecast_date, value, valid_time);
         }
     };
+
+    useEffect(() => {
+        if(start_time === null || start_time === undefined || start_time === "") {
+            dispatch(onForecastParamChange({ start_time: "00h" }));
+        }
+    }, [start_time])
 
     const options: SelectOption[] = [
         { label: '00:00 UTC', value: InitializationTime['00H'] },
