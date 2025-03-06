@@ -1,12 +1,6 @@
 import { useAppSelector } from '@/gateway/hooks';
 
-import ThresholdChance from './components/threshold-chance';
-import ShowPercentage from './components/show-percentage';
-import HistogramThresholdValue from './components/threshold-value';
-
 import * as plotLib from '@/pages/tools/plotsLib';
-
-import PlotTypeSelector from './components/plot-type';
 
 
 import { useEffect } from 'react';
@@ -51,20 +45,12 @@ export default function CGAN1000Ensemble() {
 
             <div className="card p-4 m-1 shadow-3">
                 <div className="card align-items-left justify-content-start max-w-full">
-                    <div className="flex gap-1">
-                        <PlotTypeSelector />
-                        <HistogramThresholdValue />
-                        <ThresholdChance />
-                        <ShowPercentage />
-                    </div>
-                    <div className="card">
-                        <p className="font-medium line-height-3" id="statusText" style={{ color: 'rgb(204, 0, 0)' }}>
-                            Loading borders ...
-                        </p>
-                        <canvas id="myCanvas" width="1024" height="504">
-                            Your browser does not support the HTML canvas tag.
-                        </canvas>
-                    </div>
+                    <p className="font-medium line-height-3" id="statusText" style={{ color: 'rgb(204, 0, 0)' }}>
+                        Loading borders ...
+                    </p>
+                    <canvas id="myCanvas" width="1024" height="504">
+                        Your browser does not support the HTML canvas tag.
+                    </canvas>
                 </div>
             </div>
         </div>

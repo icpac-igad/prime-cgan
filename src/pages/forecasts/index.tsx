@@ -25,6 +25,12 @@ import ValidTimeSelect from './components/forecast-validity';
 
 import ShowEnsemble from './components/show-ensemble';
 
+import ThresholdChance from './components/threshold-chance';
+import ShowPercentage from './components/show-percentage';
+import HistogramThresholdValue from './components/threshold-value';
+
+import PlotTypeSelector from './components/plot-type';
+
 const ExternalSystem = () => {
     return (
         <div className="shadow-0 mx-4 px-4 pt-2 pb-8">
@@ -104,6 +110,14 @@ export default function ForecastsPage() {
                     {[0, 1].includes(activePage) && <AccTimeSelect />}
                     <ColorStyleSelect />
                     {activePage == 2 && <ShowEnsemble />}
+                    {activePage === 0 && (
+                        <>
+                            <PlotTypeSelector />
+                            <HistogramThresholdValue />
+                            <ThresholdChance />
+                            <ShowPercentage />
+                        </>
+                    )}
                 </div>
             </div>
 
