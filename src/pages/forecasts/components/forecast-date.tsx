@@ -32,6 +32,12 @@ export default function ForecastDates() {
         }
     }, [datesData, forecast_date])
 
+    useEffect(() => {
+        if(!isEmpty(datesData) && !isEmpty(forecast_date) && !isEmpty(model)) {
+            dispatch(onForecastParamChange({ forecast_date: datesData[0].date }));
+        }
+    }, [datesData, model])
+
 
     if (datesFetching || datesLoading) {
         return <Spinner />;

@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 
 export default function ForecastModel() {
     const dispatch = useAppDispatch();
+    const activePage = useAppSelector((state) => state.params.pages.activeIndex);
     const start_time = useAppSelector((state) => state.params?.start_time);
     const valid_time = useAppSelector((state) => state.params?.valid_time);
     const forecast_date = useAppSelector((state) => state.params?.forecast_date);
@@ -23,11 +24,11 @@ export default function ForecastModel() {
             isSuccess
         } = useFetchForecastModelsQuery({
             url: '/settings/gan-forecast-models',
-            query: {no_ensemble: model?.includes('ens') ? 50 : 1000}
+            query: {no_ensemble: activePage === 1 ? 50 : 1000}
         });
 
     useEffect(() => {
-        if(!isEmpty(data) && isEmpty(model)) {
+        if(!isEmpty(data)) {
             dispatch(onForecastParamChange({ model: data[0].name }));
         }
     }, [data, model])

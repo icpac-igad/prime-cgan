@@ -31,6 +31,8 @@ import HistogramThresholdValue from './components/threshold-value';
 
 import PlotTypeSelector from './components/plot-type';
 
+import { onForecastParamChange } from '@/gateway/slices/params';
+
 const ExternalSystem = () => {
     return (
         <div className="shadow-0 mx-4 px-4 pt-2 pb-8">
@@ -77,9 +79,11 @@ export default function ForecastsPage() {
                 dispatch(onActiveIndexPageChange(2));
                 break;
             case 'cgan-50-ensemble':
+                dispatch(onForecastParamChange({ model: 'jurre-brishti-count' }));
                 dispatch(onActiveIndexPageChange(1));
                 break;
             default:
+                dispatch(onForecastParamChange({ model: 'jurre-brishti-ens' }));
                 dispatch(onActiveIndexPageChange(0));
         }
     }, [searchParams]);
