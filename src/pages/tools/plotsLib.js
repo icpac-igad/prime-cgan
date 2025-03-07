@@ -108,7 +108,7 @@ export async function loadForecast(forecast_date, start_time, valid_time) {
         accumulationHours = 24;
     }
     // The cGAN forecast file to load
-    let fileName = `${import.meta.env.VITE_FTP_DATA_URL || '/ftp/'}${countsDir}/${year}/${month}/counts_${year}${month}${day}_${startTime}_${validTime}h.nc`;
+    let fileName = `${import.meta.env.VITE_FTP_DATA_URL || '/ftp/'}${countsDir}/${year}/${month}/counts_${year}${month}${day}_${startTime.replace('h','')}_${validTime}h.nc`;
 
     // Load data into the forecastDataObject
     await GANForecast.loadGANForecast(fileName, modelName, accumulationHours);
