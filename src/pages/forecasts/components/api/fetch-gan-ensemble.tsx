@@ -30,7 +30,7 @@ export default function FetchGanEnsemble() {
             return (
                 <div className="card p-4 m-4 shadow-3">
                     <div className="flex flex-wrap gap-4 align-items-left justify-content-start">
-                        <div className="flex flex-column gap-4">
+                        <div className="flex flex-row gap-4">
                             <ShowEnsemble />
                             <MaxEnsemblePlots forecast="cgan" />
                         </div>
