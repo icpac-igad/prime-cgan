@@ -32,10 +32,10 @@ export default function SelectValidTime() {
         const dataDate = new Date(forecast_date || 'Nov 27, 2024');
         const startDate = addHours(dataDate, start_time !== null && start_time !== undefined ? parseInt(start_time.replace('h','')) : 0)
         return [
-            { value: '30', label: `${formatDate(addHours(startDate, 30))} (+30h)` },
-            { value: '36', label: `${formatDate(addHours(startDate, 36))} (+36h)` },
-            { value: '42', label: `${formatDate(addHours(startDate, 42))} (+42h)` },
-            { value: '48', label: `${formatDate(addHours(startDate, 48))} (+48h)` }
+            { value: '30h', label: `${formatDate(addHours(startDate, 30))} (+30h)` },
+            { value: '36h', label: `${formatDate(addHours(startDate, 36))} (+36h)` },
+            { value: '42h', label: `${formatDate(addHours(startDate, 42))} (+42h)` },
+            { value: '48h', label: `${formatDate(addHours(startDate, 48))} (+48h)` }
         ];
     };
 
@@ -43,13 +43,13 @@ export default function SelectValidTime() {
         const dataDate = new Date(forecast_date || 'Nov 27, 2024');
         const startDate = addHours(dataDate, start_time !== null && start_time !== undefined ? parseInt(start_time.replace('h','')) : 0)
         return [
-            { value: '06', label: `${formatDate(addHours(startDate, 6))} (+06h)` },
-            { value: '30', label: `${formatDate(addHours(startDate, 30))} (+30h)` },
-            { value: '54', label: `${formatDate(addHours(startDate, 54))} (+54h)` },
-            { value: '78', label: `${formatDate(addHours(startDate, 78))} (+78h)` },
-            { value: '102', label: `${formatDate(addHours(startDate, 102))} (+102)` },
-            { value: '126', label: `${formatDate(addHours(startDate, 126))} (+126)` },
-            { value: '150', label: `${formatDate(addHours(startDate, 150))} (+150)` }
+            { value: '06h', label: `${formatDate(addHours(startDate, 6))} (+06h)` },
+            { value: '30h', label: `${formatDate(addHours(startDate, 30))} (+30h)` },
+            { value: '54h', label: `${formatDate(addHours(startDate, 54))} (+54h)` },
+            { value: '78h', label: `${formatDate(addHours(startDate, 78))} (+78h)` },
+            { value: '102h', label: `${formatDate(addHours(startDate, 102))} (+102)` },
+            { value: '126h', label: `${formatDate(addHours(startDate, 126))} (+126)` },
+            { value: '150h', label: `${formatDate(addHours(startDate, 150))} (+150)` }
         ];
     };
 

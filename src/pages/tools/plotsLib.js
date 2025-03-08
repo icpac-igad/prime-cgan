@@ -24,7 +24,6 @@ let GANForecast = new plots.countsData(); // Create a countsData object
 // Called a cGAN model is selected
 export async function showModelPlot(model, forecast_date, start_time, valid_time) {
     modelName = model;
-    console.log('show model ', forecast_date, start_time, valid_time)
     await loadForecast(forecast_date, start_time, valid_time); // Load the currently selected forecast
     drawMarker = false; // No longer draw the histograms
     drawPlots();
@@ -91,7 +90,7 @@ export async function loadForecast(forecast_date, start_time, valid_time) {
     let month = 12;
     let day = 11;
     let startTime = start_time || "00";
-    let validTime = valid_time || modelName === 'jurre-brishti' ? '30' : '06';
+    let validTime = valid_time || modelName === 'jurre-brishti' ? '30h' : '06h';
     if (forecast_date) {
         let date = new Date(forecast_date);
         year = date.getFullYear();
@@ -108,7 +107,7 @@ export async function loadForecast(forecast_date, start_time, valid_time) {
         accumulationHours = 24;
     }
     // The cGAN forecast file to load
-    let fileName = `${import.meta.env.VITE_FTP_DATA_URL || '/ftp/'}${countsDir}/${year}/${month}/counts_${year}${month}${day}_${startTime.replace('h','')}_${validTime}h.nc`;
+    let fileName = `${import.meta.env.VITE_FTP_DATA_URL || '/ftp/'}${countsDir}/${year}/${month}/counts_${year}${month}${day}_${startTime.replace('h','')}_${validTime}.nc`;
 
     // Load data into the forecastDataObject
     await GANForecast.loadGANForecast(fileName, modelName, accumulationHours);

@@ -44,6 +44,7 @@ const ExternalSystem = () => {
 
 export default function ForecastsPage() {
     const activePage = useAppSelector((state) => state.params.pages.activeIndex);
+    const model = useAppSelector((state) => state.params.model);
     const dispatch = useAppDispatch();
 
     const itemRenderer = (item: MenuItem, itemIndex: number) => (
@@ -79,11 +80,11 @@ export default function ForecastsPage() {
                 dispatch(onActiveIndexPageChange(2));
                 break;
             case 'cgan-50-ensemble':
-                dispatch(onForecastParamChange({ model: 'jurre-brishti-count' }));
+                dispatch(onForecastParamChange({ model: 'jurre-brishti-ens' }));
                 dispatch(onActiveIndexPageChange(1));
                 break;
             default:
-                dispatch(onForecastParamChange({ model: 'jurre-brishti-ens' }));
+                dispatch(onForecastParamChange({ model: 'jurre-brishti-count' }));
                 dispatch(onActiveIndexPageChange(0));
         }
     }, [searchParams]);
@@ -104,14 +105,12 @@ export default function ForecastsPage() {
                     )}
                     {activePage === 2 && <VisualizationParameter />}
                     <ForecastDateSelect />
+                    { model?.includes('jurre-brishti') && (<ForecastTimeSelect />)}
                     {[0, 1].includes(activePage) && (
-                        <>
-                            <ForecastTimeSelect />
-                            <ValidTimeSelect />
-                        </>
+                        <ValidTimeSelect />
                     )}
                     <PlotUnitsSelect />
-                    {[0, 1].includes(activePage) && <AccTimeSelect />}
+                    {model?.includes('jurre-brishti') && <AccTimeSelect />}
                     <ColorStyleSelect />
                     {activePage == 2 && <ShowEnsemble />}
                     {activePage === 0 && (

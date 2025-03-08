@@ -6,7 +6,6 @@ import { useAppSelector } from '@/gateway/hooks';
 
 import { isEmpty } from 'lodash-es';
 import Spinner from '../spinner';
-import ShowEnsemble from '../show-ensemble';
 import MaxEnsemblePlots from '../ensemble-plots';
 
 export default function FetchGanEnsemble() {
@@ -31,7 +30,6 @@ export default function FetchGanEnsemble() {
                 <div className="card p-4 m-4 shadow-3">
                     <div className="flex flex-wrap gap-4 align-items-left justify-content-start">
                         <div className="flex flex-row gap-4">
-                            <ShowEnsemble />
                             <MaxEnsemblePlots forecast="cgan" />
                         </div>
                         <div className="flex flex-column gap-1">

@@ -1,6 +1,7 @@
 import { useAppSelector } from '@/gateway/hooks';
 
 import * as plotLib from '@/pages/tools/plotsLib';
+import { isEmpty } from 'lodash-es';
 
 
 import { useEffect } from 'react';
@@ -13,7 +14,9 @@ export default function CGAN1000Ensemble() {
 
     useEffect(() => {
         // initialize plots library
-        plotLib.init(forecast_date, start_time, valid_time);
+        if(!isEmpty(forecast_date)) {
+            plotLib.init(forecast_date, start_time, valid_time);
+        }
     }, [start_time, forecast_date]);
 
     const getModelInfoNode = () => {

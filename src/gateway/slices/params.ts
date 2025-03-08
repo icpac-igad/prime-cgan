@@ -105,6 +105,9 @@ export const ParamSlice = createSlice({
                 mask_area: paramState.mask_area,
                 color_style: paramState.color_style,
                 plot_units: paramState.plot_units,
+                acc_time: paramState.acc_time,
+                valid_time: paramState.valid_time,
+                init_time: paramState.start_time,
                 forecast_date: paramState.forecast_date
             }),
         selectCountParams: (paramState) =>
@@ -128,7 +131,7 @@ export const ParamSlice = createSlice({
             validObjectEntries({
                 acc_time: paramState.acc_time,
                 forecast_date: paramState.forecast_date,
-                start_time: paramState.start_time
+                init_time: paramState.start_time
             }),
         selectGanEnsembleParams: (paramState) =>
             validObjectEntries({

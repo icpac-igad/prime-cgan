@@ -28,7 +28,7 @@ export default function ForecastModel() {
         });
 
     useEffect(() => {
-        if(!isEmpty(data)) {
+        if(!isEmpty(data) && isEmpty(model)) {
             dispatch(onForecastParamChange({ model: data[0].name }));
         }
     }, [data, model])
@@ -38,7 +38,7 @@ export default function ForecastModel() {
         // Set selected model in the store
         dispatch(onForecastParamChange({ model: value }));
         // show plots associated with the model
-        if (model?.includes('-count')) {
+        if (model?.includes('-count') && !isEmpty(forecast_date)) {
             showModelPlot(value.replace("-count", ""), forecast_date, start_time, valid_time);
         }
     };

@@ -15,5 +15,5 @@ export default function MaxEnsemblePlots(props: { forecast: 'cgan' | 'open-ifs' 
         }
     };
 
-    return <NumericInput {...{ label: 'Ensemble Member Plots Shown', inputId: 'max-ens-plots', helpText: 'Specify number of ensemble plots to show', value: max_ens_plots || 10, onChange: onValueChange, max: 50, min: 5, suffix: ' plots' }} />;
+    return <NumericInput {...{ label: 'Ensemble Member Plots Shown', inputId: 'max-ens-plots', helpText: 'Specify number of ensemble plots to show (max 50)', value: max_ens_plots || 10, onChange: onValueChange, max: 50, min: 5, suffix: ' plots' }} />;
 }
