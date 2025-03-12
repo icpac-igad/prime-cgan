@@ -109,7 +109,7 @@ export default function ForecastsPage() {
                     {[0, 1].includes(activePage) && (
                         <ValidTimeSelect />
                     )}
-                    <PlotUnitsSelect />
+                    {model?.includes('jurre-brishti') && <PlotUnitsSelect />}
                     {model?.includes('jurre-brishti') && <AccTimeSelect />}
                     <ColorStyleSelect />
                     {activePage == 2 && <ShowEnsemble />}
