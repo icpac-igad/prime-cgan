@@ -4290,7 +4290,7 @@ export class countsData {
         D = getPlotNormalisation(r);
         y = this.precipExceedanceProbability(p).times(100);
         p = 'Chance of rainfall above ' + roundSF(p * D, 3) + ' ' + r;
-        H.colourBarSpec.tickLabels = E ? '0% 2.5% 25% 50% 75% 100%'.split(' ') : 'None Possible Low Medium High Certain'.split(' ');
+        H.colourBarSpec.tickLabels = E ? '0% 2.5% 25% 50% 75% 100%'.split(' ') : 'None Very-Low Low Medium High Certain'.split(' ');
         H.colourBarSpec.showColourBar = !0;
         H.colourBarSpec.label = '';
         return await this.makePlot(d, g, l, n, h, H, y, p);

@@ -37,10 +37,18 @@ export default function ForecastModel() {
     const onModelSelect = (value: string) => {
         // Set selected model in the store
         dispatch(onForecastParamChange({ model: value }));
+        // change default start-time and valid time when switching models
+        if (value.includes("mvua-kubwa") && !isEmpty(forecast_date)){
+            dispatch(onForecastParamChange({ valid_time: "06h" }));
+            dispatch(onForecastParamChange({ start_time: "00h" }));
+        } else {
+            dispatch(onForecastParamChange({ valid_time: "30h" }));
+        }
         // show plots associated with the model
-        if (model?.includes('-count') && !isEmpty(forecast_date)) {
+        if (value.includes('-count') && !isEmpty(forecast_date)) {
             showModelPlot(value.replace("-count", ""), forecast_date, start_time, valid_time);
         }
+
     };
 
     if (isFetching || isLoading) {

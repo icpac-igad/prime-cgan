@@ -20,11 +20,11 @@ export interface EnsembleParams {
     show_ensemble?: boolean;
     max_ens_plots?: number;
     certainity?: number;
-    plot_type?: string;
     show_percentages?: boolean;
 }
 
 export interface CountParams {
+    plot_type?: string;
     histogram_plot?: string;
     histogram_bins?: number;
     histogram_certainity?: number;
@@ -50,7 +50,6 @@ export interface ParamState extends Forecastparams {
 
 const initialState: ParamState = {
     status: 'idle',
-    threshold: 5,
     ensemble: { },
     count: {},
     open_ifs: {},
@@ -146,6 +145,6 @@ export const ParamSlice = createSlice({
     }
 });
 
-export const { onForecastParamChange, onEnsembleParamChange, onOpenIfsParamChange, onActiveIndexPageChange } = ParamSlice.actions;
+export const { onForecastParamChange, onEnsembleParamChange, onCountParamChange, onOpenIfsParamChange, onActiveIndexPageChange } = ParamSlice.actions;
 export const { selectEnsembleParams, selectOpenIfsParams, selectOpenEnsembleParams, selectEnsembleForecastParams, selectGanEnsembleParams, selectGanThresholdParams } = ParamSlice.selectors;
 export default ParamSlice.reducer;

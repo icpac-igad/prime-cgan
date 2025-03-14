@@ -4,6 +4,7 @@ import { SelectOption } from '@/pages/tools/types';
 import SelectInput from './form/select-input';
 
 import { validTimeSelect } from '@/pages/tools/plotsLib';
+import { useEffect } from 'react';
 
 export default function SelectValidTime() {
     const dispatch = useAppDispatch();
@@ -52,6 +53,12 @@ export default function SelectValidTime() {
             { value: '150h', label: `${formatDate(addHours(startDate, 150))} (+150)` }
         ];
     };
+
+    useEffect(() => {
+        if(valid_time === null || valid_time === undefined || valid_time === "") {
+            dispatch(onForecastParamChange({ valid_time:  model?.includes('mvua-kubwa') ? "06h" : "30h"}));
+        }
+    }, [valid_time])
 
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ valid_time: value }));

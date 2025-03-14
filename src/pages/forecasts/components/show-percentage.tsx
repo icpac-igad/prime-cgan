@@ -1,25 +1,32 @@
 import { useAppDispatch, useAppSelector } from '@/gateway/hooks';
 import ToggleButton from './form/toggle-button';
-import { onEnsembleParamChange } from '@/gateway/slices/params';
+import { onCountParamChange } from '@/gateway/slices/params';
 
 import { percentagesSelect } from '@/pages/tools/plotsLib';
+import { useEffect } from 'react';
 
 export default function ShowPercentage() {
     const dispatch = useAppDispatch();
 
-    const show_percent = useAppSelector((state) => state.params.ensemble?.show_percentages || false);
+    const show_percent = useAppSelector((state) => state.params.count?.show_percentages);
     const options = ['Percentages', 'Words'];
     const model = useAppSelector((state) => state.params?.model);
 
+    useEffect(() => {
+        if(show_percent === undefined || show_percent === null) {
+            dispatch(onCountParamChange({ show_percentages: true }));
+        }
+    }, [show_percent])
+
     const onValueChange = (value: string) => {
-        dispatch(onEnsembleParamChange({ show_percentages: value === options[0] ? true : false }));
+        dispatch(onCountParamChange({ show_percentages: value === options[0] ? true : false }));
 
         if (model?.includes('count')) {
             percentagesSelect(value);
         }
     };
 
-    const plot = useAppSelector((state) => state.params.ensemble?.plot_type) || 'Values';
+    const plot = useAppSelector((state) => state.params.count?.plot_type) || 'Probability';
 
     return (
         <ToggleButton

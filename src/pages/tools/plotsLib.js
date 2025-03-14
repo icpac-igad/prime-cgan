@@ -44,6 +44,7 @@ export async function initTimeSelect(forecast_date, start_time, valid_time) {
 
 // Called by the validTimeSelect menu
 export async function validTimeSelect(forecast_date, start_time, valid_time) {
+    console.log("Valid Time Select", forecast_date, start_time, valid_time)
     await loadForecast(forecast_date, start_time, valid_time);
     drawPlots();
 }
@@ -86,17 +87,11 @@ function padNumber(n, width) {
 
 // Loads and plots the currently selected forecast
 export async function loadForecast(forecast_date, start_time, valid_time) {
-    let year = 2024;
-    let month = 12;
-    let day = 11;
-    let startTime = start_time || "00";
-    let validTime = valid_time || modelName === 'jurre-brishti' ? '30h' : '06h';
-    if (forecast_date) {
-        let date = new Date(forecast_date);
-        year = date.getFullYear();
-        month = padNumber(date.getMonth() + 1, 2);
-        day = padNumber(date.getDate(), 2);
-    }
+
+    let date = new Date(forecast_date);
+    let year = date.getFullYear();
+    let month = padNumber(date.getMonth() + 1, 2);
+    let day = padNumber(date.getDate(), 2);
 
     // The directory name depends upon which model we are looking at
     let countsDir = `${modelName}-count`;
@@ -107,7 +102,7 @@ export async function loadForecast(forecast_date, start_time, valid_time) {
         accumulationHours = 24;
     }
     // The cGAN forecast file to load
-    let fileName = `${import.meta.env.VITE_FTP_DATA_URL || '/ftp/'}${countsDir}/${year}/${month}/counts_${year}${month}${day}_${startTime.replace('h','')}_${validTime}.nc`;
+    let fileName = `${import.meta.env.VITE_FTP_DATA_URL || '/ftp/'}${countsDir}/${year}/${month}/counts_${year}${month}${day}_${start_time.replace('h','')}_${valid_time}.nc`;
 
     // Load data into the forecastDataObject
     await GANForecast.loadGANForecast(fileName, modelName, accumulationHours);
@@ -197,6 +192,7 @@ export async function init(forecast_date, start_time, valid_time) {
 }
 
 export function thresholdValueSet(threshold) {
+    console.log("setting threshold value to ", threshold)
     let norm = plots.getPlotNormalisation(units);
     maxRain = threshold / norm;
     drawPlots();

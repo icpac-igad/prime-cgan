@@ -20,7 +20,7 @@ export default function ForecastDates() {
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ forecast_date: value }));
         if (model?.includes('count')) {
-            loadForecast(value.replace("-count", ""), start_time !== null && start_time !== undefined ? start_time : "00", valid_time);
+            loadForecast(value.replace("-count", ""), start_time, valid_time);
         }
     };
 

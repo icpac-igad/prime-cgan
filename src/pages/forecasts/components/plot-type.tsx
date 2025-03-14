@@ -1,9 +1,10 @@
 import { useAppDispatch, useAppSelector } from '@/gateway/hooks';
-import { onEnsembleParamChange } from '@/gateway/slices/params';
+import { onCountParamChange } from '@/gateway/slices/params';
 import { SelectOption } from '@/pages/tools/types';
 import SelectInput from './form/select-input';
 
 import { plotSelect } from '@/pages/tools/plotsLib';
+import { useEffect } from 'react';
 
 export default function PlotType() {
     const dispatch = useAppDispatch();
@@ -13,11 +14,17 @@ export default function PlotType() {
         { label: 'Values below probability', value: 'Values' }
     ];
 
-    const plot = useAppSelector((state) => state.params.ensemble?.plot_type) || options[0].value;
+    const plot = useAppSelector((state) => state.params.count?.plot_type) || options[0].value;
     const model = useAppSelector((state) => state.params?.model);
 
+    useEffect(() => {
+        if(plot === null || plot === undefined || plot === "") {
+            dispatch(onCountParamChange({ plot_type: options[0].value }));
+        }
+    }, [plot])
+
     const onValueChange = (value: string) => {
-        dispatch(onEnsembleParamChange({ plot_type: value }));
+        dispatch(onCountParamChange({ plot_type: value }));
 
         if (model?.includes('count')) {
             plotSelect(value);
