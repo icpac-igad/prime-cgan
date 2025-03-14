@@ -14,7 +14,7 @@ export default function ShowPercentage() {
 
     useEffect(() => {
         if(show_percent === undefined || show_percent === null) {
-            dispatch(onCountParamChange({ show_percentages: true }));
+            dispatch(onCountParamChange({ show_percentages: false }));
         }
     }, [show_percent])
 
