@@ -44,7 +44,6 @@ export async function initTimeSelect(forecast_date, start_time, valid_time) {
 
 // Called by the validTimeSelect menu
 export async function validTimeSelect(forecast_date, start_time, valid_time) {
-    console.log("Valid Time Select", forecast_date, start_time, valid_time)
     await loadForecast(forecast_date, start_time, valid_time);
     drawPlots();
 }
@@ -87,7 +86,6 @@ function padNumber(n, width) {
 
 // Loads and plots the currently selected forecast
 export async function loadForecast(forecast_date, start_time, valid_time) {
-
     let date = new Date(forecast_date);
     let year = date.getFullYear();
     let month = padNumber(date.getMonth() + 1, 2);
@@ -102,7 +100,8 @@ export async function loadForecast(forecast_date, start_time, valid_time) {
         accumulationHours = 24;
     }
     // The cGAN forecast file to load
-    let fileName = `${import.meta.env.VITE_FTP_DATA_URL || '/ftp/'}${countsDir}/${year}/${month}/counts_${year}${month}${day}_${start_time.replace('h','')}_${valid_time}.nc`;
+    let fileName = `${import.meta.env.VITE_FTP_DATA_URL || '/ftp/'}${countsDir}/${year}/${month}/counts_${year}${month}${day}_${start_time.replace('h', '')}_${valid_time}.nc`;
+    console.log('loading model data file', fileName);
 
     // Load data into the forecastDataObject
     await GANForecast.loadGANForecast(fileName, modelName, accumulationHours);
@@ -192,7 +191,6 @@ export async function init(forecast_date, start_time, valid_time) {
 }
 
 export function thresholdValueSet(threshold) {
-    console.log("setting threshold value to ", threshold)
     let norm = plots.getPlotNormalisation(units);
     maxRain = threshold / norm;
     drawPlots();

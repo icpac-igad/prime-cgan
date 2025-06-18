@@ -3962,7 +3962,7 @@ export function getColourMap(d, g) {
 }
 export function getPlotNormalisation(d) {
     let g = 1;
-    'mm/h' == d ? (g = 1) : 'mm/6h' == d ? (g = 6) : 'mm/day' == d ? (g = 24) : 'mm/week' == d ? (g = 168) : console.log('ERROR: Unknown units ' + d + ' specified.');
+    'mm/h' == d ? (g = 1) : 'mm/6h' == d ? (g = 6) : 'mm/day' == d ? (g = 24) : 'mm/week' == d ? (g = 168) : console.log(`ERROR: Unknown units ${d} specified.`);
     return g;
 }
 export class NDArray {

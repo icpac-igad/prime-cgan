@@ -18,7 +18,7 @@ import VisualizationParameter from './components/vis-parameter';
 import MaskAreaSelect from './components/area-of-interest';
 import ColorStyleSelect from './components/color-styles';
 import AccTimeSelect from './components/acc-time';
-import PlotUnitsSelect from './components/plot-units';
+import AccUnitsSelect from './components/plot-units';
 import ForecastDateSelect from './components/forecast-date';
 import ForecastTimeSelect from './components/forecast-time';
 import ValidTimeSelect from './components/forecast-validity';
@@ -89,12 +89,9 @@ export default function ForecastsPage() {
         }
     }, [searchParams]);
 
-
-
     return (
         <div className="shadow-0 mx-4 px-4 pt-2 pb-8">
             <h1 className="text-3xl text-center font-bold">Forecasting Systems and Generated Products</h1>
-
             <div className="card shadow-2 p-4 mb-6 mt-4 ">
                 <div className="flex flex-wrap gap-2 align-items-left justify-content-start">
                     {[0, 1].includes(activePage) && (
@@ -105,12 +102,10 @@ export default function ForecastsPage() {
                     )}
                     {activePage === 2 && <VisualizationParameter />}
                     <ForecastDateSelect />
-                    { model?.includes('jurre-brishti') && (<ForecastTimeSelect />)}
-                    {[0, 1].includes(activePage) && (
-                        <ValidTimeSelect />
-                    )}
-                    {model?.includes('jurre-brishti') && <PlotUnitsSelect />}
-                    {model?.includes('jurre-brishti') && <AccTimeSelect />}
+                    {model?.includes('jurre-brishti') && <ForecastTimeSelect />}
+                    {[0, 1].includes(activePage) && <ValidTimeSelect />}
+                    {model?.includes('jurre-brishti') && <AccUnitsSelect />}
+                    {model === 'jurre-brishti-ens' && <AccTimeSelect />}
                     <ColorStyleSelect />
                     {activePage == 2 && <ShowEnsemble />}
                     {activePage === 0 && (
@@ -123,11 +118,10 @@ export default function ForecastsPage() {
                     )}
                 </div>
             </div>
-
             <div className="card">
                 <TabMenu model={items} activeIndex={activePage} onTabChange={(e) => dispatch(onActiveIndexPageChange(e.index))} />
             </div>
-            {activePage === 4 ? <ExternalSystem /> : activePage === 3 ? <GEFSForecasts /> : activePage === 2 ? <OpenIFSForecasts /> : activePage === 1 ? <CGAN50Ensemble /> : <CGAN1000Ensemble />}
+            {activePage === 4 ? <ExternalSystem /> : activePage === 3 ? <GEFSForecasts /> : activePage === 2 ? <OpenIFSForecasts /> : activePage === 1 ? <CGAN50Ensemble /> : <CGAN1000Ensemble />}n{' '}
         </div>
     );
 }

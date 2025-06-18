@@ -13,16 +13,16 @@ export default function HistogramThesholdValue() {
     const model = useAppSelector((state) => state.params?.model);
 
     useEffect(() => {
-        if(threshold === null || threshold === undefined) {
+        if (threshold === null || threshold === undefined) {
             dispatch(onForecastParamChange({ threshold: 6 }));
         }
-    }, [threshold])
+    }, [threshold]);
 
     const onValueChange = (value: number) => {
         dispatch(onForecastParamChange({ threshold: value }));
 
         if (model?.includes('count')) {
-            thresholdValueSet(threshold);
+            thresholdValueSet(value);
         }
     };
 
