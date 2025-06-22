@@ -5,39 +5,40 @@ import { useFetchForecastDatesQuery } from '@/gateway/slices/settings';
 import SelectInput from './form/select-input';
 import Spinner from './spinner';
 import { isEmpty } from 'lodash-es';
-import { GanForecastModel } from '@/pages/tools/types';
+import { ForecastModel } from '@/pages/tools/types';
 import { loadForecast } from '@/pages/tools/plotsLib';
 import { useEffect } from 'react';
 
-export default function ForecastDates() {
+export default function ForecastDates(props: { dataDates: string[] }) {
+    const { dataDates } = props;
+    console.log('dataDates', dataDates);
     const dispatch = useAppDispatch();
     const activePage = useAppSelector((state) => state.params.pages.activeIndex);
     const start_time = useAppSelector((state) => state.params?.start_time);
     const valid_time = useAppSelector((state) => state.params?.valid_time);
     const forecast_date = useAppSelector((state) => state.params?.forecast_date);
-    const model = useAppSelector((state) => state.params?.model) as GanForecastModel;
-    const selected_model = model !== null && model !== undefined ? model : activePage === 0 ? "jurre-brishti-count" : "jurre-brishti-ens"
+    const model = useAppSelector((state) => state.params?.model) as ForecastModel;
+    const selected_model = model !== null && model !== undefined ? model : activePage === 0 ? 'jurre-brishti-count' : 'jurre-brishti-ens';
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ forecast_date: value }));
         if (model?.includes('count')) {
-            loadForecast(value.replace("-count", ""), start_time, valid_time);
+            loadForecast(value.replace('-count', ''), start_time, valid_time);
         }
     };
 
     const { data: datesData = [], isFetching: datesFetching, isSuccess: datesSuccess, isLoading: datesLoading } = useFetchForecastDatesQuery({ url: '/settings/data-dates', query: { model: activePage === 2 ? 'open-ifs' : selected_model } });
 
     useEffect(() => {
-        if(!isEmpty(datesData) && isEmpty(forecast_date)) {
+        if (!isEmpty(datesData) && isEmpty(forecast_date)) {
             dispatch(onForecastParamChange({ forecast_date: datesData[0].date }));
         }
-    }, [datesData, forecast_date])
+    }, [datesData, forecast_date]);
 
     useEffect(() => {
-        if(!isEmpty(datesData) && !isEmpty(forecast_date) && !isEmpty(model)) {
+        if (!isEmpty(datesData) && !isEmpty(forecast_date) && !isEmpty(model)) {
             dispatch(onForecastParamChange({ forecast_date: datesData[0].date }));
         }
-    }, [datesData, model])
-
+    }, [datesData, model]);
 
     if (datesFetching || datesLoading) {
         return <Spinner />;

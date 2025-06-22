@@ -117,6 +117,7 @@ export interface SubmitButtonProps {
     disabled?: boolean;
 }
 
-export type GanForecastModel = 'mvua-kubwa-count' | 'jurre-brishti-count' | 'mvua-kubwa-ens' | 'jurre-brishti-ens'  | 'open-ifs' | null | undefined;
+export type cGanForecastModel = 'mvua-kubwa-count' | 'jurre-brishti-count' | 'mvua-kubwa-ens' | 'jurre-brishti-ens' | null | undefined;
+export type ForecastModel = cGanForecastModel | 'open-ifs';
 
 export type NodeRef = MutableRefObject<ReactNode>;

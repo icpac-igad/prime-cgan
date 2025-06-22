@@ -8,6 +8,7 @@ import CGAN50Ensemble from './cgan-50-ens';
 import OpenIFSForecasts from './open-ifs';
 import GEFSForecasts from './gefs';
 import IFrame from 'react-iframe';
+import { isEmpty } from 'lodash-es';
 
 import { onActiveIndexPageChange } from '@/gateway/slices/params';
 import { useAppDispatch, useAppSelector } from '@/gateway/hooks';
@@ -32,6 +33,8 @@ import HistogramThresholdValue from './components/threshold-value';
 import PlotTypeSelector from './components/plot-type';
 
 import { onForecastParamChange } from '@/gateway/slices/params';
+import { useFetchGanForecastDateQuery } from '@/gateway/slices/settings';
+import { cGanForecastModel } from '@/pages/tools/types';
 
 const ExternalSystem = () => {
     return (
@@ -43,9 +46,13 @@ const ExternalSystem = () => {
 };
 
 export default function ForecastsPage() {
-    const activePage = useAppSelector((state) => state.params.pages.activeIndex);
-    const model = useAppSelector((state) => state.params.model);
     const dispatch = useAppDispatch();
+
+    const activePage = useAppSelector((state) => state.params.pages.activeIndex);
+    const model = useAppSelector((state) => state.params?.model) as cGanForecastModel;
+    const selected_model = model !== null && model !== undefined ? model : activePage === 0 ? 'jurre-brishti-count' : 'jurre-brishti-ens';
+
+    const { data: forecastDates = [], isFetching, isSuccess, isLoading } = useFetchGanForecastDateQuery({ url: '/settings/cgan-dates', query: { model: selected_model } });
 
     const itemRenderer = (item: MenuItem, itemIndex: number) => (
         <Link to={item?.url || '#'} className="p-menuitem-link flex align-items-center gap-2" onClick={() => dispatch(onActiveIndexPageChange(itemIndex))}>
@@ -89,6 +96,24 @@ export default function ForecastsPage() {
         }
     }, [searchParams]);
 
+    if (!isFetching && !isLoading && isSuccess && !isEmpty(forecastDates)) {
+        const forecast_dates = [...new Set(forecastDates.map((fd) => fd.init_date))];
+        const latest_date = forecastDates[9].init_date;
+        const for_latest = forecastDates.filter((fd) => fd.init_date === latest_date);
+        // @ts-ignore
+        const init_times = for_latest.map((fd) => fd.init_time).sort((a, b) => a - b);
+        const valid_times = for_latest
+            .filter((fd) => fd.init_time === init_times[0])
+            .map((fd) => fd.valid_time)
+            // @ts-ignore
+            .sort((a, b) => a - b);
+        console.log(forecast_dates);
+        console.log(init_times);
+        console.log(valid_times);
+
+        console.log(latest_date, init_times, valid_times);
+    }
+
     return (
         <div className="shadow-0 mx-4 px-4 pt-2 pb-8">
             <h1 className="text-3xl text-center font-bold">Forecasting Systems and Generated Products</h1>
@@ -101,7 +126,7 @@ export default function ForecastsPage() {
                         </>
                     )}
                     {activePage === 2 && <VisualizationParameter />}
-                    <ForecastDateSelect />
+                    <ForecastDateSelect dataDates={isEmpty(forecastDates) ? [] : [...new Set(forecastDates.map((fd) => fd.init_date))]} />
                     {model?.includes('jurre-brishti') && <ForecastTimeSelect />}
                     {[0, 1].includes(activePage) && <ValidTimeSelect />}
                     {model?.includes('jurre-brishti') && <AccUnitsSelect />}
@@ -121,7 +146,7 @@ export default function ForecastsPage() {
             <div className="card">
                 <TabMenu model={items} activeIndex={activePage} onTabChange={(e) => dispatch(onActiveIndexPageChange(e.index))} />
             </div>
-            {activePage === 4 ? <ExternalSystem /> : activePage === 3 ? <GEFSForecasts /> : activePage === 2 ? <OpenIFSForecasts /> : activePage === 1 ? <CGAN50Ensemble /> : <CGAN1000Ensemble />}n{' '}
+            {activePage === 4 ? <ExternalSystem /> : activePage === 3 ? <GEFSForecasts /> : activePage === 2 ? <OpenIFSForecasts /> : activePage === 1 ? <CGAN50Ensemble /> : <CGAN1000Ensemble />}{' '}
         </div>
     );
 }

@@ -1,23 +1,20 @@
 import { useAppSelector } from '@/gateway/hooks';
-
 import * as plotLib from '@/pages/tools/plotsLib';
-import { isEmpty } from 'lodash-es';
-
 
 import { useEffect } from 'react';
 
 export default function CGAN1000Ensemble() {
-    const model = useAppSelector((state) => state.params.model);
     const start_time = useAppSelector((state) => state.params?.start_time);
     const forecast_date = useAppSelector((state) => state.params?.forecast_date);
     const valid_time = useAppSelector((state) => state.params?.valid_time);
+    const model = useAppSelector((state) => state.params?.model);
 
     useEffect(() => {
         // initialize plots library
-        if(!isEmpty(forecast_date)) {
+        if (forecast_date && start_time && valid_time) {
             plotLib.init(forecast_date, start_time, valid_time);
         }
-    }, [start_time, forecast_date]);
+    }, [start_time, valid_time, forecast_date]);
 
     const getModelInfoNode = () => {
         const infoNode = document.createElement('span');

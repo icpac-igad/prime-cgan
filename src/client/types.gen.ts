@@ -25,6 +25,12 @@ export type ForecastModel = {
     value: string;
 };
 
+export type GanOutputDate = {
+    init_date: string;
+    init_time?: number | null;
+    valid_time?: number | null;
+};
+
 export type HttpValidationError = {
     detail?: Array<ValidationError>;
 };
@@ -197,6 +203,33 @@ export type GetForecastDatesSettingsDataDatesGetResponses = {
 };
 
 export type GetForecastDatesSettingsDataDatesGetResponse = GetForecastDatesSettingsDataDatesGetResponses[keyof GetForecastDatesSettingsDataDatesGetResponses];
+
+export type GetCganForecastsDatesSettingsCganDatesGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        model?: ('mvua-kubwa-ens' | 'jurre-brishti-ens' | 'mvua-kubwa-count' | 'jurre-brishti-count') | null;
+    };
+    url: '/settings/cgan-dates';
+};
+
+export type GetCganForecastsDatesSettingsCganDatesGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetCganForecastsDatesSettingsCganDatesGetError = GetCganForecastsDatesSettingsCganDatesGetErrors[keyof GetCganForecastsDatesSettingsCganDatesGetErrors];
+
+export type GetCganForecastsDatesSettingsCganDatesGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: Array<GanOutputDate>;
+};
+
+export type GetCganForecastsDatesSettingsCganDatesGetResponse = GetCganForecastsDatesSettingsCganDatesGetResponses[keyof GetCganForecastsDatesSettingsCganDatesGetResponses];
 
 export type GetForecastInitTimeSettingsForecastInitTimeGetData = {
     body?: never;
