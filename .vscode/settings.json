@@ -18,5 +18,8 @@
     },
     "[dockercompose]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     } // set as "true" to run 'prettier' last not first
 }

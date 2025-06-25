@@ -1,12 +1,12 @@
 import { useAppDispatch, useAppSelector } from '@/gateway/hooks';
 import ToggleButton from './form/toggle-button';
 import { onEnsembleParamChange, onOpenIfsParamChange } from '@/gateway/slices/params';
-import { GanForecastModel } from '@/pages/tools/types';
+import { ForecastModel } from '@/pages/tools/types';
 
 export default function ShowEnsemble() {
     const dispatch = useAppDispatch();
     const activePage = useAppSelector((state) => state.params.pages.activeIndex);
-    const model = useAppSelector((state) => activePage === 2 ? 'open-ifs' : state.params?.model) as GanForecastModel;
+    const model = useAppSelector((state) => activePage === 2 ? 'open-ifs' : state.params?.model) as ForecastModel;
 
     const show_ensemble = useAppSelector((state) => activePage === 2 ? state.params?.open_ifs?.show_ensemble : activePage === 1 ? state.params?.ensemble?.show_ensemble : false);
     const options = ['Yes', 'No'];

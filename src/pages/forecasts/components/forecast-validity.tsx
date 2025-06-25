@@ -2,16 +2,18 @@ import { useAppDispatch, useAppSelector } from '@/gateway/hooks';
 import { onForecastParamChange } from '@/gateway/slices/params';
 import { SelectOption } from '@/pages/tools/types';
 import SelectInput from './form/select-input';
-
+import Spinner from './spinner';
 import { validTimeSelect } from '@/pages/tools/plotsLib';
 import { useEffect } from 'react';
+import { isEmpty } from 'lodash-es';
+import { Message } from 'primereact/message';
 
-export default function SelectValidTime() {
+export default function SelectValidTime(props: { dataDates: string[], validTimes: (number | null | undefined)[], datesFeching: boolean, datesFetched: boolean }) {
     const dispatch = useAppDispatch();
-
+    const { dataDates, validTimes, datesFeching, datesFetched } = props;
     const forecast_date = useAppSelector((state) => state.params?.forecast_date);
     const start_time = useAppSelector((state) => state.params?.start_time);
-    const valid_time = useAppSelector((state) => state.params?.valid_time);
+    const valid_time = useAppSelector((state) => state.params?.valid_time) || '30h';
     const model = useAppSelector((state) => state.params?.model);
 
     const addHours = (date: Date, hours: number) => {
@@ -30,30 +32,33 @@ export default function SelectValidTime() {
         return `${date.getFullYear()}-${month}-${day}T${hours}:${minutes}:${seconds} UTC`;
     };
 
-    const getValidEnsembleTime = () => {
-        const dataDate = new Date(forecast_date || 'Nov 27, 2024');
+    const getValidTimeOptions = (validTime: number | null | undefined) => {
+        const dataDate = new Date(forecast_date ? forecast_date : !isEmpty(dataDates) ? dataDates[0] : 'Nov 27, 2024');
         const startDate = addHours(dataDate, start_time !== null && start_time !== undefined ? parseInt(start_time.replace('h', '')) : 0);
-        return [
-            { value: '30h', label: `${formatDate(addHours(startDate, 30))} (+30h)` },
-            { value: '36h', label: `${formatDate(addHours(startDate, 36))} (+36h)` },
-            { value: '42h', label: `${formatDate(addHours(startDate, 42))} (+42h)` },
-            { value: '48h', label: `${formatDate(addHours(startDate, 48))} (+48h)` }
-        ];
-    };
+        switch (validTime) {
+            case 6:
+                return { value: '06h', label: `${formatDate(addHours(startDate, 6))} (+06h)` }
+            case 36:
+                return { value: '36h', label: `${formatDate(addHours(startDate, 36))} (+36h)` }
+            case 42:
+                return { value: '42h', label: `${formatDate(addHours(startDate, 42))} (+42h)` }
+            case 48:
+                return { value: '48h', label: `${formatDate(addHours(startDate, 48))} (+48h)` }
+            case 54:
+                return { value: '54h', label: `${formatDate(addHours(startDate, 54))} (+54h)` }
+            case 78:
+                return { value: '78h', label: `${formatDate(addHours(startDate, 78))} (+78h)` }
+            case 102:
+                return { value: '102h', label: `${formatDate(addHours(startDate, 102))} (+102)` }
+            case 126:
+                return { value: '126h', label: `${formatDate(addHours(startDate, 126))} (+126)` }
+            case 150:
+                return { value: '150h', label: `${formatDate(addHours(startDate, 150))} (+150)` }
+            default:
+                return { value: '30h', label: `${formatDate(addHours(startDate, 30))} (+30h)` }
 
-    const getValidCountTime = () => {
-        const dataDate = new Date(forecast_date || 'Nov 27, 2024');
-        const startDate = addHours(dataDate, start_time !== null && start_time !== undefined ? parseInt(start_time.replace('h', '')) : 0);
-        return [
-            { value: '06h', label: `${formatDate(addHours(startDate, 6))} (+06h)` },
-            { value: '30h', label: `${formatDate(addHours(startDate, 30))} (+30h)` },
-            { value: '54h', label: `${formatDate(addHours(startDate, 54))} (+54h)` },
-            { value: '78h', label: `${formatDate(addHours(startDate, 78))} (+78h)` },
-            { value: '102h', label: `${formatDate(addHours(startDate, 102))} (+102)` },
-            { value: '126h', label: `${formatDate(addHours(startDate, 126))} (+126)` },
-            { value: '150h', label: `${formatDate(addHours(startDate, 150))} (+150)` }
-        ];
-    };
+        }
+    }
 
     useEffect(() => {
         if (valid_time === null || valid_time === undefined || valid_time === '') {
@@ -68,6 +73,12 @@ export default function SelectValidTime() {
         }
     };
 
-    const options: SelectOption[] = model?.includes('mvua-kubwa') ? getValidCountTime() : getValidEnsembleTime();
-    return <SelectInput {...{ inputId: 'forecast-valid-time', label: 'Forecast Valid Time', helpText: 'select forecast initialization time', options: options, value: valid_time || options[0].value, onChange: onValueChange }} />;
+    if (datesFeching) {
+        return <Spinner />;
+    } else if (datesFetched) {
+        const options: SelectOption[] = validTimes.map(value => getValidTimeOptions(value));
+        return <SelectInput {...{ inputId: 'forecast-valid-time', label: 'Forecast Valid Time', helpText: 'select forecast initialization time', options: options, value: valid_time || options[0].value, onChange: onValueChange }} />;
+    } else {
+        return <Message severity="error" text="Error Loading Component" />;
+    }
 }

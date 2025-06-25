@@ -52,7 +52,7 @@ export default function ForecastsPage() {
     const model = useAppSelector((state) => state.params?.model) as cGanForecastModel;
     const selected_model = model !== null && model !== undefined ? model : activePage === 0 ? 'jurre-brishti-count' : 'jurre-brishti-ens';
 
-    const { data: forecastDates = [], isFetching, isSuccess, isLoading } = useFetchGanForecastDateQuery({ url: '/settings/cgan-dates', query: { model: selected_model } });
+    const { data: forecastDates = [], isFetching: datesFeching, isSuccess: datesFetched } = useFetchGanForecastDateQuery({ url: '/settings/cgan-dates', query: { model: selected_model } });
 
     const itemRenderer = (item: MenuItem, itemIndex: number) => (
         <Link to={item?.url || '#'} className="p-menuitem-link flex align-items-center gap-2" onClick={() => dispatch(onActiveIndexPageChange(itemIndex))}>
@@ -96,22 +96,29 @@ export default function ForecastsPage() {
         }
     }, [searchParams]);
 
-    if (!isFetching && !isLoading && isSuccess && !isEmpty(forecastDates)) {
-        const forecast_dates = [...new Set(forecastDates.map((fd) => fd.init_date))];
-        const latest_date = forecastDates[9].init_date;
-        const for_latest = forecastDates.filter((fd) => fd.init_date === latest_date);
-        // @ts-ignore
-        const init_times = for_latest.map((fd) => fd.init_time).sort((a, b) => a - b);
-        const valid_times = for_latest
-            .filter((fd) => fd.init_time === init_times[0])
-            .map((fd) => fd.valid_time)
-            // @ts-ignore
-            .sort((a, b) => a - b);
-        console.log(forecast_dates);
-        console.log(init_times);
-        console.log(valid_times);
 
-        console.log(latest_date, init_times, valid_times);
+    const getInitTimes = () => {
+        if (!datesFeching && !isEmpty(forecastDates)) {
+            const latest_date = forecastDates[9].init_date;
+            // @ts-ignore
+            return forecastDates.filter((fd) => fd.init_date === latest_date).map((fd) => fd.init_time).sort((a, b) => a - b)
+        }
+        return []
+    }
+
+    const getValidTimes = () => {
+        if (!datesFeching && !isEmpty(forecastDates)) {
+            const latest_date = forecastDates[9].init_date;
+            const initTimes = getInitTimes()
+            return forecastDates.filter((fd) => fd.init_date === latest_date)
+                .filter((fd) => fd.init_time === initTimes[0])
+                .map((fd) => fd.valid_time)
+        }
+        return []
+    }
+
+    const getForecastDates = () => {
+        return isEmpty(forecastDates) ? [] : [...new Set(forecastDates.map((fd) => fd.init_date))]
     }
 
     return (
@@ -126,9 +133,9 @@ export default function ForecastsPage() {
                         </>
                     )}
                     {activePage === 2 && <VisualizationParameter />}
-                    <ForecastDateSelect dataDates={isEmpty(forecastDates) ? [] : [...new Set(forecastDates.map((fd) => fd.init_date))]} />
-                    {model?.includes('jurre-brishti') && <ForecastTimeSelect />}
-                    {[0, 1].includes(activePage) && <ValidTimeSelect />}
+                    <ForecastDateSelect dataDates={getForecastDates()} datesFeching={datesFeching} datesFetched={datesFetched} />
+                    {model?.includes('jurre-brishti') && <ForecastTimeSelect initTimes={getInitTimes()} datesFeching={datesFeching} datesFetched={datesFetched} />}
+                    {[0, 1].includes(activePage) && <ValidTimeSelect dataDates={getForecastDates()} validTimes={getValidTimes()} datesFeching={datesFeching} datesFetched={datesFetched} />}
                     {model?.includes('jurre-brishti') && <AccUnitsSelect />}
                     {model === 'jurre-brishti-ens' && <AccTimeSelect />}
                     <ColorStyleSelect />
