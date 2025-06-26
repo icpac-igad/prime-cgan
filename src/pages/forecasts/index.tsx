@@ -50,6 +50,8 @@ export default function ForecastsPage() {
 
     const activePage = useAppSelector((state) => state.params.pages.activeIndex);
     const model = useAppSelector((state) => state.params?.model) as cGanForecastModel;
+    const forecast_date = useAppSelector((state) => state.params?.forecast_date);
+    const start_time = useAppSelector((state) => state.params?.start_time);
     const selected_model = model !== null && model !== undefined ? model : activePage === 0 ? 'jurre-brishti-count' : 'jurre-brishti-ens';
 
     const { data: forecastDates = [], isFetching: datesFeching, isSuccess: datesFetched } = useFetchGanForecastDateQuery({ url: '/settings/cgan-dates', query: { model: selected_model } });
@@ -99,7 +101,7 @@ export default function ForecastsPage() {
 
     const getInitTimes = () => {
         if (!datesFeching && !isEmpty(forecastDates)) {
-            const latest_date = forecastDates[9].init_date;
+            const latest_date = forecast_date || forecastDates[0].init_date;
             // @ts-ignore
             return forecastDates.filter((fd) => fd.init_date === latest_date).map((fd) => fd.init_time).sort((a, b) => a - b)
         }
@@ -108,10 +110,10 @@ export default function ForecastsPage() {
 
     const getValidTimes = () => {
         if (!datesFeching && !isEmpty(forecastDates)) {
-            const latest_date = forecastDates[9].init_date;
-            const initTimes = getInitTimes()
+            const latest_date = forecast_date || forecastDates[0].init_date;
+            const selectedInitTime = start_time ? parseInt(start_time.replace('h', '')) : getInitTimes()[0];
             return forecastDates.filter((fd) => fd.init_date === latest_date)
-                .filter((fd) => fd.init_time === initTimes[0])
+                .filter((fd) => fd.init_time === selectedInitTime)
                 .map((fd) => fd.valid_time)
         }
         return []

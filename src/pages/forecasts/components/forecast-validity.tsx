@@ -11,9 +11,10 @@ import { Message } from 'primereact/message';
 export default function SelectValidTime(props: { dataDates: string[], validTimes: (number | null | undefined)[], datesFeching: boolean, datesFetched: boolean }) {
     const dispatch = useAppDispatch();
     const { dataDates, validTimes, datesFeching, datesFetched } = props;
+
     const forecast_date = useAppSelector((state) => state.params?.forecast_date);
     const start_time = useAppSelector((state) => state.params?.start_time);
-    const valid_time = useAppSelector((state) => state.params?.valid_time) || '30h';
+    const valid_time = useAppSelector((state) => state.params?.valid_time);
     const model = useAppSelector((state) => state.params?.model);
 
     const addHours = (date: Date, hours: number) => {
@@ -62,9 +63,21 @@ export default function SelectValidTime(props: { dataDates: string[], validTimes
 
     useEffect(() => {
         if (valid_time === null || valid_time === undefined || valid_time === '') {
-            dispatch(onForecastParamChange({ valid_time: model?.includes('mvua-kubwa') ? '06h' : '30h' }));
+            if (!isEmpty(validTimes)) {
+                dispatch(onForecastParamChange({ valid_time: getValidTimeOptions(validTimes[0]).value }));
+            } else {
+                dispatch(onForecastParamChange({ valid_time: model?.includes('mvua-kubwa') ? '06h' : '30h' }));
+            }
         }
     }, [valid_time]);
+
+    useEffect(() => {
+        if (valid_time) {
+            if (!validTimes.includes(parseInt(valid_time.replace('h', '')))) {
+                dispatch(onForecastParamChange({ valid_time: getValidTimeOptions(validTimes[0]).value }));
+            }
+        }
+    }, [forecast_date])
 
     const onValueChange = (value: string) => {
         dispatch(onForecastParamChange({ valid_time: value }));

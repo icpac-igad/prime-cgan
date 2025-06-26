@@ -7,11 +7,12 @@ import Spinner from './spinner';
 import { initTimeSelect } from '@/pages/tools/plotsLib';
 import { useEffect } from 'react';
 import { Message } from 'primereact/message';
+import { isEmpty } from 'lodash-es';
 
 export default function SelectAccTime(props: { initTimes: (number | null | undefined)[], datesFeching: boolean, datesFetched: boolean }) {
     const { initTimes, datesFeching, datesFetched } = props;
     const dispatch = useAppDispatch();
-    const start_time = useAppSelector((state) => state.params?.start_time) || '00h';
+    const start_time = useAppSelector((state) => state.params?.start_time);
     const valid_time = useAppSelector((state) => state.params?.valid_time);
     const forecast_date = useAppSelector((state) => state.params?.forecast_date);
     const model = useAppSelector((state) => state.params?.model);
@@ -22,12 +23,6 @@ export default function SelectAccTime(props: { initTimes: (number | null | undef
             initTimeSelect(forecast_date, value, valid_time);
         }
     };
-
-    useEffect(() => {
-        if (start_time === null || start_time === undefined || start_time === "") {
-            dispatch(onForecastParamChange({ start_time: "00h" }));
-        }
-    }, [start_time])
 
     const getInitTimeOpton = (initTime: number | null | undefined) => {
         switch (initTime) {
@@ -41,6 +36,24 @@ export default function SelectAccTime(props: { initTimes: (number | null | undef
                 return { label: '00:00 UTC', value: InitializationTime['00H'] }
         }
     }
+
+    useEffect(() => {
+        if (start_time === null || start_time === undefined || start_time === "") {
+            if (!isEmpty(initTimes)) {
+                dispatch(onForecastParamChange({ start_time: getInitTimeOpton(initTimes[0]).value }));
+            } else {
+                dispatch(onForecastParamChange({ start_time: '00h' }));
+            }
+        }
+    }, [start_time])
+
+    useEffect(() => {
+        if (start_time) {
+            if (!initTimes.includes(parseInt(start_time?.replace('h', '')))) {
+                dispatch(onForecastParamChange({ start_time: getInitTimeOpton(initTimes[0]).value }));
+            }
+        }
+    }, [forecast_date])
 
     if (datesFeching) {
         return <Spinner />;
